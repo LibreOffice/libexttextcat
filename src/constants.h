@@ -66,7 +66,7 @@
 #define MAXNGRAMSIZE 5
 
 /* Which characters are not acceptable in n-grams? */
-#define INVALID(c) (isspace(c) || isdigit(c)) 
+#define INVALID(c) (isspace((int)c) || isdigit((int)c)) 
 
 /* Minimum size (in characters) for accepting a document */
 #define MINDOCSIZE  25

@@ -7,3 +7,4 @@ TODO
 - Speed optimizations. Some speed might be gained by comparing
   the unknown fingerprint to all known fingerprints at once.
 - More docs, more comments.
+- Make a language model for Klingon.

@@ -52,6 +52,7 @@
  */
 #include <stdlib.h>
 #include <string.h>
+#include <alloca.h>
 
 #include "common.h"
 #include "fingerprint.h"
@@ -126,7 +127,6 @@ extern void *textcat_Init( const char *conffile )
 	while ( wg_getline( line, 1024, fp ) ) {
 		char *p;
 		char *segment[4];
-		double startcnt = 0.0;		
 		int res;
 
 		/*** Skip comments ***/
@@ -169,7 +169,6 @@ extern char *textcat_Classify( void *handle, const char *buffer, size_t size )
 	textcat_t *h = (textcat_t *)handle;
 	uint4 i, cnt = 0;
 	int minscore = MAXSCORE;
-	int min = -1;
 	int threshold = minscore;
 	char *result = h->output;
 

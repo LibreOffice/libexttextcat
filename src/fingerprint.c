@@ -302,8 +302,6 @@ extern int heapextract( table_t *t, entry_t *item )
 static int table2heap(table_t *t)
 {
 	int i;
-	uint4 cnt = 0;
-	uint4 bufsize = 2048;
 
 	/*** Fill result heap ***/
 	for (i=0; i<TABLESIZE; i++) {
@@ -388,7 +386,6 @@ static char *prepbuffer( const char *src, size_t bufsize )
 	char *w = dest;
 	char *wlimit = dest + bufsize + 1;
 
- START:
 	if ( INVALID(*p) ) {
 		goto SPACE;
 	}
@@ -494,7 +491,6 @@ static void createngramtable( table_t *t, const char *buf )
 
 static int mystrcmp(const char *a, const char *b)
 {
-	int i;
 	while ( *a && *a == *b ) {
 		a++;
 		b++;

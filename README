@@ -1,5 +1,5 @@
 
-  :: libTextCat 2.0 ::
+  :: libTextCat 2.1 ::
      
   What is it?
   
@@ -32,15 +32,13 @@
      also exempts us from any liability, should this library eat your hard
      disc, kill your cat or classify your attorney's e-mails as spam.
      
-     The current version is 2.0.
-  	 
+     The current version is 2.1.
+
+     It can be downloaded from our website: 
+
+       http://software.wise-guys.nl/libtextcat/ 
+
      As of yet there is no development version.
-     
-     The distribution contains a configuration file for Gertjan van Noord's
-     language models, which are distributed under the GNU Public License.
-     Please note that this license does not allow you to distribute them as
-     a part of closed source software package. In time, we will provide you
-     with language models under a less restrictive license.
      
   Installation
   
@@ -58,16 +56,12 @@
      need some language models to start guessing languages. If you don't
      feel like creating them yourself (cf. [2]Creating your own
      fingerprints below), you can use the excellent collection of over 70
-     language models provided in Gertjan van Noord's "TextCat" package. We
-     have provided a configuration file for these models in the langclass
-     directory. Hack it at will.
+     language models provided in Gertjan van Noord's "TextCat" package. 
+     You can find these models and a matching configuration file 
+     in the langclass directory:
 
-       * Download the textcat package at
-  	 http://odur.let.rug.nl/~vannoord/TextCat/
-       * mkdir ~/text_cat
-       * cd ~/text_cat
-       * tar xzf ~/your_download_dir/text_cat.tgz
-       * ~/libtextcat/src/testtextcat ~/libtextcat/langclass/conf.txt
+       * cd ~/libtextcat/langclass/
+       * ../src/testtextcat conf.txt
   	 
      Paste some text onto the commandline, and watch it get classified.
      
@@ -119,6 +113,10 @@
      need. In case of language guessing: do you really want to recognize
      every language ever invented?
      
+  Acknowledgements
+
+     The language models are copyright Gertjan van Noord.
+
   References
   
      [1] The document that started it all can be downloaded at John M.
@@ -134,7 +132,7 @@
   Contact
   
      Praise and flames may be directed at us through
-     libtextcat AT wise-guys.nl. If there is enough interest, we'll whip up
+     libtextcat@wise-guys.nl. If there is enough interest, we'll whip up
      a mailing list. The current project maintainer is Frank Scheelen.
        
   c. 2003 WiseGuys Internet B.V.

@@ -1,0 +1,14 @@
+Tue May 20 2003 Frank Scheelen (fscheelen@wise-guys.nl)
+	* Added Gertjan van Noord's language models to distro.
+	* Released libtextcat 2.1
+
+Mon May 19 2003  Rob de Wit (rdewit@wise-guys.nl)
+	* Removed unused variables
+	* Cleaned up Makefile
+	* Added top Makefile with dist target
+	* Added some include files for more peortability
+	* Sucessfully tested testlibtextcat under IRIX64 (both 32 and 64 bits)
+	* Started ChangeLog
+
+Thu May 15 2003 Frank Scheelen (fscheelen@wise-guys.nl)
+	* Released libtextcat 2.0 under BSD license

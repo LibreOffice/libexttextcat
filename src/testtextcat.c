@@ -34,6 +34,9 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+#include <unistd.h>
+
 #include "textcat.h"
 #include "common.h"
 
@@ -47,8 +50,8 @@ char *myread(FILE *fp)
 
 	buf = (char *)wg_malloc( maxsize );
 	do {
-		size_t read = fread( buf+size, 1, BLOCKSIZE, fp );
-		size += read;
+		size_t hasread = fread( buf+size, 1, BLOCKSIZE, fp );
+		size += hasread;
 		if ( size + BLOCKSIZE > maxsize ) {
 			maxsize *= 2;
 			buf = (char *)wg_realloc( buf, maxsize );
@@ -68,7 +71,6 @@ int main( int argc, char **argv )
 	void *h;
 	char *result;
 	wgtimer_t tm;
-	int i;
 	char *buf;
 
 	printf("%s\n", textcat_Version());
