@@ -1,0 +1,89 @@
+#
+# A sample config file for the language models 
+# provided with Gertjan van Noords language guesser
+# (http://odur.let.rug.nl/~vannoord/TextCat/)
+#
+# Notes: 
+# - You may consider eliminating a couple of small languages from this
+# list because they cause false positives with big languages and are
+# bad for performance. (Do you really want to recognize Drents?)
+# - Putting the most probable languages at the top of the list
+# improves performance, because this will raise the threshold for
+# likely candidates more quickly.
+#
+LM/afrikaans.lm			afrikaans
+LM/albanian.lm			albanian
+LM/amharic-utf.lm		amharic-utf
+LM/arabic-iso8859_6.lm		arabic-iso8859_6
+LM/arabic-windows1256.lm	arabic-windows1256
+LM/armenian.lm			armenian
+LM/basque.lm			basque
+LM/belarus-windows1251.lm	belarus-windows1251
+LM/bosnian.lm			bosnian
+LM/breton.lm			breton
+LM/bulgarian-iso8859_5.lm	bulgarian-iso8859_5
+LM/catalan.lm			catalan
+LM/chinese-big5.lm		chinese-big5
+LM/chinese-gb2312.lm		chinese-gb2312
+LM/croatian-ascii.lm		croatian-ascii
+LM/czech-iso8859_2.lm		czech-iso8859_2
+LM/danish.lm			danish
+LM/drents.lm			drents   # Dutch dialect
+LM/dutch.lm			dutch
+LM/english.lm			english
+LM/esperanto.lm			esperanto
+LM/estonian.lm			estonian
+LM/finnish.lm			finnish
+LM/french.lm			french
+LM/frisian.lm			frisian
+LM/georgian.lm			georgian
+LM/german.lm			german
+LM/greek-iso8859-7.lm		greek-iso8859-7
+LM/hebrew-iso8859_8.lm		hebrew-iso8859_8
+LM/hindi.lm			hindi
+LM/hungarian.lm			hungarian
+LM/icelandic.lm			icelandic
+LM/indonesian.lm		indonesian
+LM/irish.lm			irish
+LM/italian.lm			italian
+LM/japanese-euc_jp.lm		japanese-euc_jp
+LM/japanese-shift_jis.lm	japanese-shift_jis
+LM/korean.lm			korean
+LM/latin.lm			latin
+LM/latvian.lm			latvian
+LM/lithuanian.lm		lithuanian
+LM/malay.lm			malay
+LM/manx.lm			manx
+LM/marathi.lm			marathi
+LM/middle_frisian.lm		middle_frisian
+LM/mingo.lm			mingo
+LM/nepali.lm			nepali
+LM/norwegian.lm			norwegian
+LM/persian.lm			persian
+LM/polish.lm			polish
+LM/portuguese.lm		portuguese
+LM/quechua.lm			quechua
+LM/romanian.lm			romanian
+LM/rumantsch.lm			rumantsch
+LM/russian-iso8859_5.lm		russian-iso8859_5
+LM/russian-koi8_r.lm		russian-koi8_r
+LM/russian-windows1251.lm	russian-windows1251
+LM/sanskrit.lm			sanskrit
+LM/scots.lm			scots
+LM/scots_gaelic.lm		scots_gaelic
+LM/serbian-ascii.lm		serbian-ascii
+LM/slovak-ascii.lm		slovak-ascii
+LM/slovak-windows1250.lm	slovak-windows1250
+LM/slovenian-ascii.lm		slovenian-ascii
+LM/slovenian-iso8859_2.lm	slovenian-iso8859_2
+LM/spanish.lm			spanish
+LM/swahili.lm			swahili
+LM/swedish.lm			swedish
+LM/tagalog.lm			tagalog
+LM/tamil.lm			tamil
+LM/thai.lm			thai
+LM/turkish.lm			turkish
+LM/ukrainian-koi8_r.lm		ukrainian-koi8_r
+LM/vietnamese.lm		vietnamese
+LM/welsh.lm			welsh
+LM/yiddish-utf.lm		yiddish-utf
