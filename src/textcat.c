@@ -50,9 +50,20 @@
  * - Make the thingy reentrant as well as thread-safe. (Reentrancy is abandoned
  *   by the use of the output buffer in textcat_t.)
  */
+#include "config.h"
+
+#ifdef HAVE_STDLIB_H
 #include <stdlib.h>
+#endif
+#ifdef HAVE_STRINGS_H
+#include <strings.h>
+#endif
+#ifdef HAVE_STRING_H
 #include <string.h>
+#endif
+#ifdef HAVE_ALLOCA_H
 #include <alloca.h>
+#endif
 
 #include "common.h"
 #include "fingerprint.h"
@@ -130,7 +141,12 @@ extern void *textcat_Init( const char *conffile )
 		int res;
 
 		/*** Skip comments ***/
+#ifdef HAVE_STRCHR
 		if (( p = strchr(line,'#') )) {
+#else
+		if (( p = index(line,'#') )) {
+#endif
+
 			*p = '\0';
 		}
 		if ((res = wg_split( segment, line, line, 4)) < 2 ) {
@@ -172,7 +188,12 @@ extern char *textcat_Classify( void *handle, const char *buffer, size_t size )
 	int threshold = minscore;
 	char *result = h->output;
 
+#ifdef HAVE_ALLOCA
 	candidate_t *candidates = (candidate_t *)alloca( sizeof(candidate_t) * h->size );
+#else
+	candidate_t *candidates = (candidate_t *)malloc( sizeof(candidate_t) * h->size );
+#define SHOULD_FREE 1
+#endif
 
 	void *unknown;
 
@@ -226,11 +247,15 @@ extern char *textcat_Classify( void *handle, const char *buffer, size_t size )
 	}
  READY:
 	fp_Done(unknown);
+#ifdef SHOULD_FREE 
+	free(candidates);
+#undef SHOULD_FREE
+#endif
 	return result;
 }
 
 
 extern char *textcat_Version()
 {
-	return "TextCat " WGSTR(VERSION) "." WGSTR(SUBVERSION) " (" DESCRIPTION ")";
+	return "TextCat " PACKAGE_VERSION " (" DESCRIPTION ")";
 }

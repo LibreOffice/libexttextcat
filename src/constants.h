@@ -39,9 +39,6 @@
  */
 #include <limits.h>
 
-
-#define VERSION    2
-#define SUBVERSION 0
 #define DESCRIPTION "out of place"
 
 /* Reported matches are those fingerprints with a score less than best

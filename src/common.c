@@ -32,9 +32,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#include "config.h"
 #include <stdio.h>
+#ifdef HAVE_STDLIB_H
 #include <stdlib.h>
+#endif
+#ifdef HAVE_STRINGS_H
+#include <strings.h>
+#endif
+#ifdef HAVE_STRING_H
 #include <string.h>
+#endif
 #include <stdarg.h>
 #include <ctype.h>
 #include "common.h"
@@ -118,6 +126,7 @@ extern void* wg_realloc( void *ptr, size_t size )
 	}
 
 	result = realloc( ptr, size );
+
 	if ( !result ) {
 		wgmem_error( "Error while reallocing %u bytes.\n", size );
 	}
@@ -285,13 +294,15 @@ unsigned int wg_split( char **result, char *dest, char *src, int maxsegments )
 
 extern void wg_timerstart(wgtimer_t *t)
 {
+#ifdef HAVE_GETTIMEOFDAY
         gettimeofday( &(t->start), NULL );
+#endif
 }
-        
 
 
 extern uint4 wg_timerstop(wgtimer_t *t)
 {
+#ifdef HAVE_GETTIMEOFDAY
 	uint4 result;
         gettimeofday( &(t->stop), NULL );
         result = (t->stop.tv_sec - t->start.tv_sec) * 1000000 +
@@ -301,6 +312,9 @@ extern uint4 wg_timerstop(wgtimer_t *t)
 	t->start.tv_usec = t->stop.tv_usec;
 
 	return result;
+#else
+	return 0;
+#endif
 }
 
 

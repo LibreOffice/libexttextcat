@@ -61,10 +61,19 @@
  *
  * TODO:
  * - put table/heap datastructure in a separate file.
- * */
+ */
+
+#include "config.h"
 #include <stdio.h>
+#ifdef HAVE_STDLIB_H
 #include <stdlib.h>
+#endif
+#ifdef HAVE_STRING_H
 #include <string.h>
+#endif
+#ifdef HAVE_STRINGS_H
+#include <strings.h>
+#endif
 #include <ctype.h>
 
 #include "common.h"
@@ -169,6 +178,7 @@ static inline int increasefreq( table_t *t, char *p, int len )
 	return 1;
 }
 
+#if 0
 
 /* looks up ngram(p,len) */
 static entry_t *findfreq( table_t *t, char *p, int len ) 
@@ -204,6 +214,7 @@ static void dumptable(table_t *t)
 	}
 }
 
+#endif
 
 #define GREATER(x,y) ((x).cnt > (y).cnt)
 #define LESS(x,y)    ((x).cnt < (y).cnt)

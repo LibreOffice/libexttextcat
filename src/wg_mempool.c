@@ -34,7 +34,13 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "config.h"
+#ifdef HAVE_STRINGS_H
+#include <strings.h>
+#endif
+#ifdef HAVE_STRING_H
 #include <string.h>
+#endif
 #include "common.h"
 
 typedef struct memblock_s {
@@ -52,7 +58,18 @@ typedef struct mempool_s {
 	size_t blocksize;
 } mempool_t;
 
+#ifdef HAVE_MEMSET
+#define wg_memset	memset
+#else
+static void* wg_memset(void* s, int c, size_t n)
+{
+	size_t	i;
 
+	for(i = 0; i < n; i++) s[i] = c;
+
+	return s;
+}
+#endif
 
 static void addblock( mempool_t *h )
 {
@@ -103,7 +120,7 @@ extern void wgmempool_Done( void *handle )
 		memblock_t *next = p->next;
 		wg_free( p->pool );
 
-		memset( p, 0, sizeof(memblock_t)); /* for safety */
+		wg_memset( p, 0, sizeof(memblock_t)); /* for safety */
 		wg_free( p );
 
 		p = next;
@@ -115,13 +132,13 @@ extern void wgmempool_Done( void *handle )
 		memblock_t *next = p->next;
 		wg_free( p->pool );
 
-		memset( p, 0, sizeof(memblock_t)); /* for safety */
+		wg_memset( p, 0, sizeof(memblock_t)); /* for safety */
 		wg_free( p );
 
 		p = next;
 	}
 
-	memset( h, 0, sizeof(mempool_t)); /* for safety */
+	wg_memset( h, 0, sizeof(mempool_t)); /* for safety */
 	wg_free(h);
 }
 

@@ -35,9 +35,28 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+#include "config.h"
+#ifndef HAVE_MALLOC
+#error "This library needs a GNU like malloc to compile. 'configure' says there isn't one."
+#endif
+#ifndef HAVE_REALLOC
+#error "This library needs a GNU like realloc to compile. 'configure' says there isn't one."
+#endif
+#ifndef HAVE_STRDUP
+#error "This library needs a GNU like strdup to compile. 'configure' says there isn't one."
+#endif
 #include <stdio.h>
+#ifdef HAVE_INTTYPES_H
 #include <inttypes.h>
+#else
+#ifdef HAVE_STDINT_H
+#include <stdint.h>
+#endif
+#endif
+#ifdef HAVE_SYS_TIME_H
 #include <sys/time.h>
+#endif
 #include <time.h>
 
 #define WGMIN(x,y)         ((x)<=(y)?(x):(y))
@@ -45,6 +64,7 @@
 #define __STR__(x)         #x
 #define WGSTR(x)           __STR__(x)
 
+#ifdef HAVE_INTTYPES_H
 typedef uint32_t	uint4;
 typedef uint16_t	uint2;
 typedef uint8_t		uchar;
@@ -54,7 +74,17 @@ typedef int16_t		sint2;
 typedef int8_t		schar;
 
 typedef int8_t		boole;
+#else
+typedef unsigned long	uint4;
+typedef unsigned int	uint2;
+typedef unsigned char	uchar;
 
+typedef long		sint4;
+typedef int		sint2;
+typedef char		schar;
+
+typedef char		boole;
+#endif
 
 typedef struct wgtimer_s {
         struct timeval start;

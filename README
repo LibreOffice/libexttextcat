@@ -1,5 +1,5 @@
 
-  :: libTextCat 2.1 ::
+  :: libTextCat 2.2 ::
      
   What is it?
   
@@ -42,13 +42,19 @@
      
   Installation
   
-     As of now, we have no autoconfig script. A "make all" in the src/ dir
-     should do the trick. If that doesn't work, you'll have to dive into
-     the mess we call our Makefile.
+     Do the familiar dance:
+
+       tar xzf libtextcat-2.2.tar.gz
+       cd libtextcat-2.2
+       ./configure
+       make
+       make install
+
+     This will install the library in /usr/local/lib/ and the createfp
+     binary in /usr/local/bin.
      
-     The library is known to compile flawlessly on GNU/Linux for x86. If
-     you manage to get it working on other systems, please drop us a note,
-     and we'll proudly add you to this page.
+     The library is known to compile flawlessly on GNU/Linux for x86, and
+     IRIX64 (both 32 and 64 bits). 
      
   Quickstart: language guesser
   
@@ -60,7 +66,7 @@
      You can find these models and a matching configuration file 
      in the langclass directory:
 
-       * cd ~/libtextcat/langclass/
+       * cd libtextcat-2.2/langclass/
        * ../src/testtextcat conf.txt
   	 
      Paste some text onto the commandline, and watch it get classified.
