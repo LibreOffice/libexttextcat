@@ -124,20 +124,20 @@ target_os = @target_os@
 target_vendor = @target_vendor@
 AUTOMAKE_OPTIONS = 1.4 foreign
 
-WARNS = -W -Wall -Wshadow -Wpointer-arith 
-IFLAGS = 
-FLAGS = -g -O3 -funroll-loops -D_THREAD_SAFE -D_GNU_SOURCE
+#WARNS = -W -Wall -Wshadow -Wpointer-arith
+IFLAGS =
+#FLAGS = -g -O3 -funroll-loops -D_THREAD_SAFE -D_GNU_SOURCE
 VERBOSE = -DVERBOSE
 AM_CFLAGS = $(IFLAGS) $(VERBOSE) $(WARNS) $(FLAGS)
 AM_LDFLAGS = -g
 
 noinst_HEADERS = \
-	common.h constants.h fingerprint.h textcat.h wg_mempool.h
+        common.h constants.h fingerprint.h textcat.h wg_mempool.h utf8misc.h
 
 
 lib_LTLIBRARIES = libtextcat.la
 libtextcat_la_SOURCES = \
-	common.c fingerprint.c textcat.c wg_mempool.c
+        common.c fingerprint.c textcat.c wg_mempool.c utf8misc.c
 
 
 bin_PROGRAMS = createfp
@@ -156,7 +156,7 @@ LTLIBRARIES = $(lib_LTLIBRARIES)
 libtextcat_la_LDFLAGS =
 libtextcat_la_LIBADD =
 am_libtextcat_la_OBJECTS = common.lo fingerprint.lo textcat.lo \
-	wg_mempool.lo
+        wg_mempool.lo utf8misc.lo
 libtextcat_la_OBJECTS = $(am_libtextcat_la_OBJECTS)
 bin_PROGRAMS = createfp$(EXEEXT)
 noinst_PROGRAMS = testtextcat$(EXEEXT)
@@ -177,7 +177,8 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@DEP_FILES = ./$(DEPDIR)/common.Plo ./$(DEPDIR)/createfp.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/fingerprint.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/testtextcat.Po ./$(DEPDIR)/textcat.Plo \
-@AMDEP_TRUE@	./$(DEPDIR)/wg_mempool.Plo
+@AMDEP_TRUE@    ./$(DEPDIR)/wg_mempool.Plo \
+@AMDEP_TRUE@    ./$(DEPDIR)/utf8misc.Plo
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) \
@@ -213,7 +214,7 @@ stamp-h1: $(srcdir)/config.h.in $(top_builddir)/config.status
 	@rm -f stamp-h1
 	cd $(top_builddir) && $(SHELL) ./config.status src/config.h
 
-$(srcdir)/config.h.in:  $(top_srcdir)/configure.ac $(ACLOCAL_M4) 
+$(srcdir)/config.h.in:  $(top_srcdir)/configure.ac $(ACLOCAL_M4)
 	cd $(top_srcdir) && $(AUTOHEADER)
 	touch $(srcdir)/config.h.in
 
@@ -247,7 +248,7 @@ clean-libLTLIBRARIES:
 	  echo "rm -f \"$${dir}/so_locations\""; \
 	  rm -f "$${dir}/so_locations"; \
 	done
-libtextcat.la: $(libtextcat_la_OBJECTS) $(libtextcat_la_DEPENDENCIES) 
+libtextcat.la: $(libtextcat_la_OBJECTS) $(libtextcat_la_DEPENDENCIES)
 	$(LINK) -rpath $(libdir) $(libtextcat_la_LDFLAGS) $(libtextcat_la_OBJECTS) $(libtextcat_la_LIBADD) $(LIBS)
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 install-binPROGRAMS: $(bin_PROGRAMS)
@@ -285,10 +286,10 @@ clean-noinstPROGRAMS:
 	  echo " rm -f $$p $$f"; \
 	  rm -f $$p $$f ; \
 	done
-createfp$(EXEEXT): $(createfp_OBJECTS) $(createfp_DEPENDENCIES) 
+createfp$(EXEEXT): $(createfp_OBJECTS) $(createfp_DEPENDENCIES)
 	@rm -f createfp$(EXEEXT)
 	$(LINK) $(createfp_LDFLAGS) $(createfp_OBJECTS) $(createfp_LDADD) $(LIBS)
-testtextcat$(EXEEXT): $(testtextcat_OBJECTS) $(testtextcat_DEPENDENCIES) 
+testtextcat$(EXEEXT): $(testtextcat_OBJECTS) $(testtextcat_DEPENDENCIES)
 	@rm -f testtextcat$(EXEEXT)
 	$(LINK) $(testtextcat_LDFLAGS) $(testtextcat_OBJECTS) $(testtextcat_LDADD) $(LIBS)
 
@@ -304,6 +305,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testtextcat.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/textcat.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/wg_mempool.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/utf8misc.Plo@am__quote@
 
 distclean-depend:
 	-rm -rf ./$(DEPDIR)
