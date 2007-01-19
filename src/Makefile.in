@@ -249,7 +249,7 @@ clean-libLTLIBRARIES:
 	  rm -f "$${dir}/so_locations"; \
 	done
 libtextcat.la: $(libtextcat_la_OBJECTS) $(libtextcat_la_DEPENDENCIES)
-	$(LINK) -rpath $(libdir) $(libtextcat_la_LDFLAGS) $(libtextcat_la_OBJECTS) $(libtextcat_la_LIBADD) $(LIBS)
+	$(LINK) -avoid-version -rpath $(libdir) $(libtextcat_la_LDFLAGS) $(libtextcat_la_OBJECTS) $(libtextcat_la_LIBADD) $(LIBS)
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 install-binPROGRAMS: $(bin_PROGRAMS)
 	@$(NORMAL_INSTALL)
