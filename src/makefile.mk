@@ -68,8 +68,9 @@ SHL1DEF=        $(MISC)$/$(SHL1TARGET).def
 
 # build DEF file
 DEF1NAME=       $(SHL1TARGET)
-DEF1LIBNAME=$(TARGET)
 DEF1DEPN=$(MISC)$/$(SHL1TARGET).flt
+
+SHL1VERSIONMAP= libtextcat.map
 
 # --- Targets ------------------------------------------------------
 
