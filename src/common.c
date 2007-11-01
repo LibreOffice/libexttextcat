@@ -218,7 +218,7 @@ unsigned int wg_split( char **result, char *dest, char *src, int maxsegments )
 		switch (state) {
 		case 0:
 			/*** Skip spaces ***/
-			while ( isspace((int) *p) ) {
+			while ( isspace((unsigned char) *p) ) {
 				p++;
 			}
 			state = 1;
@@ -232,7 +232,7 @@ unsigned int wg_split( char **result, char *dest, char *src, int maxsegments )
 		case 2:
 			/*** Unquoted segment ***/
 			while (*p) {
-				if ( isspace((int) *p) ) {
+				if ( isspace((unsigned char) *p) ) {
 					*w++ = '\0';
 					p++;
 					state = 0;
@@ -372,11 +372,11 @@ char *wg_trim( char *dest, const char *src )
 	const char *p = src;
 	char *w = dest;
 
-	while ( isspace((int)*p) ) {
+	while ( isspace((unsigned char)*p) ) {
 		p++;
 	}
 	while (*p) {
-		if ( !isspace((int)*p) ) {
+		if ( !isspace((unsigned char)*p) ) {
 			lastnonspace = w;
 		}
 		*w++ = *p++;
