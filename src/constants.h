@@ -72,7 +72,7 @@
 #endif
 
 /* Which characters are not acceptable in n-grams? */
-#define INVALID(c) (isspace((unsigend char)c) || isdigit((unsigned char)c)) 
+#define INVALID(c) (isspace((unsigned char)c) || isdigit((unsigned char)c)) 
 
 /* Minimum size (in characters) for accepting a document */
 #define MINDOCSIZE  6
