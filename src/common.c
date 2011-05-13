@@ -384,5 +384,20 @@ char *wg_trim( char *dest, const char *src )
 	lastnonspace[1] = '\0';
 
 	return dest;
+void *
+rpl_malloc (size_t n)
+{
+  if (n == 0)
+    n = 1;
+  return malloc (n);
+}
+
+void *
+rpl_realloc (void *ptr, size_t n)
+{
+  if (n == 0)
+    n = 1;
+  return realloc (ptr, n);
+}
 }
 
