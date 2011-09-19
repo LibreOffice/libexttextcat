@@ -80,8 +80,8 @@ am__nobase_list = $(am__nobase_strip_setup); \
 am__base_list = \
   sed '$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;s/\n/ /g' | \
   sed '$$!N;$$!N;$$!N;$$!N;s/\n/ /g'
-am__installdirs = "$(DESTDIR)$(fpdbdir)" "$(DESTDIR)$(lmdir)"
-DATA = $(fpdb_DATA) $(lm_DATA)
+am__installdirs = "$(DESTDIR)$(pkgdatadir)"
+DATA = $(pkgdata_DATA)
 RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
   distclean-recursive maintainer-clean-recursive
 AM_RECURSIVE_TARGETS = $(RECURSIVE_TARGETS:-recursive=) \
@@ -246,10 +246,9 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = 1.4 foreign
 EXTRA_DIST = ChangeLog LICENSE README README.libtextcat TODO langclass
-fpdbdir = $(datadir)/libexttextcat
-fpdb_DATA = langclass/fpdb.conf
-lmdir = $(datadir)/libexttextcat/LM
-lm_DATA = langclass/LM/*.lm
+
+#install them all flat, get rid of fpdb.conf eventually
+pkgdata_DATA = langclass/fpdb.conf langclass/LM/*.lm
 SUBDIRS = src # langclass
 all: all-recursive
 
@@ -297,46 +296,26 @@ clean-libtool:
 
 distclean-libtool:
 	-rm -f libtool config.lt
-install-fpdbDATA: $(fpdb_DATA)
+install-pkgdataDATA: $(pkgdata_DATA)
 	@$(NORMAL_INSTALL)
-	test -z "$(fpdbdir)" || $(MKDIR_P) "$(DESTDIR)$(fpdbdir)"
-	@list='$(fpdb_DATA)'; test -n "$(fpdbdir)" || list=; \
+	test -z "$(pkgdatadir)" || $(MKDIR_P) "$(DESTDIR)$(pkgdatadir)"
+	@list='$(pkgdata_DATA)'; test -n "$(pkgdatadir)" || list=; \
 	for p in $$list; do \
 	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
 	  echo "$$d$$p"; \
 	done | $(am__base_list) | \
 	while read files; do \
-	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(fpdbdir)'"; \
-	  $(INSTALL_DATA) $$files "$(DESTDIR)$(fpdbdir)" || exit $$?; \
+	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(pkgdatadir)'"; \
+	  $(INSTALL_DATA) $$files "$(DESTDIR)$(pkgdatadir)" || exit $$?; \
 	done
 
-uninstall-fpdbDATA:
+uninstall-pkgdataDATA:
 	@$(NORMAL_UNINSTALL)
-	@list='$(fpdb_DATA)'; test -n "$(fpdbdir)" || list=; \
+	@list='$(pkgdata_DATA)'; test -n "$(pkgdatadir)" || list=; \
 	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
 	test -n "$$files" || exit 0; \
-	echo " ( cd '$(DESTDIR)$(fpdbdir)' && rm -f" $$files ")"; \
-	cd "$(DESTDIR)$(fpdbdir)" && rm -f $$files
-install-lmDATA: $(lm_DATA)
-	@$(NORMAL_INSTALL)
-	test -z "$(lmdir)" || $(MKDIR_P) "$(DESTDIR)$(lmdir)"
-	@list='$(lm_DATA)'; test -n "$(lmdir)" || list=; \
-	for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  echo "$$d$$p"; \
-	done | $(am__base_list) | \
-	while read files; do \
-	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(lmdir)'"; \
-	  $(INSTALL_DATA) $$files "$(DESTDIR)$(lmdir)" || exit $$?; \
-	done
-
-uninstall-lmDATA:
-	@$(NORMAL_UNINSTALL)
-	@list='$(lm_DATA)'; test -n "$(lmdir)" || list=; \
-	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
-	test -n "$$files" || exit 0; \
-	echo " ( cd '$(DESTDIR)$(lmdir)' && rm -f" $$files ")"; \
-	cd "$(DESTDIR)$(lmdir)" && rm -f $$files
+	echo " ( cd '$(DESTDIR)$(pkgdatadir)' && rm -f" $$files ")"; \
+	cd "$(DESTDIR)$(pkgdatadir)" && rm -f $$files
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run `make' without going through this Makefile.
@@ -653,7 +632,7 @@ check: check-recursive
 all-am: Makefile $(DATA)
 installdirs: installdirs-recursive
 installdirs-am:
-	for dir in "$(DESTDIR)$(fpdbdir)" "$(DESTDIR)$(lmdir)"; do \
+	for dir in "$(DESTDIR)$(pkgdatadir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-recursive
@@ -703,7 +682,7 @@ info: info-recursive
 
 info-am:
 
-install-data-am: install-fpdbDATA install-lmDATA
+install-data-am: install-pkgdataDATA
 
 install-dvi: install-dvi-recursive
 
@@ -749,7 +728,7 @@ ps: ps-recursive
 
 ps-am:
 
-uninstall-am: uninstall-fpdbDATA uninstall-lmDATA
+uninstall-am: uninstall-pkgdataDATA
 
 .MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) ctags-recursive \
 	install-am install-strip tags-recursive
@@ -762,14 +741,14 @@ uninstall-am: uninstall-fpdbDATA uninstall-lmDATA
 	distclean-tags distcleancheck distdir distuninstallcheck dvi \
 	dvi-am html html-am info info-am install install-am \
 	install-data install-data-am install-dvi install-dvi-am \
-	install-exec install-exec-am install-fpdbDATA install-html \
-	install-html-am install-info install-info-am install-lmDATA \
-	install-man install-pdf install-pdf-am install-ps \
-	install-ps-am install-strip installcheck installcheck-am \
-	installdirs installdirs-am maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-generic \
-	mostlyclean-libtool pdf pdf-am ps ps-am tags tags-recursive \
-	uninstall uninstall-am uninstall-fpdbDATA uninstall-lmDATA
+	install-exec install-exec-am install-html install-html-am \
+	install-info install-info-am install-man install-pdf \
+	install-pdf-am install-pkgdataDATA install-ps install-ps-am \
+	install-strip installcheck installcheck-am installdirs \
+	installdirs-am maintainer-clean maintainer-clean-generic \
+	mostlyclean mostlyclean-generic mostlyclean-libtool pdf pdf-am \
+	ps ps-am tags tags-recursive uninstall uninstall-am \
+	uninstall-pkgdataDATA
 
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
