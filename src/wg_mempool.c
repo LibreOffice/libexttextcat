@@ -227,7 +227,9 @@ extern char *wgmempool_getline( void *handle, size_t size, FILE *fp )
 	}
 
 	result = (char *)block->p;
-        fgets(result, size, fp) ;
+        if ( fgets(result, size, fp) == NULL ) {
+                return NULL;
+        }
         
         /** end of stream? **/
         if ( feof( fp ) ) {
