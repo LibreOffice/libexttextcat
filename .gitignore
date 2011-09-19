@@ -1,0 +1,8 @@
+*.[oa]
+*.l[oa]
+.libs
+.deps
+config.log
+config.status
+libtool
+Makefile
