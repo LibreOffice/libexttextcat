@@ -12,7 +12,7 @@ noinst_HEADERS = \
 
 lib_LTLIBRARIES =	libtextcat.la
 libtextcat_la_SOURCES = \
-	common.c fingerprint.c textcat.c wg_mempool.c
+	common.c fingerprint.c textcat.c wg_mempool.c utf8misc.c
 
 bin_PROGRAMS =		createfp
 createfp_SOURCES =	createfp.c
