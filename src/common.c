@@ -45,7 +45,7 @@
 #endif
 #include <stdarg.h>
 #include <ctype.h>
-#include "common.h"
+#include "common_impl.h"
 
 extern void wgmem_error( const char *fmt, ... )
 {
@@ -55,8 +55,6 @@ extern void wgmem_error( const char *fmt, ... )
         va_start(ap, fmt);
         vfprintf(stderr, fmt, ap);
         va_end(ap);
-
-	exit(-1);
 }
 
 

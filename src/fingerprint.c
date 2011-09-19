@@ -80,7 +80,7 @@
 #endif
 #include <ctype.h>
 
-#include "common.h"
+#include "common_impl.h"
 #include "wg_mempool.h"
 #include "constants.h"
 

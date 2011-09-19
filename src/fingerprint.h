@@ -35,6 +35,10 @@
  */
 #include "common.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern void *fp_Init(const char *name);
 extern void fp_Done( void *handle );
 extern int fp_Create( void *handle, const char *buffer, uint4 bufsize, uint4 maxngrams );
@@ -49,5 +53,9 @@ extern const char *fp_Name( void *handle );
 }
 #endif
 extern void fp_Print( void *handle, FILE *fp );
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

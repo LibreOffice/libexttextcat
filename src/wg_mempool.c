@@ -41,7 +41,7 @@
 #ifdef HAVE_STRING_H
 #include <string.h>
 #endif
-#include "common.h"
+#include "common_impl.h"
 
 typedef struct memblock_s {
 	char *pool;             

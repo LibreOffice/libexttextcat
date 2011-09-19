@@ -1,7 +1,7 @@
-#ifndef _COMMON_H_
-#define _COMMON_H_
+#ifndef _COMMON_IMPL_H_
+#define _COMMON_IMPL_H_
 /**
- * common.h
+ * common_impl.h -- a mixed bag of helper functions 
  *
  * Copyright (C) 2003 WiseGuys Internet B.V.
  *
@@ -36,49 +36,31 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdio.h>
+#include "config.h"
+#ifndef HAVE_MALLOC
+#error "This library needs a GNU like malloc to compile. 'configure' says there isn't one."
+#endif
+#ifndef HAVE_REALLOC
+#error "This library needs a GNU like realloc to compile. 'configure' says there isn't one."
+#endif
+#ifndef HAVE_STRDUP
+#error "This library needs a GNU like strdup to compile. 'configure' says there isn't one."
+#endif
+#ifdef HAVE_INTTYPES_H
 #include <inttypes.h>
-#include <time.h>
-
+#else
+#ifdef HAVE_STDINT_H
+#include <stdint.h>
+#endif
+#endif
+#ifdef HAVE_SYS_TIME_H
 #include <sys/time.h>
-#ifdef __cplusplus
-extern "C" {
 #endif
+#include "common.h"
 
-typedef uint32_t        uint4;
-typedef uint16_t        uint2;
-typedef uint8_t         uchar;
+#define WGMIN(x,y)         ((x)<=(y)?(x):(y))
+#define WGMAX(x,y)         ((x)<=(y)?(y):(x))
+#define __STR__(x)         #x
+#define WGSTR(x)           __STR__(x)
 
-typedef int32_t         sint4;
-typedef int16_t         sint2;
-typedef int8_t          schar;
-
-typedef int8_t          boole;
-
-typedef struct wgtimer_s {
-        struct timeval start;
-        struct timeval stop;
-} wgtimer_t;
-
-
-extern void *wg_malloc( size_t size );
-extern void *wg_calloc( size_t nmemb, size_t size );
-extern void *wg_zalloc( size_t size );
-extern char* wg_strdup( const char *s );
-extern void* wg_realloc( void *ptr, size_t size ) ;
-extern void wg_free( void *mem );
-
-extern char *wg_getline( char *line, int size, FILE *fp );
-
-extern void wg_timerstart(wgtimer_t *t);
-extern uint4 wg_timerstop(wgtimer_t *t);
-
-extern unsigned int wg_split( char **result, char *dest, char *src, int maxsegments );
-extern char *wg_strgmov( char *dest, const char *src, const char *destlimit );
-extern char *wg_trim( char *dest, const char *src );
-
-#ifdef __cplusplus
-}
-#endif
-      
 #endif

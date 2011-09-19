@@ -65,7 +65,7 @@
 #include <alloca.h>
 #endif
 
-#include "common.h"
+#include "common_impl.h"
 #include "fingerprint.h"
 #include "textcat.h"
 #include "constants.h"

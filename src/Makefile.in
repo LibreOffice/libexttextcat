@@ -40,8 +40,9 @@ target_triplet = @target@
 bin_PROGRAMS = createfp$(EXEEXT)
 noinst_PROGRAMS = testtextcat$(EXEEXT)
 subdir = src
-DIST_COMMON = $(noinst_HEADERS) $(srcdir)/Makefile.am \
-	$(srcdir)/Makefile.in $(srcdir)/config.h.in
+DIST_COMMON = $(libtextcat_include_HEADERS) $(noinst_HEADERS) \
+	$(srcdir)/Makefile.am $(srcdir)/Makefile.in \
+	$(srcdir)/config.h.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -71,7 +72,8 @@ am__nobase_list = $(am__nobase_strip_setup); \
 am__base_list = \
   sed '$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;s/\n/ /g' | \
   sed '$$!N;$$!N;$$!N;$$!N;s/\n/ /g'
-am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)"
+am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)" \
+	"$(DESTDIR)$(libtextcat_includedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libtextcat_la_LIBADD =
 am_libtextcat_la_OBJECTS = common.lo fingerprint.lo textcat.lo \
@@ -101,7 +103,7 @@ SOURCES = $(libtextcat_la_SOURCES) $(createfp_SOURCES) \
 	$(testtextcat_SOURCES)
 DIST_SOURCES = $(libtextcat_la_SOURCES) $(createfp_SOURCES) \
 	$(testtextcat_SOURCES)
-HEADERS = $(noinst_HEADERS)
+HEADERS = $(libtextcat_include_HEADERS) $(noinst_HEADERS)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -231,7 +233,11 @@ VERBOSE = -DVERBOSE
 AM_CFLAGS = $(IFLAGS) $(VERBOSE) $(WARNS) $(FLAGS)
 AM_LDFLAGS = -g
 noinst_HEADERS = \
-	common.h constants.h fingerprint.h textcat.h wg_mempool.h
+	common_impl.h wg_mempool.h
+
+libtextcat_includedir = $(includedir)/libtextcat
+libtextcat_include_HEADERS = \
+	common.h constants.h fingerprint.h textcat.h
 
 lib_LTLIBRARIES = libtextcat.la
 libtextcat_la_SOURCES = \
@@ -425,6 +431,26 @@ mostlyclean-libtool:
 
 clean-libtool:
 	-rm -rf .libs _libs
+install-libtextcat_includeHEADERS: $(libtextcat_include_HEADERS)
+	@$(NORMAL_INSTALL)
+	test -z "$(libtextcat_includedir)" || $(MKDIR_P) "$(DESTDIR)$(libtextcat_includedir)"
+	@list='$(libtextcat_include_HEADERS)'; test -n "$(libtextcat_includedir)" || list=; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_HEADER) $$files '$(DESTDIR)$(libtextcat_includedir)'"; \
+	  $(INSTALL_HEADER) $$files "$(DESTDIR)$(libtextcat_includedir)" || exit $$?; \
+	done
+
+uninstall-libtextcat_includeHEADERS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(libtextcat_include_HEADERS)'; test -n "$(libtextcat_includedir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	test -n "$$files" || exit 0; \
+	echo " ( cd '$(DESTDIR)$(libtextcat_includedir)' && rm -f" $$files ")"; \
+	cd "$(DESTDIR)$(libtextcat_includedir)" && rm -f $$files
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
@@ -514,7 +540,7 @@ all-am: Makefile $(LTLIBRARIES) $(PROGRAMS) $(HEADERS) config.h
 install-binPROGRAMS: install-libLTLIBRARIES
 
 installdirs:
-	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)"; do \
+	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libtextcat_includedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -565,7 +591,7 @@ info: info-am
 
 info-am:
 
-install-data-am:
+install-data-am: install-libtextcat_includeHEADERS
 
 install-dvi: install-dvi-am
 
@@ -611,7 +637,8 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-binPROGRAMS uninstall-libLTLIBRARIES
+uninstall-am: uninstall-binPROGRAMS uninstall-libLTLIBRARIES \
+	uninstall-libtextcat_includeHEADERS
 
 .MAKE: all install-am install-strip
 
@@ -623,13 +650,14 @@ uninstall-am: uninstall-binPROGRAMS uninstall-libLTLIBRARIES
 	install install-am install-binPROGRAMS install-data \
 	install-data-am install-dvi install-dvi-am install-exec \
 	install-exec-am install-html install-html-am install-info \
-	install-info-am install-libLTLIBRARIES install-man install-pdf \
+	install-info-am install-libLTLIBRARIES \
+	install-libtextcat_includeHEADERS install-man install-pdf \
 	install-pdf-am install-ps install-ps-am install-strip \
 	installcheck installcheck-am installdirs maintainer-clean \
 	maintainer-clean-generic mostlyclean mostlyclean-compile \
 	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
 	tags uninstall uninstall-am uninstall-binPROGRAMS \
-	uninstall-libLTLIBRARIES
+	uninstall-libLTLIBRARIES uninstall-libtextcat_includeHEADERS
 
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

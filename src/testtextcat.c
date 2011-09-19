@@ -47,7 +47,7 @@
 #endif
 
 #include "textcat.h"
-#include "common.h"
+#include "common_impl.h"
 
 #define BLOCKSIZE 4096
 

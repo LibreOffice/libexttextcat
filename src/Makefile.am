@@ -8,7 +8,11 @@ AM_CFLAGS =	$(IFLAGS) $(VERBOSE) $(WARNS) $(FLAGS)
 AM_LDFLAGS =	-g
 
 noinst_HEADERS = \
-	common.h constants.h fingerprint.h textcat.h wg_mempool.h
+	common_impl.h wg_mempool.h
+
+libtextcat_includedir = $(includedir)/libtextcat
+libtextcat_include_HEADERS = \
+	common.h constants.h fingerprint.h textcat.h
 
 lib_LTLIBRARIES =	libtextcat.la
 libtextcat_la_SOURCES = \
