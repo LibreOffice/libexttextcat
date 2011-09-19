@@ -1,0 +1,145 @@
+
+  :: libTextCat 2.2 ::
+     
+  What is it?
+  
+     Libtextcat is a library with functions that implement the
+     classification technique described in Cavnar & Trenkle, "N-Gram-Based
+     Text Categorization" [1]. It was primarily developed for language
+     guessing, a task on which it is known to perform with near-perfect
+     accuracy.
+     
+     The central idea of the Cavnar & Trenkle technique is to calculate a
+     "fingerprint" of a document with an unknown category, and compare this
+     with the fingerprints of a number of documents of which the categories
+     are known. The categories of the closest matches are output as the
+     classification. A fingerprint is a list of the most frequent n-grams
+     occurring in a document, ordered by frequency. Fingerprints are
+     compared with a simple out-of-place metric. See the article for more
+     details.
+     
+     Considerable effort went into making this implementation fast and
+     efficient. The language guesser processes over 100 documents/second on
+     a simple PC, which makes it practical for many uses. It was developed
+     for use in our webcrawler and search engine software, in which it it
+     handles millions of documents a day.
+     
+  Download
+  
+     The library is released under the BSD License, which basicly states
+     that you can do anything you like with it as long as you mention us
+     and make it clear that this library is covered by the BSD License. It
+     also exempts us from any liability, should this library eat your hard
+     disc, kill your cat or classify your attorney's e-mails as spam.
+     
+     The current version is 2.1.
+
+     It can be downloaded from our website: 
+
+       http://software.wise-guys.nl/libtextcat/ 
+
+     As of yet there is no development version.
+     
+  Installation
+  
+     Do the familiar dance:
+
+       tar xzf libtextcat-2.2.tar.gz
+       cd libtextcat-2.2
+       ./configure
+       make
+       make install
+
+     This will install the library in /usr/local/lib/ and the createfp
+     binary in /usr/local/bin.
+     
+     The library is known to compile flawlessly on GNU/Linux for x86, and
+     IRIX64 (both 32 and 64 bits). 
+     
+  Quickstart: language guesser
+  
+     Assuming that you have successfully compiled the library, you still
+     need some language models to start guessing languages. If you don't
+     feel like creating them yourself (cf. [2]Creating your own
+     fingerprints below), you can use the excellent collection of over 70
+     language models provided in Gertjan van Noord's "TextCat" package. 
+     You can find these models and a matching configuration file 
+     in the langclass directory:
+
+       * cd libtextcat-2.2/langclass/
+       * ../src/testtextcat conf.txt
+  	 
+     Paste some text onto the commandline, and watch it get classified.
+     
+  Using the API
+  
+     Classifying the language of a textbuffer can be as easy as:
+
+       #include "textcat.h"
+       ...
+       void *h = textcat_Init( "conf.txt" );
+       ...
+       printf( "Language: %s\n", textcat_Classify(h, buffer, 400);
+       ...
+       textcat_Done(h);
+      
+  Creating your own fingerprints
+  
+     The createfp program allows you to easily create your own document
+     fingerprints. Just feed it an example document on standard input, and
+     store the standard output:
+
+       % createfp < mydocument.txt > myfingerprint.txt
+  
+     Put the names of your fingerprints in a configuration file, add some
+     id's and you're ready to classify.
+     
+  Performance tuning
+  
+     This library was made with efficiency in mind. There are couple of
+     parameters you may wish to tweak if you intend to use it for other
+     tasks than language guessing.
+     
+     The most important thing is buffer size. For reliable language
+     guessing the classifier only needs a couple of hundreds of bytes max.
+     So don't feed it 100KB of text unless you are creating a fingerprint.
+     
+     If you insist on feeding the classifier lots of text, try fiddling
+     with TABLEPOW, which determines the size of the hash table that is
+     used to store the n-grams. Making it too small will result in many
+     hashtable clashes, making it too large will cause wild memory
+     behaviour and both are bad for the performance.
+     
+     Putting the most probable models at the top of the list in your config
+     file improves performance, because this will raise the threshold for
+     likely candidates more quickly.
+     
+     Since the speed of the classifier is roughly linear with respect to
+     the number of models, you should consider how many models you really
+     need. In case of language guessing: do you really want to recognize
+     every language ever invented?
+     
+  Acknowledgements
+
+     The language models are copyright Gertjan van Noord.
+
+  References
+  
+     [1] The document that started it all can be downloaded at John M.
+     Trenkle's site: N-Gram-Based Text Categorization
+     
+       http://www.novodynamics.com/trenkle/papers/sdair-94-bc.ps.gz
+  
+     [2] The Perl implementation by Gertjan van Noord (code + language
+     models): downloadable from his [7]website
+  
+       http://odur.let.rug.nl/~vannoord/TextCat/
+     
+  Contact
+  
+     Praise and flames may be directed at us through
+     libtextcat@wise-guys.nl. If there is enough interest, we'll whip up
+     a mailing list. The current project maintainer is Frank Scheelen.
+       
+  c. 2003 WiseGuys Internet B.V.
+

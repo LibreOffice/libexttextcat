@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT(libtextcat, 2.2)
+AC_INIT(libexttextcat, 3.0)
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE
 AM_CONFIG_HEADER([src/config.h])

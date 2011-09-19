@@ -1,3 +1,9 @@
+Mon Sep 19 2011 Caolan McNamara (caolanm@redhat.com)
+	* Release a libexttextcat 3.0 to bundle together:
+	  + the various OpenOffice.org, Linux distributions and LibreOffice
+	    modifications to libtextcat
+	  + utf-8 signature conversions
+	  + additional contributed language signatures
 
 Fri Dec  5 2003 Frank Scheelen (fscheelen@wise-guys.nl)
 	* Released 2.2
