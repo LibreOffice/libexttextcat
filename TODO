@@ -1,6 +1,6 @@
 
 TODO
-
+- Use BCP-47 naming scheme for fpdf.conf, and drop name vs language tag, and just use tag
 - Better Makefile
 - Improve error handling and reporting.
 - Split off table and heap routines to separate source files.
