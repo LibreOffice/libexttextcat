@@ -1,8 +1,13 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT(libexttextcat, 3.0)
-AC_CANONICAL_TARGET
-AM_INIT_AUTOMAKE
+AC_PREREQ([2.65])
+
+AC_INIT([libexttextcat], [3.0])
+AC_CONFIG_MACRO_DIR([m4])
+AC_LANG([C])
+
+AM_INIT_AUTOMAKE([1.11 foreign dist-xz dist-bzip2])
 AM_CONFIG_HEADER([src/config.h])
+AM_SILENT_RULES([yes])
 
 dnl Checks for programs.
 AC_PROG_CC
@@ -29,5 +34,9 @@ AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([gettimeofday memset strchr strdup strpbrk])
 
 dnl Checks for libraries
-
-AC_OUTPUT(Makefile src/Makefile)
+AC_CONFIG_FILES([
+libtextcat.pc
+Makefile
+src/Makefile
+])
+AC_OUTPUT

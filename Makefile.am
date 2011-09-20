@@ -1,8 +1,12 @@
-AUTOMAKE_OPTIONS = 1.4 foreign
+ACLOCAL_AMFLAGS = -I m4
 
 EXTRA_DIST = ChangeLog LICENSE README README.libtextcat TODO langclass
 
-#install them all flat, get rid of fpdb.conf eventually
+pkgconfdir = $(libdir)/pkgconfig
+
+# pkgconf_DATA = libtextcat.pc
+
+# install them all flat, get rid of fpdb.conf eventually
 pkgdata_DATA = langclass/fpdb.conf langclass/LM/*.lm
 
-SUBDIRS = src # langclass
+SUBDIRS = src

@@ -1,11 +1,9 @@
-AUTOMAKE_OPTIONS = 1.4 foreign
-
 WARNS =		-W -Wall -Wshadow -Wpointer-arith 
 IFLAGS =
-FLAGS =		-g -O3 -funroll-loops -D_THREAD_SAFE -D_GNU_SOURCE
+FLAGS =		-D_THREAD_SAFE -D_GNU_SOURCE
 VERBOSE	=	-DVERBOSE
 AM_CFLAGS =	$(IFLAGS) $(VERBOSE) $(WARNS) $(FLAGS)
-AM_LDFLAGS =	-g
+AM_LDFLAGS =	-Wl,--as-needed -no-undefined
 
 noinst_HEADERS = \
 	common_impl.h wg_mempool.h
@@ -22,6 +20,6 @@ bin_PROGRAMS =		createfp
 createfp_SOURCES =	createfp.c
 createfp_LDADD =	libtextcat.la
 
-noinst_PROGRAMS =	testtextcat
+check_PROGRAMS =	testtextcat
 testtextcat_SOURCES =	testtextcat.c
 testtextcat_LDADD =	libtextcat.la
