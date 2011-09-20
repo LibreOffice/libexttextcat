@@ -23,3 +23,5 @@ createfp_LDADD =	libtextcat.la
 check_PROGRAMS =	testtextcat
 testtextcat_SOURCES =	testtextcat.c
 testtextcat_LDADD =	libtextcat.la
+
+EXTRA_DIST = libtextcat.map makefile.mk
