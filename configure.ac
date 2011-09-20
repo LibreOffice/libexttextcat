@@ -39,7 +39,7 @@ libtextcat.pc
 Makefile
 langclass/Makefile
 langclass/LM/Makefile
-langclass/ShortTexts/Makefil
+langclass/ShortTexts/Makefile
 src/Makefile
 ])
 AC_OUTPUT
