@@ -37,6 +37,9 @@ dnl Checks for libraries
 AC_CONFIG_FILES([
 libtextcat.pc
 Makefile
+langclass/Makefile
+langclass/LM/Makefile
+langclass/ShortTexts/Makefil
 src/Makefile
 ])
 AC_OUTPUT
