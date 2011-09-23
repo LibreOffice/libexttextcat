@@ -33,9 +33,6 @@ AC_FUNC_REALLOC
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([gettimeofday memset strchr strdup strpbrk])
 
-confdir='${datadir}'/libexttextcat
-AC_SUBST(confdir)
-
 dnl Checks for libraries
 AC_CONFIG_FILES([
 libexttextcat.pc
