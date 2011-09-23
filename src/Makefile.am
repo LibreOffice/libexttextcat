@@ -1,5 +1,4 @@
 AM_CFLAGS =	-D_THREAD_SAFE -D_GNU_SOURCE -DVERBOSE
-AM_LDFLAGS =	-Wl,--as-needed -no-undefined
 
 noinst_HEADERS = \
 	common_impl.h wg_mempool.h
