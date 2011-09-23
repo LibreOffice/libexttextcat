@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ([2.65])
 
-AC_INIT([libexttextcat], [3.0])
+AC_INIT([libexttextcat], [3.0.1])
 AC_CONFIG_MACRO_DIR([m4])
 AC_LANG([C])
 

@@ -50,11 +50,11 @@
  * - Make the thingy reentrant as well as thread-safe. (Reentrancy is abandoned
  *   by the use of the output buffer in textcat_t.)
  */
+#ifndef WNT
 #include "config.h"
-
-#ifdef HAVE_STDLIB_H
-#include <stdlib.h>
 #endif
+
+#include <stdlib.h>
 #ifdef HAVE_STRINGS_H
 #include <strings.h>
 #endif
@@ -154,12 +154,7 @@ extern void *special_textcat_Init( const char *conffile, const char *prefix )
                 int res;
 
 		/*** Skip comments ***/
-#ifdef HAVE_STRCHR
 		if (( p = strchr(line,'#') )) {
-#else
-		if (( p = index(line,'#') )) {
-#endif
-
 			*p = '\0';
 		}
 		if ((res = wg_split( segment, line, line, 4)) < 2 ) {
@@ -175,7 +170,7 @@ extern void *special_textcat_Init( const char *conffile, const char *prefix )
 
 		/*** Load data ***/
 		if ((h->fprint[ h->size ] = fp_Init( segment[1] ))==NULL) {
-			goto ERROR;
+			goto BAILOUT;
 		}
                 finger_print_file_name[0] = '\0';
                 strcat(finger_print_file_name, prefix);
@@ -183,7 +178,7 @@ extern void *special_textcat_Init( const char *conffile, const char *prefix )
 
                 if ( fp_Read( h->fprint[h->size], finger_print_file_name, 400 ) == 0 ) {
 			textcat_Done(h);
-			goto ERROR;
+			goto BAILOUT;
 		}
                 h->fprint_disable[h->size] = 0xF0;  /*0xF0 is the code for enabled languages, 0x0F is for disabled*/
 		h->size++;
@@ -192,7 +187,7 @@ extern void *special_textcat_Init( const char *conffile, const char *prefix )
 	fclose(fp);
 	return h;
 
- ERROR:
+ BAILOUT:
 	fclose(fp);
 	return NULL;
 
@@ -282,5 +277,9 @@ extern char *textcat_Classify( void *handle, const char *buffer, size_t size )
 
 extern char *textcat_Version()
 {
+#ifdef PACKAGE_VERSION
 	return "TextCat " PACKAGE_VERSION " (" DESCRIPTION ")";
+#else
+	return "TextCat ";
+#endif
 }

@@ -37,12 +37,27 @@
  */
 
 #include <stdio.h>
-#include <inttypes.h>
 #include <time.h>
 
-#include <sys/time.h>
 #ifdef __cplusplus
 extern "C" {
+#endif
+
+#ifdef _MSC_VER
+#include <winsock2.h>
+
+typedef __int8 int8_t;
+typedef unsigned __int8 uint8_t;
+typedef __int16 int16_t;
+typedef unsigned __int16 uint16_t;
+typedef __int32 int32_t;
+typedef unsigned __int32 uint32_t;
+typedef __int64 int64_t;
+typedef unsigned __int64 uint64_t;
+
+#else
+#include <sys/time.h>
+#include <stdint.h>
 #endif
 
 typedef uint32_t        uint4;

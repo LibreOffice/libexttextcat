@@ -36,15 +36,8 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifndef WNT
 #include "config.h"
-#ifndef HAVE_MALLOC
-#error "This library needs a GNU like malloc to compile. 'configure' says there isn't one."
-#endif
-#ifndef HAVE_REALLOC
-#error "This library needs a GNU like realloc to compile. 'configure' says there isn't one."
-#endif
-#ifndef HAVE_STRDUP
-#error "This library needs a GNU like strdup to compile. 'configure' says there isn't one."
 #endif
 #ifdef HAVE_INTTYPES_H
 #include <inttypes.h>

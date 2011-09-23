@@ -71,13 +71,6 @@ SHL1VERSIONMAP= libtextcat.map
 
 .INCLUDE : target.mk
 
-# copy hand supplied configuration file for Win32 builds to the file
-# which is included in the source code
-$(SLOFILES) : config.h
-config.h :
-    $(GNUCOPY) $(OUT)$/misc$/build$/libtextcat-2.2$/src$/win32_config.h   $(OUT)$/misc$/build$/libtextcat-2.2$/src$/config.h
-
-
 $(MISC)$/$(SHL1TARGET).flt:  makefile.mk
     @echo ------------------------------
     @echo Making: $@

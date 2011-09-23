@@ -67,11 +67,11 @@
 #define _UTF8_
 #endif
 
+#ifndef WNT
 #include "config.h"
-#include <stdio.h>
-#ifdef HAVE_STDLIB_H
-#include <stdlib.h>
 #endif
+#include <stdio.h>
+#include <stdlib.h>
 #ifdef HAVE_STRING_H
 #include <string.h>
 #endif

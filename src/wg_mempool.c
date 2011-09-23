@@ -34,7 +34,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifndef WNT
 #include "config.h"
+#endif
 #ifdef HAVE_STRINGS_H
 #include <strings.h>
 #endif
@@ -58,18 +60,7 @@ typedef struct mempool_s {
 	size_t blocksize;
 } mempool_t;
 
-#ifdef HAVE_MEMSET
 #define wg_memset	memset
-#else
-static void* wg_memset(void* s, int c, size_t n)
-{
-	size_t	i;
-
-	for(i = 0; i < n; i++) s[i] = c;
-
-	return s;
-}
-#endif
 
 static void addblock( mempool_t *h )
 {
