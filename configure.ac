@@ -38,7 +38,7 @@ AC_SUBST(confdir)
 
 dnl Checks for libraries
 AC_CONFIG_FILES([
-libtextcat.pc
+libexttextcat.pc
 Makefile
 langclass/Makefile
 langclass/LM/Makefile
