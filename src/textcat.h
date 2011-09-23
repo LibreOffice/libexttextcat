@@ -88,7 +88,7 @@ extern char *textcat_Classify( void *handle, const char *buffer, size_t size );
 /**
  * textcat_Version() - Returns a string describing the version of this classifier.
  */
-extern char *textcat_Version();
+extern char *textcat_Version(void);
 
 #ifdef __cplusplus
 }

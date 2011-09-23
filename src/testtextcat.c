@@ -103,7 +103,7 @@ int main( int argc, char **argv )
 
 	textcat_Done(h);
 
-	wg_free(buf);
+	free(buf);
 
 	return 0;
 }

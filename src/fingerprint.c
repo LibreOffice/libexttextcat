@@ -336,9 +336,9 @@ static void tabledone( table_t *t )
 		return;
 	}
 	wgmempool_Done(t->pool);
-	wg_free(t->table);
-	wg_free(t->heap);
-	wg_free(t);
+	free(t->table);
+	free(t->heap);
+	free(t);
 }
 
 
@@ -359,13 +359,13 @@ extern void fp_Done( void *handle )
 	fp_t *h = (fp_t *)handle;
 
 	if ( h->name ) {
-		wg_free( (void *)h->name );
+		free( (void *)h->name );
 	}
 	if ( h->fprint ) {
-		wg_free( h->fprint );
+		free( h->fprint );
 	}
 
-	wg_free( h );
+	free( h );
 }
 
 extern const char *fp_Name( void *handle )
@@ -442,7 +442,7 @@ static char *prepbuffer( const char *src, size_t bufsize )
 
 	/*** Docs that are too small for a fingerprint, are refused ***/
 	if ( w - dest < MINDOCSIZE ) {
-		wg_free(dest);
+		free(dest);
 		return NULL;
 	}
 
@@ -576,7 +576,7 @@ extern int fp_Create( void *handle, const char *buffer, uint4 bufsize, uint4 max
 	}
 
 	tabledone(t);
-	wg_free(tmp);
+	free(tmp);
 
 	/*** Sort n-grams alphabetically, for easy comparison ***/
 	qsort( h->fprint, h->size, sizeof(ngram_t), ngramcmp_str );
@@ -659,7 +659,7 @@ extern void fp_Print( void *handle, FILE *fp )
         /*fprintf( fp, "%s\t%i\n", tmp[i].str, tmp[i].rank );*/
                 fprintf( fp, "%s\n", tmp[i].str);
 	}
-	wg_free( tmp );
+	free( tmp );
 }
 
 

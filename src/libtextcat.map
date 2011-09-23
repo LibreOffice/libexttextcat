@@ -25,7 +25,6 @@
 		fp_Read
 		heapextract
 		wg_calloc
-		wg_free
 		wg_getline
 		wg_malloc
 		wg_split

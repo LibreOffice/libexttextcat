@@ -36,9 +36,6 @@
 #include "config.h"
 #endif
 #include <stdio.h>
-#ifdef HAVE_STDLIB_H
-#include <stdlib.h>
-#endif
 #ifdef HAVE_STRINGS_H
 #include <strings.h>
 #endif
@@ -132,13 +129,6 @@ extern void* wg_realloc( void *ptr, size_t size )
 	}
 
 	return( result );
-}
-
-extern void wg_free( void *mem )
-{
-        if ( mem ) {
-                free(mem);
-        }
 }
 
 extern char *wg_getline( char *line, int size, FILE *fp )

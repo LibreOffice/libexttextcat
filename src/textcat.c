@@ -91,16 +91,9 @@ typedef struct {
 
 static int cmpcandidates(const void *a, const void *b)
 {
-	candidate_t *x = (candidate_t *)a;
-	candidate_t *y = (candidate_t *)b;
-
-	if ( x->score < y->score ) {
-		return -1;
-	}
-	if ( x->score > y->score ) {
-		return 1;
-	}
-	return 0;
+	const candidate_t *x = (const candidate_t *)a;
+	const candidate_t *y = (const candidate_t *)b;
+	return ( x->score - y->score );
 }
 
 
@@ -112,9 +105,9 @@ extern void textcat_Done( void *handle )
 	for (i=0; i<h->size; i++) {
 		fp_Done( h->fprint[i] );
 	}
-	wg_free( h->fprint );
-        wg_free( h->fprint_disable );
-	wg_free( h );
+	free( h->fprint );
+        free( h->fprint_disable );
+	free( h );
 
 }
 
@@ -145,12 +138,12 @@ extern void *special_textcat_Init( const char *conffile, const char *prefix )
 	h->size = 0;
 	h->maxsize = 16;
 	h->fprint = (void **)wg_malloc( sizeof(void*) * h->maxsize );
-	h->fprint_disable = (unsigned char *)wg_malloc( sizeof(unsigned char*) * h->maxsize );   /*added to store the state of languages*/
+	h->fprint_disable = (unsigned char *)wg_malloc( sizeof(unsigned char) * h->maxsize );   /*added to store the state of languages*/
 
 	while ( wg_getline( line, 1024, fp ) ) {
 		char *p;
 		char *segment[4];
-                char finger_print_file_name[512];
+		char finger_print_file_name[512 + 1];
                 int res;
 
 		/*** Skip comments ***/
@@ -165,19 +158,23 @@ extern void *special_textcat_Init( const char *conffile, const char *prefix )
 		if ( h->size == h->maxsize ) {
 			h->maxsize *= 2;
 			h->fprint = (void **)wg_realloc( h->fprint, sizeof(void*) * h->maxsize );
-                        h->fprint_disable = (unsigned char *)wg_realloc( h->fprint_disable, sizeof(unsigned char*) * h->maxsize );
+			h->fprint_disable = (unsigned char *)wg_realloc( h->fprint_disable, sizeof(unsigned char) * h->maxsize );
 		}
 
 		/*** Load data ***/
-		if ((h->fprint[ h->size ] = fp_Init( segment[1] ))==NULL) {
+		if ((h->fprint[ h->size ] = fp_Init( segment[1] )) == NULL) {
 			goto BAILOUT;
 		}
-                finger_print_file_name[0] = '\0';
-                strcat(finger_print_file_name, prefix);
-                strcat(finger_print_file_name, segment[0]);
+
+		/*** Check filename overflow ***/
+		finger_print_file_name[0] = finger_print_file_name[512] = '\0';
+		strncat(finger_print_file_name, prefix, 512);
+		strncat(finger_print_file_name, segment[0], 512);
+		if (finger_print_file_name[512] != '\0') {
+			goto BAILOUT;
+		}
 
                 if ( fp_Read( h->fprint[h->size], finger_print_file_name, 400 ) == 0 ) {
-			textcat_Done(h);
 			goto BAILOUT;
 		}
                 h->fprint_disable[h->size] = 0xF0;  /*0xF0 is the code for enabled languages, 0x0F is for disabled*/
@@ -188,6 +185,7 @@ extern void *special_textcat_Init( const char *conffile, const char *prefix )
 	return h;
 
  BAILOUT:
+	textcat_Done(h); /*don't leak h*/
 	fclose(fp);
 	return NULL;
 
@@ -197,15 +195,15 @@ extern void *special_textcat_Init( const char *conffile, const char *prefix )
 extern char *textcat_Classify( void *handle, const char *buffer, size_t size )
 {
 	textcat_t *h = (textcat_t *)handle;
-	uint4 i, cnt = 0;
 	int minscore = MAXSCORE;
 	int threshold = minscore;
 	char *result = h->output;
+	uint4 i, cnt;
 
 #ifdef HAVE_ALLOCA
 	candidate_t *candidates = (candidate_t *)alloca( sizeof(candidate_t) * h->size );
 #else
-	candidate_t *candidates = (candidate_t *)malloc( sizeof(candidate_t) * h->size );
+	candidate_t *candidates = (candidate_t *)wg_malloc( sizeof(candidate_t) * h->size );
 #define SHOULD_FREE 1
 #endif
 
@@ -219,12 +217,12 @@ extern char *textcat_Classify( void *handle, const char *buffer, size_t size )
 	}
 
 	/*** Calculate the score for each category. ***/
-	for (i=0; i<h->size; i++) {
+	for ( i = 0; i < h->size; i++) {
                 int score;
                 if(h->fprint_disable[i] & 0x0F){    /*if this language is disabled*/
                     score = MAXSCORE;
                 }
-                else{
+		else {
                     score = fp_Compare( h->fprint[i], unknown, threshold );
                     /*printf("Score for %s : %i\n", fp_Name(h->fprint[i]), score);*/
                 }
@@ -237,29 +235,29 @@ extern char *textcat_Classify( void *handle, const char *buffer, size_t size )
 	}
 
 	/*** Find the best performers ***/
-	for (i=0; i<h->size; i++) {
+	for ( i = 0, cnt = 0; i < h->size; i++) {
 		if ( candidates[i].score < threshold ) {
-			if ( ++cnt == MAXCANDIDATES+1 ) {
+			if ( ++cnt == MAXCANDIDATES + 1 ) {
 				break;
 			}
 
-			memcpy( &candidates[cnt-1], &candidates[i], sizeof(candidate_t) );
+			memcpy( &candidates[cnt - 1], &candidates[i], sizeof(candidate_t) );
 
 		}
 	}
 
 	/*** The verdict ***/
-	if ( cnt == MAXCANDIDATES+1 ) {
+	if ( cnt == MAXCANDIDATES + 1 ) {
 		result = _TEXTCAT_RESULT_UNKOWN;
 	}
 	else {
+		const char *plimit = result + MAXOUTPUTSIZE;
 		char *p = result;
-		char *plimit = result+MAXOUTPUTSIZE;
 
 		qsort( candidates, cnt, sizeof(candidate_t), cmpcandidates );
 
 		*p = '\0';
-		for (i=0; i<cnt; i++) {
+		for ( i = 0; i < cnt; i++ ) {
 			p = wg_strgmov( p, "[", plimit );
 			p = wg_strgmov( p, candidates[i].name, plimit );
 			p = wg_strgmov( p, "]", plimit );
@@ -275,7 +273,7 @@ extern char *textcat_Classify( void *handle, const char *buffer, size_t size )
 }
 
 
-extern char *textcat_Version()
+extern char *textcat_Version(void)
 {
 #ifdef PACKAGE_VERSION
 	return "TextCat " PACKAGE_VERSION " (" DESCRIPTION ")";

@@ -60,8 +60,6 @@ typedef struct mempool_s {
 	size_t blocksize;
 } mempool_t;
 
-#define wg_memset	memset
-
 static void addblock( mempool_t *h )
 {
 	memblock_t *block;
@@ -109,10 +107,10 @@ extern void wgmempool_Done( void *handle )
 	p = h->first;
 	while (p) {
 		memblock_t *next = p->next;
-		wg_free( p->pool );
+		free( p->pool );
 
-		wg_memset( p, 0, sizeof(memblock_t)); /* for safety */
-		wg_free( p );
+		memset( p, 0, sizeof(memblock_t)); /* for safety */
+		free( p );
 
 		p = next;
 	}
@@ -121,16 +119,16 @@ extern void wgmempool_Done( void *handle )
 	p = h->spare;
 	while (p) {
 		memblock_t *next = p->next;
-		wg_free( p->pool );
+		free( p->pool );
 
-		wg_memset( p, 0, sizeof(memblock_t)); /* for safety */
-		wg_free( p );
+		memset( p, 0, sizeof(memblock_t)); /* for safety */
+		free( p );
 
 		p = next;
 	}
 
-	wg_memset( h, 0, sizeof(mempool_t)); /* for safety */
-	wg_free(h);
+	memset( h, 0, sizeof(mempool_t)); /* for safety */
+	free(h);
 }
 
 extern void wgmempool_Reset( void *handle )

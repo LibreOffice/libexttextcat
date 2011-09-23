@@ -86,7 +86,7 @@ int main()
 	}
 	fp_Print(h,stdout);
 	fp_Done(h);
-	wg_free(buf);
+	free(buf);
 
 	return 0;
 }
