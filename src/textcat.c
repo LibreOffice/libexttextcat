@@ -74,7 +74,7 @@
 typedef struct {
 
 	void **fprint;
-        char *fprint_disable;
+        unsigned char *fprint_disable;
 	uint4 size;
 	uint4 maxsize;
 
@@ -145,7 +145,7 @@ extern void *special_textcat_Init( const char *conffile, const char *prefix )
 	h->size = 0;
 	h->maxsize = 16;
 	h->fprint = (void **)wg_malloc( sizeof(void*) * h->maxsize );
- h->fprint_disable = (char *)wg_malloc( sizeof(char*) * h->maxsize );   /*added to store the state of languages*/
+	h->fprint_disable = (unsigned char *)wg_malloc( sizeof(unsigned char*) * h->maxsize );   /*added to store the state of languages*/
 
 	while ( wg_getline( line, 1024, fp ) ) {
 		char *p;
@@ -170,7 +170,7 @@ extern void *special_textcat_Init( const char *conffile, const char *prefix )
 		if ( h->size == h->maxsize ) {
 			h->maxsize *= 2;
 			h->fprint = (void **)wg_realloc( h->fprint, sizeof(void*) * h->maxsize );
-                        h->fprint_disable = (char *)wg_realloc( h->fprint_disable, sizeof(char*) * h->maxsize );
+                        h->fprint_disable = (unsigned char *)wg_realloc( h->fprint_disable, sizeof(unsigned char*) * h->maxsize );
 		}
 
 		/*** Load data ***/

@@ -1,8 +1,4 @@
-WARNS =		-W -Wall -Wshadow -Wpointer-arith 
-IFLAGS =
-FLAGS =		-D_THREAD_SAFE -D_GNU_SOURCE
-VERBOSE	=	-DVERBOSE
-AM_CFLAGS =	$(IFLAGS) $(VERBOSE) $(WARNS) $(FLAGS)
+AM_CFLAGS =	-D_THREAD_SAFE -D_GNU_SOURCE -DVERBOSE
 AM_LDFLAGS =	-Wl,--as-needed -no-undefined
 
 noinst_HEADERS = \

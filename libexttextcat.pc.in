@@ -4,8 +4,8 @@ libdir=@libdir@
 includedir=@includedir@
 datarootdir=@datarootdir@
 datadir=@datadir@
-pkgdatadir=${datadir}/libexttextcat
-                                                                       
+pkgdatadir=${datarootdir}/libexttextcat
+
 Name: libexttextcat
 Description: Library implementing N-gram-based text categorization
 Version: @VERSION@
