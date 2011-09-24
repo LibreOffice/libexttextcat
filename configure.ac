@@ -29,10 +29,8 @@ AC_HEADER_TIME
 AC_STRUCT_TM
 
 dnl Checks for functions
-AC_FUNC_MALLOC
-AC_FUNC_REALLOC
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([gettimeofday memset strchr strdup strpbrk])
+AC_CHECK_FUNCS([gettimeofday strchr strpbrk])
 
 # ================
 # Check for cflags
