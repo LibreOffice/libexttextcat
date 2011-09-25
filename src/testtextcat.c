@@ -84,7 +84,7 @@ int main( int argc, char **argv )
 
 	printf("%s\n", textcat_Version());
 
-	h = textcat_Init( argc>1?argv[1]:"conf.txt" );
+	h = textcat_Init( argc>1?argv[1]:"fpdb.conf" );
 	if ( !h ) {
 		printf("Unable to init. Aborting.\n");
 		exit(-1);

@@ -11,8 +11,8 @@ language models to start guessing languages. A collection of over 70 language
 models mostly derived from Gertjan van Noord's "TextCat" package is bundled,
 with a matching configuration file, in the langclass directory:
 
-  * cd langclass/
-  * ../src/testtextcat conf.txt
+  * cd langclass/LM
+  * ../../src/testtextcat ../fpdb.conf
   	 
 Paste some text onto the commandline, and watch it get classified.
      
@@ -22,7 +22,7 @@ Classifying the language of a textbuffer can be as easy as:
 
  #include "textcat.h"
  ...
- void *h = textcat_Init( "conf.txt" );
+ void *h = textcat_Init( "fpdb.conf" );
  ...
  printf( "Language: %s\n", textcat_Classify(h, buffer, 400);
  ...
