@@ -50,7 +50,7 @@
 #endif
 
 
-/*
+/* 
  * Is used to jump to the next start of char
  * of course it's only usefull when encoding is utf-8
  * This function have been added by Jocelyn Merand to use libtextcat in OOo
@@ -58,29 +58,29 @@
 int nextcharstart(const char *str, int position);
 
 
-/*Copy the char in str to dest
- * of course it's only usefull when encoding is utf8 and the symbol is encoded with more than 1 char
- * return the number of char jumped
- * This function have been added by Jocelyn Merand to use libtextcat in OOo
- */
+/* Copy the char in str to dest of course it's only usefull when encoding is
+   utf8 and the symbol is encoded with more than 1 char return the number of
+   char jumped This function have been added by Jocelyn Merand to use
+   libtextcat in OOo */
 int charcopy(const char *str, char *dest);
 
 
-/* checks if n-gram lex is a prefix of key and of length len
-* if _UTF8_ is defined, it uses escap characters and len is not realy the length of lex
-* in this case, len is the number of utf-8 char strlen("€") == 3 but len == 1
-*/
-int issame( char *lex, char *key, int len );
+/* checks if n-gram lex is a prefix of key and of length len * if _UTF8_ is
+   defined, it uses escap characters and len is not realy the length of lex *
+   in this case, len is the number of utf-8 char strlen("€") == 3 but len == 
+   1 */
+int issame(char *lex, char *key, int len);
 
 
-/* Counts the number of characters
-* if _UTF8_ is defined, it uses escap characters and the result is not realy the length of str
-* in this case, the result is the number of utf-8 char strlen("€") == 3 but utfstrlen("€") == 1
-*/
+/* Counts the number of characters * if _UTF8_ is defined, it uses escap
+   characters and the result is not realy the length of str * in this case,
+   the result is the number of utf-8 char strlen("€") == 3 but
+   utfstrlen("€") == 1 */
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
-extern int utfstrlen(const char* str);
+    extern int utfstrlen(const char *str);
 #ifdef __cplusplus
 }
 #endif

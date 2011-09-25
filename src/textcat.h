@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 #ifndef _TEXTCAT_H_
 #define _TEXTCAT_H_
-/*
+/* 
  * textcat.h -- routines for categorizing text
  *
  * Copyright (C) 2003 WiseGuys Internet B.V.
@@ -42,7 +42,8 @@
 #define _TEXTCAT_RESULT_SHORT         "SHORT"
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 /**
@@ -59,18 +60,19 @@ extern "C" {
  * Replace older function (and has exacly the same behaviour)
  * see below
  */
-extern void *textcat_Init( const char *conffile );
+    extern void *textcat_Init(const char *conffile);
 
 /**
  * Originaly this function had only one parameter (conffile) it has been modified since OOo must be able to load alternativ DB
  * Basicaly prefix is the directory path where fingerprints are stored
  */
-extern void *special_textcat_Init( const char *conffile, const char *prefix );
+    extern void *special_textcat_Init(const char *conffile,
+                                      const char *prefix);
 
 /**
  * textcat_Done() - Free up resources for handle
  */
-extern void textcat_Done( void *handle );
+    extern void textcat_Done(void *handle);
 
 /**
  * textcat_Classify() - Give the most likely categories for buffer
@@ -84,12 +86,13 @@ extern void textcat_Done( void *handle );
  * for many uses it is not necessary to categorize the whole buffer.
  * For language classification, a few hundred bytes will suffice.  
  */
-extern char *textcat_Classify( void *handle, const char *buffer, size_t size );
+    extern char *textcat_Classify(void *handle, const char *buffer,
+                                  size_t size);
 
 /**
  * textcat_Version() - Returns a string describing the version of this classifier.
  */
-extern char *textcat_Version(void);
+    extern char *textcat_Version(void);
 
 #ifdef __cplusplus
 }

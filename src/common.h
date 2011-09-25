@@ -42,61 +42,65 @@
 #include <stdlib.h>
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 #ifdef _MSC_VER
 #include <winsock2.h>
 
-typedef __int8 int8_t;
-typedef unsigned __int8 uint8_t;
-typedef __int16 int16_t;
-typedef unsigned __int16 uint16_t;
-typedef __int32 int32_t;
-typedef unsigned __int32 uint32_t;
-typedef __int64 int64_t;
-typedef unsigned __int64 uint64_t;
+    typedef __int8 int8_t;
+    typedef unsigned __int8 uint8_t;
+    typedef __int16 int16_t;
+    typedef unsigned __int16 uint16_t;
+    typedef __int32 int32_t;
+    typedef unsigned __int32 uint32_t;
+    typedef __int64 int64_t;
+    typedef unsigned __int64 uint64_t;
 
 #else
 #include <sys/time.h>
 #include <stdint.h>
 #endif
 
-typedef uint32_t        uint4;
-typedef uint16_t        uint2;
-typedef uint8_t         uchar;
+    typedef uint32_t uint4;
+    typedef uint16_t uint2;
+    typedef uint8_t uchar;
 
-typedef int32_t         sint4;
-typedef int16_t         sint2;
-typedef int8_t          schar;
+    typedef int32_t sint4;
+    typedef int16_t sint2;
+    typedef int8_t schar;
 
-typedef int8_t          boole;
+    typedef int8_t boole;
 
-typedef struct wgtimer_s {
+    typedef struct wgtimer_s
+    {
         struct timeval start;
         struct timeval stop;
-} wgtimer_t;
+    } wgtimer_t;
 
 
-extern void *wg_malloc( size_t size );
-extern void *wg_calloc( size_t nmemb, size_t size );
-extern void *wg_zalloc( size_t size );
-extern char* wg_strdup( const char *s );
-extern void* wg_realloc( void *ptr, size_t size ) ;
+    extern void *wg_malloc(size_t size);
+    extern void *wg_calloc(size_t nmemb, size_t size);
+    extern void *wg_zalloc(size_t size);
+    extern char *wg_strdup(const char *s);
+    extern void *wg_realloc(void *ptr, size_t size);
 
-extern char *wg_getline( char *line, int size, FILE *fp );
+    extern char *wg_getline(char *line, int size, FILE * fp);
 
-extern void wg_timerstart(wgtimer_t *t);
-extern uint4 wg_timerstop(wgtimer_t *t);
+    extern void wg_timerstart(wgtimer_t * t);
+    extern uint4 wg_timerstop(wgtimer_t * t);
 
-extern unsigned int wg_split( char **result, char *dest, char *src, int maxsegments );
-extern char *wg_strgmov( char *dest, const char *src, const char *destlimit );
-extern char *wg_trim( char *dest, const char *src );
+    extern unsigned int wg_split(char **result, char *dest, char *src,
+                                 int maxsegments);
+    extern char *wg_strgmov(char *dest, const char *src,
+                            const char *destlimit);
+    extern char *wg_trim(char *dest, const char *src);
 
 #ifdef __cplusplus
 }
 #endif
-      
+
 #endif
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

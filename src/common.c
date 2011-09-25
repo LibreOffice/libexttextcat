@@ -1,5 +1,5 @@
 /* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
-/*
+/* 
  * common.c -- miscellanious helper functions.
  *
  * Copyright (c) 2003, WiseGuys Internet B.V.
@@ -47,110 +47,121 @@
 #include <ctype.h>
 #include "common_impl.h"
 
-extern void wgmem_error( const char *fmt, ... )
+extern void wgmem_error(const char *fmt, ...)
 {
-        va_list ap;
+    va_list ap;
 
-	fprintf(stderr, "MEMERROR : ");
-        va_start(ap, fmt);
-        vfprintf(stderr, fmt, ap);
-        va_end(ap);
+    fprintf(stderr, "MEMERROR : ");
+    va_start(ap, fmt);
+    vfprintf(stderr, fmt, ap);
+    va_end(ap);
 }
 
-
-extern void *wg_malloc( size_t size )
+extern void *wg_malloc(size_t size)
 {
-	void *result;
-	if ( !size ) {
-		wgmem_error( "Error mallocing 0 bytes.\n" );
-	}
+    void *result;
+    if (!size)
+    {
+        wgmem_error("Error mallocing 0 bytes.\n");
+    }
 
-	result = malloc( size );
-	if ( !result ) {
-		wgmem_error( "Error while mallocing %u bytes.\n", size );
-	}
+    result = malloc(size);
+    if (!result)
+    {
+        wgmem_error("Error while mallocing %u bytes.\n", size);
+    }
 
-	return result;
+    return result;
 }
 
-extern void *wg_calloc( size_t nmemb, size_t size )
+extern void *wg_calloc(size_t nmemb, size_t size)
 {
-	void *result;
-	if ( !size || !nmemb ) {
-		wgmem_error( "Error callocing 0 bytes.\n" );
-	}
+    void *result;
+    if (!size || !nmemb)
+    {
+        wgmem_error("Error callocing 0 bytes.\n");
+    }
 
-	result = calloc( nmemb, size );
-	if ( !result ) {
-		wgmem_error( "Error while callocing %u elements of %u bytes.\n", nmemb, size);
-	}
+    result = calloc(nmemb, size);
+    if (!result)
+    {
+        wgmem_error("Error while callocing %u elements of %u bytes.\n", nmemb,
+                    size);
+    }
 
-	return result;
+    return result;
 }
 
-extern void *wg_zalloc( size_t size )
+extern void *wg_zalloc(size_t size)
 {
-	void *result;
+    void *result;
 
-	if (!size) {
-		wgmem_error( "Error zallocing 0 bytes.\n" );
-	}
+    if (!size)
+    {
+        wgmem_error("Error zallocing 0 bytes.\n");
+    }
 
-	result = calloc(1, size);
-	if ( !result ) {
-		wgmem_error( "Error while zallocing %u bytes.\n", size );
-	}
+    result = calloc(1, size);
+    if (!result)
+    {
+        wgmem_error("Error while zallocing %u bytes.\n", size);
+    }
 
-	return result;
+    return result;
 }
 
-extern char* wg_strdup( const char *s )
+extern char *wg_strdup(const char *s)
 {
-	char *result = strdup( s );
+    char *result = strdup(s);
 
-	if ( !result ) {
-		wgmem_error( "Error while strduping %u bytes.\n", strlen(s) );
-	}
+    if (!result)
+    {
+        wgmem_error("Error while strduping %u bytes.\n", strlen(s));
+    }
 
-	return( result );
+    return (result);
 }
 
-extern void* wg_realloc( void *ptr, size_t size )
+extern void *wg_realloc(void *ptr, size_t size)
 {
-	void *result;
+    void *result;
 
-	if (!size) {
-		wgmem_error( "Error reallocing 0 bytes.\n" );
-	}
+    if (!size)
+    {
+        wgmem_error("Error reallocing 0 bytes.\n");
+    }
 
-	result = realloc( ptr, size );
+    result = realloc(ptr, size);
 
-	if ( !result ) {
-		wgmem_error( "Error while reallocing %u bytes.\n", size );
-	}
+    if (!result)
+    {
+        wgmem_error("Error while reallocing %u bytes.\n", size);
+    }
 
-	return( result );
+    return (result);
 }
 
-extern char *wg_getline( char *line, int size, FILE *fp )
+extern char *wg_getline(char *line, int size, FILE * fp)
 {
-        char *p;
+    char *p;
 
-        if ( fgets(line, size, fp) == NULL ) {
-		return NULL;
-	}
+    if (fgets(line, size, fp) == NULL)
+    {
+        return NULL;
+    }
 
         /** kill term null **/
-        if ( (p = strpbrk( line, "\n\r" )) ) {
-                *p = '\0';
-        }
+    if ((p = strpbrk(line, "\n\r")))
+    {
+        *p = '\0';
+    }
 
-        return line;
+    return line;
 }
 
 
 
-/*
+/* 
  * wg_split: split a line into segments, using whitespace-sequences as separators.
  *
  * ARGUMENTS:
@@ -191,120 +202,135 @@ extern char *wg_getline( char *line, int size, FILE *fp )
  * RETURN VALUE:
  * The number of segments found.
  */
-unsigned int wg_split( char **result, char *dest, char *src, int maxsegments )
+unsigned int wg_split(char **result, char *dest, char *src, int maxsegments)
 {
-	char *p = src;
-	char *w = dest;
-	int cnt = 0;
-	int state=0;
+    char *p = src;
+    char *w = dest;
+    int cnt = 0;
+    int state = 0;
 
-	if ( maxsegments == 0 ) {
-		return 0;
-	}
+    if (maxsegments == 0)
+    {
+        return 0;
+    }
 
-	maxsegments--;
+    maxsegments--;
 
-	while (cnt < maxsegments && *p) {
+    while (cnt < maxsegments && *p)
+    {
 
-		switch (state) {
-		case 0:
-			/*** Skip spaces ***/
-			while ( isspace((unsigned char) *p) ) {
-				p++;
-			}
-			state = 1;
+        switch (state)
+        {
+        case 0:
+            /*** Skip spaces ***/
+            while (isspace((unsigned char)*p))
+            {
+                p++;
+            }
+            state = 1;
 
-		case 1:
-			/*** Start segment ***/
-			result[cnt] = w;
-			cnt++;
-			state = 2;
+        case 1:
+            /*** Start segment ***/
+            result[cnt] = w;
+            cnt++;
+            state = 2;
 
-		case 2:
-			/*** Unquoted segment ***/
-			while (*p) {
-				if ( isspace((unsigned char) *p) ) {
-					*w++ = '\0';
-					p++;
-					state = 0;
-					break;
-				}
-				else if ( *p == '\'' ) {
-					/*** Start quotation ***/
-					p++;
-					state = 3;
-					break;
-				}
-				else if ( *p == '\\' && p[1] ) {
-					/*** Escape ***/
-					p++;
-					*w++ = *p++;
-				}
-				else {
-					*w++ = *p++;
-				}
-			}
-			break;
+        case 2:
+            /*** Unquoted segment ***/
+            while (*p)
+            {
+                if (isspace((unsigned char)*p))
+                {
+                    *w++ = '\0';
+                    p++;
+                    state = 0;
+                    break;
+                }
+                else if (*p == '\'')
+                {
+                    /*** Start quotation ***/
+                    p++;
+                    state = 3;
+                    break;
+                }
+                else if (*p == '\\' && p[1])
+                {
+                    /*** Escape ***/
+                    p++;
+                    *w++ = *p++;
+                }
+                else
+                {
+                    *w++ = *p++;
+                }
+            }
+            break;
 
-		case 3:
-			/*** Inside quotes ***/
-			while (*p) {
-				if (*p == '\'') {
-					p++;
-					break;
-				}
-				else if ( *p == '\\' && p[1] ) {
-					/*** Escape ***/
-					p++;
-					*w++ = *p++;
-				}
-				else {
-					*w++ = *p++;
-				}
-			}
-			state = 2;
-			break;
+        case 3:
+            /*** Inside quotes ***/
+            while (*p)
+            {
+                if (*p == '\'')
+                {
+                    p++;
+                    break;
+                }
+                else if (*p == '\\' && p[1])
+                {
+                    /*** Escape ***/
+                    p++;
+                    *w++ = *p++;
+                }
+                else
+                {
+                    *w++ = *p++;
+                }
+            }
+            state = 2;
+            break;
 
-		}
-	}
+        }
+    }
 
-	if ( !*p ) {
-		*w = '\0';
-		return cnt;
-	}
+    if (!*p)
+    {
+        *w = '\0';
+        return cnt;
+    }
 
-	/*** We ran out of segments; copy the remainder of the string into last segment ***/
-	result[cnt++] = w;
-	while (*p) {
-		*w++ = *p++;
-	}
-	*w = '\0';
-	return cnt;
+    /*** We ran out of segments; copy the remainder of the string into last segment ***/
+    result[cnt++] = w;
+    while (*p)
+    {
+        *w++ = *p++;
+    }
+    *w = '\0';
+    return cnt;
 }
 
 
-#ifdef HAVE_GETTIMEOFDAY    /* TL : no struct timeval under Win32 */
-extern void wg_timerstart(wgtimer_t *t)
+#ifdef HAVE_GETTIMEOFDAY        /* TL : no struct timeval under Win32 */
+extern void wg_timerstart(wgtimer_t * t)
 {
-        gettimeofday( &(t->start), NULL );
+    gettimeofday(&(t->start), NULL);
 }
-#endif  /* TL : no struct timeval under Win32 */
+#endif /* TL : no struct timeval under Win32 */
 
 
-#ifdef HAVE_GETTIMEOFDAY    /* TL : no struct timeval under Win32 */
-extern uint4 wg_timerstop(wgtimer_t *t)
+#ifdef HAVE_GETTIMEOFDAY        /* TL : no struct timeval under Win32 */
+extern uint4 wg_timerstop(wgtimer_t * t)
 {
-	uint4 result;
-        gettimeofday( &(t->stop), NULL );
-        result = (t->stop.tv_sec - t->start.tv_sec) * 1000000 +
-                 (t->stop.tv_usec - t->start.tv_usec);
+    uint4 result;
+    gettimeofday(&(t->stop), NULL);
+    result = (t->stop.tv_sec - t->start.tv_sec) * 1000000 +
+        (t->stop.tv_usec - t->start.tv_usec);
 
-	t->start.tv_sec = t->stop.tv_sec;
-	t->start.tv_usec = t->stop.tv_usec;
+    t->start.tv_sec = t->stop.tv_sec;
+    t->start.tv_usec = t->stop.tv_usec;
 
-	return result;
+    return result;
 }
-#endif  /* TL : no struct timeval under Win32 */
+#endif /* TL : no struct timeval under Win32 */
 
 
 /**
@@ -316,34 +342,37 @@ extern uint4 wg_timerstop(wgtimer_t *t)
  * finished, the function returns NULL after restoring the first
  * character in dest for your convenience (since this is usually a zero).
  */
-char *wg_strgmov( char *dest, const char *src, const char *destlimit )
+char *wg_strgmov(char *dest, const char *src, const char *destlimit)
 {
-	char tmp, *w;
+    char tmp, *w;
 
-	if ( !dest || dest >= destlimit ) {
-		return NULL;
-	}
+    if (!dest || dest >= destlimit)
+    {
+        return NULL;
+    }
 
-	tmp = *dest;
-	w = dest;
+    tmp = *dest;
+    w = dest;
 
-	while ( *src ) {
+    while (*src)
+    {
 
-		*w++ = *src++;
+        *w++ = *src++;
 
-		if ( w == destlimit ) {
-			/*** restore old situation ***/
-			*dest = tmp;
-			return NULL;
-		}
-	}
+        if (w == destlimit)
+        {
+            /*** restore old situation ***/
+            *dest = tmp;
+            return NULL;
+        }
+    }
 
-	*w = '\0';
-	return w;
+    *w = '\0';
+    return w;
 
 }
 
-/*
+/* 
  * wg_trim() -- remove whitespace surrounding a string.
  *
  * Example: "   bla   bla   bla   " becomes "bla   bla   bla" after trimming.
@@ -357,38 +386,41 @@ char *wg_strgmov( char *dest, const char *src, const char *destlimit )
  * RETURNS:
  * dest
  */
-char *wg_trim( char *dest, const char *src )
+char *wg_trim(char *dest, const char *src)
 {
-	char *lastnonspace = &dest[-1];
-	const char *p = src;
-	char *w = dest;
+    char *lastnonspace = &dest[-1];
+    const char *p = src;
+    char *w = dest;
 
-	while ( isspace((unsigned char)*p) ) {
-		p++;
-	}
-	while (*p) {
-		if ( !isspace((unsigned char)*p) ) {
-			lastnonspace = w;
-		}
-		*w++ = *p++;
-	}
-	lastnonspace[1] = '\0';
+    while (isspace((unsigned char)*p))
+    {
+        p++;
+    }
+    while (*p)
+    {
+        if (!isspace((unsigned char)*p))
+        {
+            lastnonspace = w;
+        }
+        *w++ = *p++;
+    }
+    lastnonspace[1] = '\0';
 
-	return dest;
+    return dest;
 }
 
-void * rpl_malloc (size_t n)
+void *rpl_malloc(size_t n)
 {
-	if (n == 0)
-		n = 1;
-	return malloc (n);
+    if (n == 0)
+        n = 1;
+    return malloc(n);
 }
 
-void * rpl_realloc (void *ptr, size_t n)
+void *rpl_realloc(void *ptr, size_t n)
 {
-	if (n == 0)
-		n = 1;
-	return realloc (ptr, n);
+    if (n == 0)
+        n = 1;
+    return realloc(ptr, n);
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

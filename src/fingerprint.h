@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 #ifndef _FINGERPRINT_H_
 #define _FINGERPRINT_H_
-/*
+/* 
  * Copyright (C) 2003 WiseGuys Internet B.V.
  *
  * THE BSD LICENSE
@@ -37,23 +37,26 @@
 #include "common.h"
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-extern void *fp_Init(const char *name);
-extern void fp_Done( void *handle );
-extern int fp_Create( void *handle, const char *buffer, uint4 bufsize, uint4 maxngrams );
-extern int fp_Read( void *handle, const char *fname, int maxngrams );
-extern sint4 fp_Compare( void *cat, void *unknown, int cutoff );
-extern void fp_Show( void *handle );
+    extern void *fp_Init(const char *name);
+    extern void fp_Done(void *handle);
+    extern int fp_Create(void *handle, const char *buffer, uint4 bufsize,
+                         uint4 maxngrams);
+    extern int fp_Read(void *handle, const char *fname, int maxngrams);
+    extern sint4 fp_Compare(void *cat, void *unknown, int cutoff);
+    extern void fp_Show(void *handle);
 #ifdef __cplusplus
-extern "C" {
+    extern "C"
+    {
 #endif
-extern const char *fp_Name( void *handle );
+        extern const char *fp_Name(void *handle);
 #ifdef __cplusplus
-}
+    }
 #endif
-extern void fp_Print( void *handle, FILE *fp );
+    extern void fp_Print(void *handle, FILE * fp);
 
 #ifdef __cplusplus
 }

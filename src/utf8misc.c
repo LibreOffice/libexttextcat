@@ -39,43 +39,68 @@
 #endif
 
 
-int nextcharstart(const char *str, int position){
+int nextcharstart(const char *str, int position)
+{
     int pointer = position;
 
-    if(str[pointer] & ESCAPE_MASK){ /*if the first bit of the current char is 1*/
+    if (str[pointer] & ESCAPE_MASK)
+    {                           /* if the first bit of the current char is 1 */
 
-        /*then str[pointer] is an escape character*/
+        /* then str[pointer] is an escape character */
 
-    char escape_char = ((str[pointer] & WEIGHT_MASK) << 1); /*and we use it to count (by bit translation) following characters (only the weightest part)*/
+        char escape_char = ((str[pointer] & WEIGHT_MASK) << 1); /* and we use
+                                                                   it to count 
+                                                                   (by bit
+                                                                   translation) 
+                                                                   following
+                                                                   characters
+                                                                   (only the
+                                                                   weightest
+                                                                   part) */
 
-    while(escape_char & ESCAPE_MASK && str[pointer]){/*every step, we move the byte of 1 bit left, when first bit is 0, it's finished*/
-        escape_char = escape_char <<1;
-        ++pointer;
+        while (escape_char & ESCAPE_MASK && str[pointer])
+        {                       /* every step, we move the byte of 1 bit left, 
+                                   when first bit is 0, it's finished */
+            escape_char = escape_char << 1;
+            ++pointer;
+        }
     }
-    }
-    if(str[pointer]){   /*finaly, if we are not on the \0 character, we jump to the next character*/
+    if (str[pointer])
+    {                           /* finaly, if we are not on the \0 character,
+                                   we jump to the next character */
         ++pointer;
     }
     return pointer;
 }
 
 
-int charcopy(const char *str, char *dest){
+int charcopy(const char *str, char *dest)
+{
 
     int pointer = 0;
-    if(str[pointer] & ESCAPE_MASK){ /*if the first bit of the current char is 1*/
+    if (str[pointer] & ESCAPE_MASK)
+    {                           /* if the first bit of the current char is 1 */
 
-        /*then str[pointer] is an escape character*/
+        /* then str[pointer] is an escape character */
 
-        char escape_char = ((str[pointer] & WEIGHT_MASK) << 1); /*and we use it to count following characters (only the weightest part)*/
+        char escape_char = ((str[pointer] & WEIGHT_MASK) << 1); /* and we use
+                                                                   it to count 
+                                                                   following
+                                                                   characters
+                                                                   (only the
+                                                                   weightest
+                                                                   part) */
 
-        while(escape_char & ESCAPE_MASK && str[pointer]){   /*every step, we move the byte of 1 bit left, when first bit is 0, it's finished*/
+        while (escape_char & ESCAPE_MASK && str[pointer])
+        {                       /* every step, we move the byte of 1 bit left, 
+                                   when first bit is 0, it's finished */
             dest[pointer] = str[pointer];
-            escape_char = escape_char <<1;
+            escape_char = escape_char << 1;
             ++pointer;
         }
     }
-    if(str[pointer]){
+    if (str[pointer])
+    {
         dest[pointer] = str[pointer];
         ++pointer;
     }
@@ -84,49 +109,63 @@ int charcopy(const char *str, char *dest){
 }
 
 
-int issame( char *lex, char *key, int len )
+int issame(char *lex, char *key, int len)
 {
-    /*printf("[%s] prefix of [%s] with length %i", lex, key, len);*/
+    /* printf("[%s] prefix of [%s] with length %i", lex, key, len); */
     int char_counter = 0;
     int pointer = 0;
-    while(char_counter < len) {
+    while (char_counter < len)
+    {
 
-        if(key[pointer] & ESCAPE_MASK){ /*if the first bit of the current char is 1*/
+        if (key[pointer] & ESCAPE_MASK)
+        {                       /* if the first bit of the current char is 1 */
 
-            /*then key[pointer] is an escap character*/
+            /* then key[pointer] is an escap character */
 
-            char escape_char = ((key[pointer] & WEIGHT_MASK) << 1);     /*and we use it to count (only the weightest part)*/
+            char escape_char = ((key[pointer] & WEIGHT_MASK) << 1); /* and we
+                                                                       use it
+                                                                       to
+                                                                       count
+                                                                       (only
+                                                                       the
+                                                                       weightest 
+                                                                       part) */
 
-            while(escape_char & ESCAPE_MASK && key[pointer] == lex[pointer] ){
-                escape_char = escape_char <<1;
+            while (escape_char & ESCAPE_MASK && key[pointer] == lex[pointer])
+            {
+                escape_char = escape_char << 1;
                 ++pointer;
             }
         }
-        ++char_counter; /*and we are on a new utf8 character*/
-        if ( key[pointer] != lex[pointer] ) {
+        ++char_counter;         /* and we are on a new utf8 character */
+        if (key[pointer] != lex[pointer])
+        {
             return 0;
-            /*printf(" NO\n", lex, key, len);*/
+            /* printf(" NO\n", lex, key, len); */
         }
         ++pointer;
     }
-    if ( lex[pointer] != '\0' ) {
+    if (lex[pointer] != '\0')
+    {
         return 0;
-        /*printf(" NO\n");*/
+        /* printf(" NO\n"); */
     }
 
-    /*printf(" YES\n");*/
+    /* printf(" YES\n"); */
 
     return 1;
 }
 
 
-extern int utfstrlen(const char* str){
+extern int utfstrlen(const char *str)
+{
     int char_counter = 0;
     int pointer = 0;
-    while(str[pointer]) {
+    while (str[pointer])
+    {
         pointer = nextcharstart(str, pointer);
 
-        ++char_counter; /*and we are on a new utf8 character*/
+        ++char_counter;         /* and we are on a new utf8 character */
     }
     return char_counter;
 }

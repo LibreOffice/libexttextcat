@@ -1,5 +1,5 @@
 /* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
-/*
+/* 
  * createfprint.c - can be used to create a fingerprint of a document.
  *
  * Copyright (c) 2003, WiseGuys Internet B.V.
@@ -49,47 +49,51 @@
 
 #define BLOCKSIZE 4096
 
-char *myread(FILE *fp)
+char *myread(FILE * fp)
 {
-	char *buf;
-	size_t size = 0;
-	size_t maxsize = BLOCKSIZE*2;
+    char *buf;
+    size_t size = 0;
+    size_t maxsize = BLOCKSIZE * 2;
 
-	buf = (char *)wg_malloc( maxsize );
-	do {
-		size_t hasread = fread( buf+size, 1, BLOCKSIZE, fp );
-		size += hasread;
-		if ( size + BLOCKSIZE > maxsize ) {
-			maxsize *= 2;
-			buf = (char *)wg_realloc( buf, maxsize );
-		}
+    buf = (char *)wg_malloc(maxsize);
+    do
+    {
+        size_t hasread = fread(buf + size, 1, BLOCKSIZE, fp);
+        size += hasread;
+        if (size + BLOCKSIZE > maxsize)
+        {
+            maxsize *= 2;
+            buf = (char *)wg_realloc(buf, maxsize);
+        }
 
-	} while (!feof(stdin));
+    }
+    while (!feof(stdin));
 
-	buf[size] = '\0';
-	buf = (char *)wg_realloc( buf, size+1 );
+    buf[size] = '\0';
+    buf = (char *)wg_realloc(buf, size + 1);
 
-	return buf;
+    return buf;
 }
 
 
 int main()
 {
-	void *h;
-	char *buf;
+    void *h;
+    char *buf;
 
-	buf = myread(stdin);
+    buf = myread(stdin);
 
-	h = fp_Init(NULL);
-	if ( fp_Create( h, buf, strlen(buf), 400 ) == 0 ) {
-		fprintf(stderr, "There was an error creating the fingerprint\n");
-		exit(-1);
-	}
-	fp_Print(h,stdout);
-	fp_Done(h);
-	free(buf);
+    h = fp_Init(NULL);
+    if (fp_Create(h, buf, strlen(buf), 400) == 0)
+    {
+        fprintf(stderr, "There was an error creating the fingerprint\n");
+        exit(-1);
+    }
+    fp_Print(h, stdout);
+    fp_Done(h);
+    free(buf);
 
-	return 0;
+    return 0;
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

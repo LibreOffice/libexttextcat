@@ -1,5 +1,5 @@
 /* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
-/*
+/* 
  * testtextcat.c -- a simple commandline classifier. Feed it input on
  * standard in and it will feed you a classification on standard out.
  *
@@ -52,61 +52,65 @@
 
 #define BLOCKSIZE 4096
 
-char *myread(FILE *fp)
+char *myread(FILE * fp)
 {
-	char *buf;
-	size_t size = 0;
-	size_t maxsize = BLOCKSIZE*2;
+    char *buf;
+    size_t size = 0;
+    size_t maxsize = BLOCKSIZE * 2;
 
-	buf = (char *)wg_malloc( maxsize );
-	do {
-		size_t hasread = fread( buf+size, 1, BLOCKSIZE, fp );
-		size += hasread;
-		if ( size + BLOCKSIZE > maxsize ) {
-			maxsize *= 2;
-			buf = (char *)wg_realloc( buf, maxsize );
-		}
+    buf = (char *)wg_malloc(maxsize);
+    do
+    {
+        size_t hasread = fread(buf + size, 1, BLOCKSIZE, fp);
+        size += hasread;
+        if (size + BLOCKSIZE > maxsize)
+        {
+            maxsize *= 2;
+            buf = (char *)wg_realloc(buf, maxsize);
+        }
 
-	} while (!feof(stdin));
+    }
+    while (!feof(stdin));
 
-	buf[size] = '\0';
-	buf = (char *)wg_realloc( buf, size+1 );
+    buf[size] = '\0';
+    buf = (char *)wg_realloc(buf, size + 1);
 
-	return buf;
+    return buf;
 }
 
 
-int main( int argc, char **argv )
+int main(int argc, char **argv)
 {
-	void *h;
-	char *result;
-	wgtimer_t tm;
-	char *buf;
+    void *h;
+    char *result;
+    wgtimer_t tm;
+    char *buf;
 
-	printf("%s\n", textcat_Version());
+    printf("%s\n", textcat_Version());
 
-	h = textcat_Init( argc>1?argv[1]:"fpdb.conf" );
-	if ( !h ) {
-		printf("Unable to init. Aborting.\n");
-		exit(-1);
-	}
+    h = textcat_Init(argc > 1 ? argv[1] : "fpdb.conf");
+    if (!h)
+    {
+        printf("Unable to init. Aborting.\n");
+        exit(-1);
+    }
 
-	buf = myread(stdin);
+    buf = myread(stdin);
 
-	wg_timerstart(&tm);
+    wg_timerstart(&tm);
 
-	/*** We only need a little text to determine the language ***/
-	buf[1024] = '\0';
-	result = textcat_Classify( h, buf, strlen(buf)+1 );
-	printf("Result == %s\n", result);
-	
-	fprintf(stderr, "That took %u ms.\n", wg_timerstop(&tm)/1000);
+    /*** We only need a little text to determine the language ***/
+    buf[1024] = '\0';
+    result = textcat_Classify(h, buf, strlen(buf) + 1);
+    printf("Result == %s\n", result);
 
-	textcat_Done(h);
+    fprintf(stderr, "That took %u ms.\n", wg_timerstop(&tm) / 1000);
 
-	free(buf);
+    textcat_Done(h);
 
-	return 0;
+    free(buf);
+
+    return 0;
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
