@@ -19,4 +19,8 @@ check_PROGRAMS =	testtextcat
 testtextcat_SOURCES =	testtextcat.c
 testtextcat_LDADD =	libtextcat.la
 
-EXTRA_DIST = libtextcat.map makefile.mk
+EXTRA_DIST = libtextcat.map makefile.mk test.sh \
+	gd.test
+
+TESTS = \
+	gd.test
