@@ -20,11 +20,13 @@ testtextcat_SOURCES =	testtextcat.c
 testtextcat_LDADD =	libtextcat.la
 
 EXTRA_DIST = libtextcat.map makefile.mk test.sh \
+	af.test \
 	de.test \
 	ga.test \
 	gd.test
 
 TESTS = \
+	af.test \
 	de.test \
 	ga.test \
 	gd.test
