@@ -41,8 +41,6 @@
 
 #define _UTF8_
 
-#define DESCRIPTION "out of place"
-
 /* Reported matches are those fingerprints with a score less than best
  * score * THRESHOLDVALUE (i.e. a THRESHOLDVALUE of 1.03 means matches
  * must score within 3% from the best score.)  

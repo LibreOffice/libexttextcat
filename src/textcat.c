@@ -276,7 +276,7 @@ extern char *textcat_Classify( void *handle, const char *buffer, size_t size )
 extern char *textcat_Version(void)
 {
 #ifdef PACKAGE_VERSION
-	return "TextCat " PACKAGE_VERSION " (" DESCRIPTION ")";
+	return "TextCat " PACKAGE_VERSION;
 #else
 	return "TextCat ";
 #endif
