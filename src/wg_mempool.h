@@ -1,3 +1,4 @@
+/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 #ifndef _WGMEMPOOL_H_
 #define _WGMEMPOOL_H_
 
@@ -142,3 +143,4 @@ extern char *wgmempool_strdup( void *handle, const char* str );
 
 #endif
 
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */

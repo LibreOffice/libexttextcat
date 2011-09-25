@@ -1,3 +1,4 @@
+/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 /*
  * wg_mempool.c -- Functions for managing a memory pool. 
  *
@@ -237,3 +238,4 @@ extern char *wgmempool_getline( void *handle, size_t size, FILE *fp )
 }
 
 
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */

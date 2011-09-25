@@ -1,3 +1,4 @@
+/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 /*
  * createfprint.c - can be used to create a fingerprint of a document.
  *
@@ -90,3 +91,5 @@ int main()
 
 	return 0;
 }
+
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */

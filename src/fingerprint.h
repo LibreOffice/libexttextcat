@@ -1,3 +1,4 @@
+/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 #ifndef _FINGERPRINT_H_
 #define _FINGERPRINT_H_
 /*
@@ -59,3 +60,5 @@ extern void fp_Print( void *handle, FILE *fp );
 #endif
 
 #endif
+
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */

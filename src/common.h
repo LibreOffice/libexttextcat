@@ -1,3 +1,4 @@
+/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 #ifndef _COMMON_H_
 #define _COMMON_H_
 /**
@@ -97,3 +98,5 @@ extern char *wg_trim( char *dest, const char *src );
 #endif
       
 #endif
+
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */

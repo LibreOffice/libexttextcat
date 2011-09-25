@@ -1,3 +1,4 @@
+/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 /**
  * fingerprint.c -- Routines for creating an n-gram fingerprint of a
  * buffer.
@@ -711,3 +712,4 @@ extern sint4 fp_Compare( void *cat, void *unknown, int cutoff )
 }
 
 
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */

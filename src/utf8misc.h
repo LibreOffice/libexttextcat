@@ -1,3 +1,4 @@
+/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 /***************************************************************************
  *   Copyright (C) 2006 by Jocelyn Merand                                  *
  *   joc.mer@gmail.com                                                     *
@@ -86,3 +87,4 @@ extern int utfstrlen(const char* str);
 
 #endif
 
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */

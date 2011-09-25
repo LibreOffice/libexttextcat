@@ -1,3 +1,4 @@
+/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 /**
  * textcat.c -- routines for categorizing text
  *
@@ -281,3 +282,5 @@ extern char *textcat_Version(void)
 	return "TextCat ";
 #endif
 }
+
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */

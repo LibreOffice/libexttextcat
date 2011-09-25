@@ -1,3 +1,4 @@
+/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 /*
  * common.c -- miscellanious helper functions.
  *
@@ -389,3 +390,5 @@ void * rpl_realloc (void *ptr, size_t n)
 		n = 1;
 	return realloc (ptr, n);
 }
+
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */

@@ -1,3 +1,4 @@
+/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 #ifndef _TEXTCAT_H_
 #define _TEXTCAT_H_
 /*
@@ -94,3 +95,5 @@ extern char *textcat_Version(void);
 }
 #endif
 #endif
+
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */

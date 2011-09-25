@@ -1,3 +1,4 @@
+/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 #ifndef _CONSTANTS_H_
 #define _CONSTANTS_H_
 
@@ -87,3 +88,5 @@
 #define DEFAULT_FINGERPRINTS_PATH ""
 
 #endif
+
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */
