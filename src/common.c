@@ -308,31 +308,6 @@ unsigned int wg_split(char **result, char *dest, char *src, int maxsegments)
     return cnt;
 }
 
-
-#ifdef HAVE_GETTIMEOFDAY        /* TL : no struct timeval under Win32 */
-extern void wg_timerstart(wgtimer_t * t)
-{
-    gettimeofday(&(t->start), NULL);
-}
-#endif /* TL : no struct timeval under Win32 */
-
-
-#ifdef HAVE_GETTIMEOFDAY        /* TL : no struct timeval under Win32 */
-extern uint4 wg_timerstop(wgtimer_t * t)
-{
-    uint4 result;
-    gettimeofday(&(t->stop), NULL);
-    result = (t->stop.tv_sec - t->start.tv_sec) * 1000000 +
-        (t->stop.tv_usec - t->start.tv_usec);
-
-    t->start.tv_sec = t->stop.tv_sec;
-    t->start.tv_usec = t->stop.tv_usec;
-
-    return result;
-}
-#endif /* TL : no struct timeval under Win32 */
-
-
 /**
  * wg_strgmov -- a guarded strcpy() variation
  *

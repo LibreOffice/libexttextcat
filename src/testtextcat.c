@@ -83,7 +83,6 @@ int main(int argc, char **argv)
 {
     void *h;
     char *result;
-    wgtimer_t tm;
     char *buf;
 
     printf("%s\n", textcat_Version());
@@ -97,14 +96,10 @@ int main(int argc, char **argv)
 
     buf = myread(stdin);
 
-    wg_timerstart(&tm);
-
     /*** We only need a little text to determine the language ***/
     buf[1024] = '\0';
     result = textcat_Classify(h, buf, strlen(buf) + 1);
     printf("Result == %s\n", result);
-
-    fprintf(stderr, "That took %u ms.\n", wg_timerstop(&tm) / 1000);
 
     textcat_Done(h);
 

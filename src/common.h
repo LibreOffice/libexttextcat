@@ -47,8 +47,6 @@ extern "C"
 #endif
 
 #ifdef _MSC_VER
-#include <winsock2.h>
-
     typedef __int8 int8_t;
     typedef unsigned __int8 uint8_t;
     typedef __int16 int16_t;
@@ -57,10 +55,8 @@ extern "C"
     typedef unsigned __int32 uint32_t;
     typedef __int64 int64_t;
     typedef unsigned __int64 uint64_t;
-
 #else
-#include <sys/time.h>
-#include <stdint.h>
+#   include <stdint.h>
 #endif
 
     typedef uint32_t uint4;
@@ -73,13 +69,6 @@ extern "C"
 
     typedef int8_t boole;
 
-    typedef struct wgtimer_s
-    {
-        struct timeval start;
-        struct timeval stop;
-    } wgtimer_t;
-
-
     extern void *wg_malloc(size_t size);
     extern void *wg_calloc(size_t nmemb, size_t size);
     extern void *wg_zalloc(size_t size);
@@ -87,9 +76,6 @@ extern "C"
     extern void *wg_realloc(void *ptr, size_t size);
 
     extern char *wg_getline(char *line, int size, FILE * fp);
-
-    extern void wg_timerstart(wgtimer_t * t);
-    extern uint4 wg_timerstop(wgtimer_t * t);
 
     extern unsigned int wg_split(char **result, char *dest, char *src,
                                  int maxsegments);
