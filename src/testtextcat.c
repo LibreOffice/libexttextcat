@@ -84,13 +84,13 @@ int main(int argc, char **argv)
     void *h;
     char *result;
     char *buf;
+    const char *conf;
 
-    printf("%s\n", textcat_Version());
-
-    h = textcat_Init(argc > 1 ? argv[1] : "fpdb.conf");
+    conf = argc > 1 ? argv[1] : "fpdb.conf";
+    h = textcat_Init(conf);
     if (!h)
     {
-        printf("Unable to init. Aborting.\n");
+        fprintf(stderr, "Unable to init using '%s', Aborting.\n", conf);
         exit(-1);
     }
 
@@ -99,7 +99,7 @@ int main(int argc, char **argv)
     /*** We only need a little text to determine the language ***/
     buf[1024] = '\0';
     result = textcat_Classify(h, buf, strlen(buf) + 1);
-    printf("Result == %s\n", result);
+    printf("%s\n", result);
 
     textcat_Done(h);
 
