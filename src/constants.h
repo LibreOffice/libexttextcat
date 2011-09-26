@@ -40,8 +40,6 @@
  */
 #include <limits.h>
 
-#define _UTF8_
-
 /* Reported matches are those fingerprints with a score less than best score * 
    THRESHOLDVALUE (i.e. a THRESHOLDVALUE of 1.03 means matches must score
    within 3% from the best score.) */
@@ -62,17 +60,13 @@
 
 /* Maximum size of the string representing an n-gram (must be greater than
    number of symbol) */
-#ifdef _UTF8_
 #define MAXNGRAMSIZE 20
-#else
-#define MAXNGRAMSIZE MAXNGRAMSYMBOL
-#endif
 
 /* Which characters are not acceptable in n-grams? */
 #define INVALID(c) (isspace((unsigned char)c) || isdigit((unsigned char)c))
 
 /* Minimum size (in characters) for accepting a document */
-#define MINDOCSIZE  6
+#define MINDOCSIZE 1
 
 /* Maximum penalty for missing an n-gram in fingerprint */
 #define MAXOUTOFPLACE 400

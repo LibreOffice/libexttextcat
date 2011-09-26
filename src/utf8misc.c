@@ -35,41 +35,39 @@
  ***************************************************************************/
 
 #include "utf8misc.h"
+#include <stdlib.h>
+#include <stdio.h>
 
-int nextcharstart(const char *str, int position)
+const char* utf8_next_char(const char *str)
 {
-    int pointer = position;
+    if (*str & ESCAPE_MASK)
+    {
+        /* if the first bit of the current char is 1
+         * then *str is an escape character
+         */
+        char escape_char = ((*str & WEIGHT_MASK) << 1);
 
-    if (str[pointer] & ESCAPE_MASK)
-    {                           /* if the first bit of the current char is 1 */
-
-        /* then str[pointer] is an escape character */
-
-        char escape_char = ((str[pointer] & WEIGHT_MASK) << 1); /* and we use
-                                                                   it to count 
-                                                                   (by bit
-                                                                   translation) 
-                                                                   following
-                                                                   characters
-                                                                   (only the
-                                                                   weightest
-                                                                   part) */
-
-        while (escape_char & ESCAPE_MASK && str[pointer])
-        {                       /* every step, we move the byte of 1 bit left, 
-                                   when first bit is 0, it's finished */
+        /* and we use it to count (by bit translation) following characters
+         * (only the weightest part)
+         */
+        while (escape_char & ESCAPE_MASK && *str)
+        {
+            /* every step, we move the byte of 1 bit left, 
+             * when first bit is 0, it's finished
+             */
             escape_char = escape_char << 1;
-            ++pointer;
+            ++str;
         }
     }
-    if (str[pointer])
-    {                           /* finaly, if we are not on the \0 character,
-                                   we jump to the next character */
-        ++pointer;
+    if (*str)
+    {
+        /* finaly, if we are not on the \0 character,
+         * we jump to the next character
+         */
+        ++str;
     }
-    return pointer;
+    return str;
 }
-
 
 int charcopy(const char *str, char *dest)
 {
@@ -156,11 +154,9 @@ int issame(char *lex, char *key, int len)
 extern int utfstrlen(const char *str)
 {
     int char_counter = 0;
-    int pointer = 0;
-    while (str[pointer])
+    while (*str)
     {
-        pointer = nextcharstart(str, pointer);
-
+        str = utf8_next_char(str);
         ++char_counter;         /* and we are on a new utf8 character */
     }
     return char_counter;

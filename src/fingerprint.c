@@ -64,10 +64,6 @@
  * - put table/heap datastructure in a separate file.
  */
 
-#ifndef _UTF8_
-#define _UTF8_
-#endif
-
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
@@ -429,24 +425,20 @@ static void createngramtable(table_t * t, const char *buf)
 {
     char n[MAXNGRAMSIZE + 1];
     const char *p = buf;
-    int i;
-    int pointer = 0;
+    int i, decay;
 
     /*** Get all n-grams where 1<=n<=MAXNGRAMSIZE. Allow underscores only at borders. ***/
     while (1)
     {
 
-        const char *q = &p[pointer];    /* [modified] previously p++ above
-                                           (for(;;p++)) now, it's pointer wich 
-                                           is increased so we have to get the
-                                           new pointer on the buffer */
+        const char *q = p;
         char *m = n;
 
         /*** First char may be an underscore ***/
-        int decay = charcopy(q, m); /* [modified] previously *q++ = *m++ */
-        q = &(p[pointer + decay]);  /* [modified] the old copying method do
-                                       not manage multi-character symbols */
-        m += decay;             /* [modified] */
+        decay = charcopy(q, m); /* [modified] previously *q++ = *m++ */
+
+        q += decay;  /* [modified] */
+        m += decay; /* [modified] */
         *m = '\0';
 
         increasefreq(t, n, 1);
@@ -457,7 +449,6 @@ static void createngramtable(table_t * t, const char *buf)
         /*** Let the compiler unroll this ***/
         for (i = 2; i <= MAXNGRAMSYMBOL; i++)
         {
-
             decay = charcopy(q, m); /* [modified] like above */
             m += decay;
             *m = '\0';
@@ -471,11 +462,7 @@ static void createngramtable(table_t * t, const char *buf)
                 return;
         }
 
-        pointer = nextcharstart(p, pointer);    /* [modified] p[pointer] must
-                                                   point on the next start of
-                                                   symbol, but whith utf next
-                                                   start is not surely next
-                                                   char */
+        p = utf8_next_char(p); /* [modified] */
     }
 }
 
@@ -545,7 +532,6 @@ extern int fp_Create(void *handle, const char *buffer, uint4 bufsize,
     /*** Pull n-grams out of heap (backwards) ***/
     for (i = maxngrams - 1; i >= 0; i--)
     {
-
         entry_t tmp2;
 
         heapextract(t, &tmp2);

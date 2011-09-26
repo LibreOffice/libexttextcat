@@ -41,22 +41,20 @@
  * These variables are used in character processing functions
  * These have been added to manage utf-8 symbols, particularly escape chars
  */
-#ifdef _UTF8_
 #define ESCAPE_MASK 0x80
 #define WEIGHT_MASK 0xF0
-#else
-#define ESCAPE_MASK 0xFF
-#define WEIGHT_MASK 0x00
-#endif
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
 /* 
  * Is used to jump to the next start of char
  * of course it's only usefull when encoding is utf-8
  * This function have been added by Jocelyn Merand to use libtextcat in OOo
  */
-int nextcharstart(const char *str, int position);
-
+const char* utf8_next_char(const char *str);
 
 /* Copy the char in str to dest of course it's only usefull when encoding is
    utf8 and the symbol is encoded with more than 1 char return the number of
@@ -65,22 +63,19 @@ int nextcharstart(const char *str, int position);
 int charcopy(const char *str, char *dest);
 
 
-/* checks if n-gram lex is a prefix of key and of length len * if _UTF8_ is
-   defined, it uses escap characters and len is not realy the length of lex *
-   in this case, len is the number of utf-8 char strlen("€") == 3 but len == 
-   1 */
+/* checks if n-gram lex is a prefix of key and of length len
+ * len is the number of unicode code points
+ * strlen("€") == 3 but len == 1
+ */
 int issame(char *lex, char *key, int len);
 
 
-/* Counts the number of characters * if _UTF8_ is defined, it uses escap
-   characters and the result is not realy the length of str * in this case,
-   the result is the number of utf-8 char strlen("€") == 3 but
-   utfstrlen("€") == 1 */
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-    extern int utfstrlen(const char *str);
+/*
+ * len is the number of unicode code points
+ * strlen("€") == 3 but len == 1
+ */
+extern int utfstrlen(const char *str);
+
 #ifdef __cplusplus
 }
 #endif
