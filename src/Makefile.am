@@ -22,6 +22,7 @@ testtextcat_LDADD =	libtextcat.la
 EXTRA_DIST = libtextcat.map makefile.mk test.sh \
 	af.test \
 	am.test \
+	ar.test \
 	cy.test \
 	de.test \
 	ga.test \
@@ -33,6 +34,7 @@ EXTRA_DIST = libtextcat.map makefile.mk test.sh \
 TESTS = \
 	af.test \
 	am.test \
+	ar.test \
 	cy.test \
 	de.test \
 	ga.test \
