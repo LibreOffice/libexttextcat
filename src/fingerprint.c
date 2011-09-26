@@ -349,7 +349,7 @@ static table_t *inittable(uint4 maxngrams)
     result->table = (entry_t **) wg_zalloc(sizeof(entry_t *) * TABLESIZE);
     result->pool = wgmempool_Init(10000, 10);
 
-    result->heap = (entry_t *) wg_malloc(sizeof(entry_t) * maxngrams);
+    result->heap = (entry_t *) malloc(sizeof(entry_t) * maxngrams);
     result->heapsize = maxngrams;
     result->size = 0;
 
@@ -414,7 +414,7 @@ extern const char *fp_Name(void *handle)
 static char *prepbuffer(const char *src, size_t bufsize)
 {
     const char *p = src;
-    char *dest = (char *)wg_malloc(bufsize + 3);
+    char *dest = (char *)malloc(bufsize + 3);
     char *w = dest;
     char *wlimit = dest + bufsize + 1;
 
@@ -617,7 +617,7 @@ extern int fp_Create(void *handle, const char *buffer, uint4 bufsize,
     table2heap(t);
     maxngrams = WGMIN(maxngrams, t->size);
 
-    h->fprint = (ngram_t *) wg_malloc(sizeof(ngram_t) * maxngrams);
+    h->fprint = (ngram_t *) malloc(sizeof(ngram_t) * maxngrams);
     h->size = maxngrams;
 
     /*** Pull n-grams out of heap (backwards) ***/
@@ -670,7 +670,7 @@ extern int fp_Read(void *handle, const char *fname, int maxngrams)
         return 0;
     }
 
-    h->fprint = (ngram_t *) wg_malloc(maxngrams * sizeof(ngram_t));
+    h->fprint = (ngram_t *) malloc(maxngrams * sizeof(ngram_t));
 
     while (cnt < maxngrams && wg_getline(line, 1024, fp))
     {
@@ -712,7 +712,7 @@ extern void fp_Print(void *handle, FILE * fp)
 {
     uint4 i;
     fp_t *h = (fp_t *) handle;
-    ngram_t *tmp = (ngram_t *) wg_malloc(sizeof(ngram_t) * h->size);
+    ngram_t *tmp = (ngram_t *) malloc(sizeof(ngram_t) * h->size);
 
     /*** Make a temporary and sort it on rank ***/
     memcpy(tmp, h->fprint, h->size * sizeof(ngram_t));

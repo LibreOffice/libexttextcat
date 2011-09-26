@@ -26,7 +26,6 @@
 		heapextract
 		wg_calloc
 		wg_getline
-		wg_malloc
 		wg_split
 		wg_strdup
 		wg_strgmov

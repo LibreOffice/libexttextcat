@@ -77,8 +77,8 @@ static void addblock(mempool_t * h)
     else
     {
         /*** Make a new block ***/
-        block = (memblock_t *) wg_malloc(sizeof(memblock_t));
-        block->pool = (char *)wg_malloc(h->blocksize);
+        block = (memblock_t *) malloc(sizeof(memblock_t));
+        block->pool = (char *)malloc(h->blocksize);
     }
 
     block->p = block->pool;
@@ -90,7 +90,7 @@ static void addblock(mempool_t * h)
 
 extern void *wgmempool_Init(size_t blocksize, size_t maxstrsize)
 {
-    mempool_t *result = (mempool_t *) wg_malloc(sizeof(mempool_t));
+    mempool_t *result = (mempool_t *) malloc(sizeof(mempool_t));
 
     result->first = NULL;
     result->spare = NULL;

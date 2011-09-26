@@ -36,15 +36,8 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#ifdef HAVE_STRINGS_H
-#include <strings.h>
-#endif
-#ifdef HAVE_STRING_H
 #include <string.h>
-#endif
-#ifdef HAVE_STDLIB_H
 #include <stdlib.h>
-#endif
 
 #include "fingerprint.h"
 #include "common_impl.h"
@@ -57,7 +50,7 @@ char *myread(FILE * fp)
     size_t size = 0;
     size_t maxsize = BLOCKSIZE * 2;
 
-    buf = (char *)wg_malloc(maxsize);
+    buf = (char *)malloc(maxsize);
     do
     {
         size_t hasread = fread(buf + size, 1, BLOCKSIZE, fp);
@@ -65,14 +58,14 @@ char *myread(FILE * fp)
         if (size + BLOCKSIZE > maxsize)
         {
             maxsize *= 2;
-            buf = (char *)wg_realloc(buf, maxsize);
+            buf = (char *)realloc(buf, maxsize);
         }
 
     }
     while (!feof(stdin));
 
     buf[size] = '\0';
-    buf = (char *)wg_realloc(buf, size + 1);
+    buf = (char *)realloc(buf, size + 1);
 
     return buf;
 }

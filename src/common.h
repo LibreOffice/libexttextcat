@@ -69,11 +69,9 @@ extern "C"
 
     typedef int8_t boole;
 
-    extern void *wg_malloc(size_t size);
     extern void *wg_calloc(size_t nmemb, size_t size);
     extern void *wg_zalloc(size_t size);
     extern char *wg_strdup(const char *s);
-    extern void *wg_realloc(void *ptr, size_t size);
 
     extern char *wg_getline(char *line, int size, FILE * fp);
 

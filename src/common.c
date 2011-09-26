@@ -57,23 +57,6 @@ extern void wgmem_error(const char *fmt, ...)
     va_end(ap);
 }
 
-extern void *wg_malloc(size_t size)
-{
-    void *result;
-    if (!size)
-    {
-        wgmem_error("Error mallocing 0 bytes.\n");
-    }
-
-    result = malloc(size);
-    if (!result)
-    {
-        wgmem_error("Error while mallocing %u bytes.\n", size);
-    }
-
-    return result;
-}
-
 extern void *wg_calloc(size_t nmemb, size_t size)
 {
     void *result;
@@ -117,25 +100,6 @@ extern char *wg_strdup(const char *s)
     if (!result)
     {
         wgmem_error("Error while strduping %u bytes.\n", strlen(s));
-    }
-
-    return (result);
-}
-
-extern void *wg_realloc(void *ptr, size_t size)
-{
-    void *result;
-
-    if (!size)
-    {
-        wgmem_error("Error reallocing 0 bytes.\n");
-    }
-
-    result = realloc(ptr, size);
-
-    if (!result)
-    {
-        wgmem_error("Error while reallocing %u bytes.\n", size);
     }
 
     return (result);

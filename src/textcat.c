@@ -56,15 +56,7 @@
 #endif
 
 #include <stdlib.h>
-#ifdef HAVE_STRINGS_H
-#include <strings.h>
-#endif
-#ifdef HAVE_STRING_H
 #include <string.h>
-#endif
-#ifdef HAVE_ALLOCA_H
-#include <alloca.h>
-#endif
 
 #include "common_impl.h"
 #include "fingerprint.h"
@@ -140,18 +132,12 @@ extern void *special_textcat_Init(const char *conffile, const char *prefix)
         return NULL;
     }
 
-    h = (textcat_t *) wg_malloc(sizeof(textcat_t));
+    h = (textcat_t *) malloc(sizeof(textcat_t));
     h->size = 0;
     h->maxsize = 16;
-    h->fprint = (void **)wg_malloc(sizeof(void *) * h->maxsize);
-    h->fprint_disable = (unsigned char *)wg_malloc(sizeof(unsigned char) * h->maxsize); /* added 
-                                                                                           to 
-                                                                                           store 
-                                                                                           the 
-                                                                                           state 
-                                                                                           of 
-                                                                                           languages */
-
+    h->fprint = (void **)malloc(sizeof(void *) * h->maxsize);
+    h->fprint_disable = (unsigned char *)malloc(sizeof(unsigned char) * h->maxsize);
+    /* added to store the state of languages */
     while (wg_getline(line, 1024, fp))
     {
         char *p;
@@ -174,9 +160,9 @@ extern void *special_textcat_Init(const char *conffile, const char *prefix)
         {
             h->maxsize *= 2;
             h->fprint =
-                (void **)wg_realloc(h->fprint, sizeof(void *) * h->maxsize);
+                (void **)realloc(h->fprint, sizeof(void *) * h->maxsize);
             h->fprint_disable =
-                (unsigned char *)wg_realloc(h->fprint_disable,
+                (unsigned char *)realloc(h->fprint_disable,
                                             sizeof(unsigned char) *
                                             h->maxsize);
         }
@@ -215,25 +201,17 @@ extern void *special_textcat_Init(const char *conffile, const char *prefix)
 
 }
 
-
 extern char *textcat_Classify(void *handle, const char *buffer, size_t size)
 {
     textcat_t *h = (textcat_t *) handle;
     int minscore = MAXSCORE;
     int threshold = minscore;
     char *result = h->output;
+    void *unknown;
     uint4 i, cnt;
 
-#ifdef HAVE_ALLOCA
     candidate_t *candidates =
-        (candidate_t *) alloca(sizeof(candidate_t) * h->size);
-#else
-    candidate_t *candidates =
-        (candidate_t *) wg_malloc(sizeof(candidate_t) * h->size);
-#define SHOULD_FREE 1
-#endif
-
-    void *unknown;
+        (candidate_t *) malloc(sizeof(candidate_t) * h->size);
 
     unknown = fp_Init(NULL);
     if (fp_Create(unknown, buffer, size, MAXNGRAMS) == 0)
@@ -302,10 +280,7 @@ extern char *textcat_Classify(void *handle, const char *buffer, size_t size)
     }
   READY:
     fp_Done(unknown);
-#ifdef SHOULD_FREE
     free(candidates);
-#undef SHOULD_FREE
-#endif
     return result;
 }
 
