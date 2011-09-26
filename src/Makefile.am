@@ -29,6 +29,7 @@ EXTRA_DIST = libtextcat.map makefile.mk test.sh \
 	de.test \
 	ga.test \
 	gd.test \
+	hu.test \
 	eu.test \
 	sq.test \
 	uk.test \
@@ -44,6 +45,7 @@ TESTS = \
 	de.test \
 	ga.test \
 	gd.test \
+	hu.test \
 	eu.test \
 	sq.test \
 	uk.test \
