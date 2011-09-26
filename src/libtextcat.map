@@ -24,7 +24,6 @@
 		fp_Print
 		fp_Read
 		heapextract
-		wg_calloc
 		wg_getline
 		wg_split
 		wg_strdup

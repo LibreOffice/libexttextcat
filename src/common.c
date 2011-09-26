@@ -52,24 +52,6 @@ extern void wgmem_error(const char *fmt, ...)
     va_end(ap);
 }
 
-extern void *wg_calloc(size_t nmemb, size_t size)
-{
-    void *result;
-    if (!size || !nmemb)
-    {
-        wgmem_error("Error callocing 0 bytes.\n");
-    }
-
-    result = calloc(nmemb, size);
-    if (!result)
-    {
-        wgmem_error("Error while callocing %u elements of %u bytes.\n", nmemb,
-                    size);
-    }
-
-    return result;
-}
-
 extern void *wg_zalloc(size_t size)
 {
     void *result;
@@ -341,20 +323,6 @@ char *wg_trim(char *dest, const char *src)
     lastnonspace[1] = '\0';
 
     return dest;
-}
-
-void *rpl_malloc(size_t n)
-{
-    if (n == 0)
-        n = 1;
-    return malloc(n);
-}
-
-void *rpl_realloc(void *ptr, size_t n)
-{
-    if (n == 0)
-        n = 1;
-    return realloc(ptr, n);
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
