@@ -89,7 +89,10 @@ int main(int argc, char **argv)
     const char *conf;
 
     conf = argc > 1 ? argv[1] : "fpdb.conf";
-    h = textcat_Init(conf);
+    if (argc > 2)
+        h = special_textcat_Init(conf, argv[2]);
+    else
+        h = textcat_Init(conf);
     if (!h)
     {
         fprintf(stderr, "Unable to init using '%s', Aborting.\n", conf);

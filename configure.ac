@@ -58,6 +58,7 @@ langclass/Makefile
 langclass/LM/Makefile
 langclass/ShortTexts/Makefile
 src/Makefile
+src/test.sh
 ])
 AC_OUTPUT
 
