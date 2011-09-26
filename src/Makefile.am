@@ -19,58 +19,14 @@ check_PROGRAMS =	testtextcat
 testtextcat_SOURCES =	testtextcat.c
 testtextcat_LDADD =	libtextcat.la
 
-EXTRA_DIST = libtextcat.map makefile.mk test.sh \
-	af.test \
-	am.test \
-	ar.test \
-	be.test \
-	bg.test \
-	br.test \
-	ca.test \
-	cs.test \
-	cy.test \
-	da.test \
-	de.test \
-	en.test \
-	eo.test \
-	et.test \
-	eu.test \
-	fi.test \
-	fr.test \
-	fy.test \
-	ga.test \
-	gd.test \
-	hu.test \
-	hy.test \
-	nl.test \
-	sq.test \
-	uk.test \
-	yi.test
+EXTRA_DIST = libtextcat.map makefile.mk test.sh.in
 
-TESTS = \
-	af.test \
-	am.test \
-	ar.test \
-	be.test \
-	bg.test \
-	br.test \
-	ca.test \
-	cs.test \
-	cy.test \
-	da.test \
-	de.test \
-	en.test \
-	eo.test \
-	et.test \
-	eu.test \
-	fi.test \
-	fr.test \
-	fy.test \
-	ga.test \
-	gd.test \
-	hu.test \
-	hy.test \
-	nl.test \
-	sq.test \
-	uk.test \
-	yi.test
+check:
+	@for testlanguage in af am ar be bg br ca cs cy da de en eo et eu fi fr fy ga gd hu hy nl sq uk yi; do \
+		sh $(srcdir)/test.sh $$testlanguage; \
+		if test x$$? != x0; then \
+			echo FAIL: $$testlanguage && exit 1; \
+		else \
+			echo PASS: $$testlanguage; \
+		fi; \
+	done
