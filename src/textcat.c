@@ -51,7 +51,7 @@
  * - Make the thingy reentrant as well as thread-safe. (Reentrancy is abandoned
  *   by the use of the output buffer in textcat_t.)
  */
-#ifndef WNT
+#ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
 

@@ -35,7 +35,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef WNT
+#ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
 #ifdef HAVE_STRINGS_H

@@ -68,7 +68,7 @@
 #define _UTF8_
 #endif
 
-#ifndef WNT
+#ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
 #include <stdio.h>
