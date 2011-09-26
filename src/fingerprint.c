@@ -73,12 +73,7 @@
 #endif
 #include <stdio.h>
 #include <stdlib.h>
-#ifdef HAVE_STRING_H
 #include <string.h>
-#endif
-#ifdef HAVE_STRINGS_H
-#include <strings.h>
-#endif
 #include <ctype.h>
 
 #include "common_impl.h"
@@ -89,7 +84,6 @@
 
 #define TABLESIZE  (1<<TABLEPOW)
 #define TABLEMASK  ((TABLESIZE)-1)
-
 
 typedef struct
 {
@@ -127,8 +121,6 @@ typedef struct table_s
     uint4 size;
 } table_t;
 
-
-
 /* 
  * fast and furious little hash function
  *
@@ -144,8 +136,6 @@ static uint4 simplehash(const char *p, int len)
     }
     return (uint4) h;
 }
-
-
 
 /* increases frequency of ngram(p,len) */
 static int increasefreq(table_t * t, char *p, int len)
@@ -178,49 +168,6 @@ static int increasefreq(table_t * t, char *p, int len)
     return 1;
 }
 
-#if 0
-
-/* looks up ngram(p,len) */
-static entry_t *findfreq(table_t * t, char *p, int len)
-{
-    uint4 hash = simplehash(p, len) & TABLEMASK;
-    entry_t *entry = t->table[hash];
-
-    while (entry)
-    {
-        if (issame(entry->str, p, len))
-        {
-            return entry;
-        }
-        else
-        {
-            entry = entry->next;
-        }
-    }
-
-    return NULL;
-}
-
-static void dumptable(table_t * t)
-{
-    int i;
-    for (i = 0; i < TABLESIZE; i++)
-    {
-
-        entry_t *p = t->table[i];
-
-        while (p)
-        {
-
-            printf("%5u %s\n", p->cnt, p->str);
-            p = p->next;
-        }
-
-    }
-}
-
-#endif
-
 #define GREATER(x,y) ((x).cnt > (y).cnt)
 #define LESS(x,y)    ((x).cnt < (y).cnt)
 
@@ -247,7 +194,6 @@ static void siftup(table_t * t, unsigned int child)
         parent = (child - 1) >> 1;
     }
 }
-
 
 static void siftdown(table_t * t, unsigned int heapsize, uint4 parent)
 {
@@ -276,7 +222,6 @@ static void siftdown(table_t * t, unsigned int heapsize, uint4 parent)
     }
 }
 
-
 static int heapinsert(table_t * t, entry_t * item)
 {
     entry_t *heap = t->heap;
@@ -302,7 +247,6 @@ static int heapinsert(table_t * t, entry_t * item)
     return 0;
 }
 
-
 extern int heapextract(table_t * t, entry_t * item)
 {
     entry_t *p;
@@ -323,7 +267,6 @@ extern int heapextract(table_t * t, entry_t * item)
     return 1;
 }
 
-
 /*** Makes a heap of all table entries ***/
 static int table2heap(table_t * t)
 {
@@ -341,7 +284,6 @@ static int table2heap(table_t * t)
     }
     return 1;
 }
-
 
 static table_t *inittable(uint4 maxngrams)
 {
@@ -368,7 +310,6 @@ static void tabledone(table_t * t)
     free(t);
 }
 
-
 extern void *fp_Init(const char *name)
 {
     fp_t *h = (fp_t *) wg_zalloc(sizeof(fp_t));
@@ -380,7 +321,6 @@ extern void *fp_Init(const char *name)
 
     return (void *)h;
 }
-
 
 extern void fp_Done(void *handle)
 {

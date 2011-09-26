@@ -37,12 +37,7 @@
 #include "config.h"
 #endif
 #include <stdio.h>
-#ifdef HAVE_STRINGS_H
-#include <strings.h>
-#endif
-#ifdef HAVE_STRING_H
 #include <string.h>
-#endif
 #include <stdarg.h>
 #include <ctype.h>
 #include "common_impl.h"

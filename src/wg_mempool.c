@@ -38,12 +38,7 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#ifdef HAVE_STRINGS_H
-#include <strings.h>
-#endif
-#ifdef HAVE_STRING_H
 #include <string.h>
-#endif
 #include "common_impl.h"
 
 typedef struct memblock_s
@@ -100,7 +95,6 @@ extern void *wgmempool_Init(size_t blocksize, size_t maxstrsize)
 
     return (void *)result;
 }
-
 
 extern void wgmempool_Done(void *handle)
 {
@@ -253,6 +247,5 @@ extern char *wgmempool_getline(void *handle, size_t size, FILE * fp)
     block->p = p;
     return result;
 }
-
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

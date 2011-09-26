@@ -34,10 +34,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ***************************************************************************/
 
-#ifndef _UTF8_MISC_H_
 #include "utf8misc.h"
-#endif
-
 
 int nextcharstart(const char *str, int position)
 {
@@ -155,7 +152,6 @@ int issame(char *lex, char *key, int len)
 
     return 1;
 }
-
 
 extern int utfstrlen(const char *str)
 {

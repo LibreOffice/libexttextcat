@@ -47,9 +47,6 @@
 #include <stdint.h>
 #endif
 #endif
-#ifdef HAVE_SYS_TIME_H
-#include <sys/time.h>
-#endif
 #include "common.h"
 
 #define WGMIN(x,y)         ((x)<=(y)?(x):(y))
