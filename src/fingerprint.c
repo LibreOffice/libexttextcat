@@ -186,9 +186,7 @@ static void siftup(table_t * t, unsigned int child)
             memcpy(&heap[child], &tmp, sizeof(entry_t));
         }
         else
-        {
             return;
-        }
 
         child = parent;
         parent = (child - 1) >> 1;
@@ -214,9 +212,7 @@ static void siftdown(table_t * t, unsigned int heapsize, uint4 parent)
             memcpy(&heap[child], &tmp, sizeof(entry_t));
         }
         else
-        {
             return;
-        }
         parent = child;
         child = (parent * 2) + 1;
     }
@@ -252,9 +248,7 @@ extern int heapextract(table_t * t, entry_t * item)
     entry_t *p;
 
     if (t->size == 0)
-    {
         return 0;
-    }
 
     p = &(t->heap[0]);
 
@@ -282,6 +276,7 @@ static int table2heap(table_t * t)
             p = p->next;
         }
     }
+
     return 1;
 }
 
@@ -301,9 +296,8 @@ static table_t *inittable(uint4 maxngrams)
 static void tabledone(table_t * t)
 {
     if (!t)
-    {
         return;
-    }
+
     wgmempool_Done(t->pool);
     free(t->table);
     free(t->heap);
@@ -458,9 +452,7 @@ static void createngramtable(table_t * t, const char *buf)
         increasefreq(t, n, 1);
 
         if (*q == '\0')
-        {
             return;
-        }
 
         /*** Let the compiler unroll this ***/
         for (i = 2; i <= MAXNGRAMSYMBOL; i++)
@@ -476,9 +468,7 @@ static void createngramtable(table_t * t, const char *buf)
                 break;
             q += decay;
             if (*q == '\0')
-            {
                 return;
-            }
         }
 
         pointer = nextcharstart(p, pointer);    /* [modified] p[pointer] must
@@ -487,9 +477,7 @@ static void createngramtable(table_t * t, const char *buf)
                                                    start is not surely next
                                                    char */
     }
-    return;
 }
-
 
 static int mystrcmp(const char *a, const char *b)
 {
@@ -533,17 +521,13 @@ extern int fp_Create(void *handle, const char *buffer, uint4 bufsize,
     char *tmp = NULL;
 
     if (bufsize < MINDOCSIZE)
-    {
         return 0;
-    }
 
     /*** Throw out all invalid chars ***/
     tmp = prepbuffer(buffer, bufsize);
     /* printf("Cleaned buffer : %s\n",tmp); */
     if (tmp == NULL)
-    {
         return 0;
-    }
     h = (fp_t *) handle;
     t = inittable(maxngrams);
     /* printf("Table initialized\n"); */
@@ -644,8 +628,6 @@ extern int fp_Read(void *handle, const char *fname, int maxngrams)
     return 1;
 }
 
-
-
 extern void fp_Print(void *handle, FILE * fp)
 {
     uint4 i;
@@ -688,9 +670,7 @@ extern sint4 fp_Compare(void *cat, void *unknown, int cutoff)
         {
             sum += abs(c->fprint[i].rank - u->fprint[j].rank);
             if (sum > cutoff)
-            {
                 return MAXSCORE;
-            }
             i++;
             j++;
         }
@@ -698,9 +678,7 @@ extern sint4 fp_Compare(void *cat, void *unknown, int cutoff)
         {
             sum += MAXOUTOFPLACE;
             if (sum > cutoff)
-            {
                 return MAXSCORE;
-            }
             j++;
         }
     }
@@ -710,15 +688,11 @@ extern sint4 fp_Compare(void *cat, void *unknown, int cutoff)
     {
         sum += MAXOUTOFPLACE;
         if (sum > cutoff)
-        {
             return MAXSCORE;
-        }
         j++;
     }
 
     return sum;
-
 }
-
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
