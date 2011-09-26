@@ -315,9 +315,7 @@ extern void *fp_Init(const char *name)
     fp_t *h = (fp_t *) wg_zalloc(sizeof(fp_t));
 
     if (name)
-    {
-        h->name = wg_strdup(name);
-    }
+        h->name = strdup(name);
 
     return (void *)h;
 }

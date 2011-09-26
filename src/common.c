@@ -70,18 +70,6 @@ extern void *wg_zalloc(size_t size)
     return result;
 }
 
-extern char *wg_strdup(const char *s)
-{
-    char *result = strdup(s);
-
-    if (!result)
-    {
-        wgmem_error("Error while strduping %u bytes.\n", strlen(s));
-    }
-
-    return (result);
-}
-
 extern char *wg_getline(char *line, int size, FILE * fp)
 {
     char *p;
