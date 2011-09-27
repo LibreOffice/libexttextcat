@@ -31,14 +31,26 @@ Classifying the language of a textbuffer can be as easy as:
 Creating your own fingerprints:
   
 The createfp program allows you to easily create your own document
-fingerprints. Just feed it an example document on standard input, and
-store the standard output:
+fingerprints. Just feed it an example document on standard input, and store the
+standard output:
 
-% createfp < mydocument.txt > myfingerprint.txt
+Put the names of your fingerprints in a configuration file, add some id's and
+you're ready to classify.
 
-Put the names of your fingerprints in a configuration file, add some
-id's and you're ready to classify.
-     
+Here's a worked example. The UN Declaration of Human Rights is available in a
+massive pile of translations[4], and and unicode.org makes a lot available as
+plain text[5], so...
+
+% cd langclass/ShortTexts/
+% wget http://unicode.org/udhr/d/udhr_abk.txt
+% tail -n+7 udhr_abk.txt > ab.txt #skip english header, name is using BCP-47
+% cd ../LM
+% ../../src/createfp < ../ShortTexts/ab.txt > ab.lm
+% echo "ab.lm                                ab--utf8" >> ../fpdb.conf
+
+Eventually we'll drop fpdb.conf and assume the name of the fingerprint .lm file
+is the correct BCP-47 tag for the language it detects.
+    
 Performance tuning:
 
 This library was made with efficiency in mind. There are couple of
@@ -85,6 +97,10 @@ http://odur.let.rug.nl/~vannoord/TextCat/
 [3] Original libtextcat implementation at
 
 http://software.wise-guys.nl/libtextcat/
+
+[4] http://www.ohchr.org/EN/UDHR/Pages/SearchByLang.aspx
+
+[5] http://unicode.org/udhr/index_by_name.html
 
 Contact:
 
