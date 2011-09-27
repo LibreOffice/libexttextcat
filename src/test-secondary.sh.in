@@ -1,0 +1,8 @@
+#!/bin/sh
+#take second guess
+res=`cat @top_srcdir@/langclass/ShortTexts/$1.txt | @top_builddir@/src/testtextcat @top_srcdir@/langclass/fpdb.conf @top_srcdir@/langclass/LM/ | sed -e "s/^.[^]]*]//" | sed -e "s/].*/]/"`
+if [ $res == "[$1--utf8]" ]; then
+    exit 0
+else
+    exit 1
+fi

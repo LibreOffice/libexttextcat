@@ -19,18 +19,28 @@ check_PROGRAMS =	testtextcat
 testtextcat_SOURCES =	testtextcat.c
 testtextcat_LDADD =	libtextcat.la
 
-EXTRA_DIST = libtextcat.map makefile.mk test.sh.in
+EXTRA_DIST = libtextcat.map makefile.mk test-primary.sh.in test-secondary.sh.in
 
 check:
-	@for testlanguage in \
+	@echo primary languages
+	@for primarylanguage in \
 		af am ar be bg br ca cs cy da de en eo es et \
 		eu fa fi fr fy ga gd gv el he hi hu hy id is \
 		it ka la lt lv mr ms nb ne nl nn pl ro ru sk \
 		sl sq sv sw ta th tr uk vi yi; do \
-		sh ./test.sh $$testlanguage; \
+		sh ./test-primary.sh $$primarylanguage; \
 		if test x$$? != x0; then \
-			echo FAIL: $$testlanguage && exit 1; \
+			echo FAIL: $$primarylanguage && exit 1; \
 		else \
-			echo PASS: $$testlanguage; \
+			echo PASS: $$primarylanguage; \
+		fi; \
+	done
+	@echo secondary languages
+	@for secondarylanguage in sco; do \
+		sh ./test-secondary.sh $$secondarylanguage; \
+		if test x$$? != x0; then \
+			echo FAIL: $$secondarylanguage && exit 1; \
+		else \
+			echo PASS: $$secondarylanguage; \
 		fi; \
 	done

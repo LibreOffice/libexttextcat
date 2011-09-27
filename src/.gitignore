@@ -3,4 +3,5 @@ config.h
 createfp
 stamp-h1
 testtextcat
-test.sh
+test-primary.sh
+test-secondary.sh
