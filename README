@@ -2,7 +2,19 @@ libexttextcat is an N-Gram-Based Text Categorization library primarily intended
 for language guessing.
 
 Fundamentally this is an adaption of wiseguys libtextcat extended to be UTF-8
-aware. See README.libtextcat for details.
+aware. See README.libtextcat for details on original libtextcat.
+
+Building:
+
+ * ./configure
+ * make
+ * make check
+
+the tests can be run under valgrind's memcheck with export VALGRIND=memcheck,
+e.g.
+
+ * export VALGRIND=memcheck
+ * make check
 
 Quickstart: language guesser
   
