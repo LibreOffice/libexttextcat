@@ -27,9 +27,10 @@ check:
 	@for primarylanguage in \
 		af am ar be bg br bs ca cs cy da de en eo es \
 		et eu fa fi fr fy ga gd gv el he hi hr hu hy \
-		id is it ja ka ko la lt lv mr ms nb ne nl nn \
-		pl pt qxa rm ro ru sa sk sl sq sr sr-Latn sv \
-		sw ta th tl tr uk vi yi zh-Hans zh-Hant; do \
+		id is it ja ka ko la lb lt lv mn mr ms nb ne \
+		nl nn pl pt qxa rm ro ru sa sk sl sq sr \
+		sr-Latn sv sw ta th tl tr uk vi yi zh-Hans \
+		zh-Hant zu; do \
 		sh ./test-primary.sh $$primarylanguage; \
 		if test x$$? != x0; then \
 			echo FAIL: $$primarylanguage && exit 1; \
