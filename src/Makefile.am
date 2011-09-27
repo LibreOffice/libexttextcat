@@ -24,8 +24,8 @@ EXTRA_DIST = libtextcat.map makefile.mk test.sh.in
 check:
 	@for testlanguage in \
 		af am ar be bg br ca cs cy da de en eo et eu fi fr fy \
-		ga gd el he hi hu hy id is it ka la lt lv ms nl sq uk \
-		yi; do \
+		ga gd gv el he hi hu hy id is it ka la lt lv ms nl sq \
+		uk yi; do \
 		sh ./test.sh $$testlanguage; \
 		if test x$$? != x0; then \
 			echo FAIL: $$testlanguage && exit 1; \
