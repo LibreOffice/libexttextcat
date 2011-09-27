@@ -28,7 +28,7 @@ check:
 		eu fa fi fr fy ga gd gv el he hi hu hy id is \
 		it ja ka ko la lt lv mr ms nb ne nl nn pl pt \
 		rm ro ru sa sk sl sq sv sw ta th tl tr uk vi \
-		zh-Hans yi; do \
+		yi zh-Hans zh-Hant; do \
 		sh ./test-primary.sh $$primarylanguage; \
 		if test x$$? != x0; then \
 			echo FAIL: $$primarylanguage && exit 1; \
