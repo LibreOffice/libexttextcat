@@ -1,10 +1,7 @@
-
 TODO
 - Use BCP-47 naming scheme for fpdf.conf, and drop name vs language tag, and just use tag
-- Better Makefile
+	+ the tests pretend we're in bcp-47 mode and convert the current old-school ones
+	to bcp47 for the moment
 - Improve error handling and reporting.
-- Split off table and heap routines to separate source files.
 - Speed optimizations. Some speed might be gained by comparing
   the unknown fingerprint to all known fingerprints at once.
-- More docs, more comments.
-- Make a language model for Klingon.
