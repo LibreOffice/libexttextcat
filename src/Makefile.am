@@ -25,7 +25,8 @@ check:
 	@for testlanguage in \
 		af am ar be bg br ca cs cy da de en eo et eu \
 		fa fi fr fy ga gd gv el he hi hu hy id is it \
-		ka la lt lv mr ms nb ne nl nn pl sq uk vi yi; do \
+		ka la lt lv mr ms nb ne nl nn pl sq tr uk vi \
+		yi; do \
 		sh ./test.sh $$testlanguage; \
 		if test x$$? != x0; then \
 			echo FAIL: $$testlanguage && exit 1; \
