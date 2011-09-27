@@ -1,7 +1,7 @@
 #!/bin/sh
 #take second guess
-res=`cat @top_srcdir@/langclass/ShortTexts/$1.txt | @top_builddir@/src/testtextcat @top_srcdir@/langclass/fpdb.conf @top_srcdir@/langclass/LM/ | sed -e "s/^.[^]]*]//" | sed -e "s/].*/]/"`
-if [ $res == "[$1--utf8]" ]; then
+res=`cat @top_srcdir@/langclass/ShortTexts/$1.txt | @top_builddir@/src/testtextcat @top_srcdir@/langclass/fpdb.conf @top_srcdir@/langclass/LM/ | sed -e "s/^.[^]]*]//" | sed -e "s/].*/]/" | sed -e "s/zh-CN/zh-Hans/" | sed -e "s/zh-TW/zh-Hant/" | sed -e "s/--utf8//" | sed -e "s/-utf8//"`
+if [ $res == "[$1]" ]; then
     exit 0
 else
     exit 1
