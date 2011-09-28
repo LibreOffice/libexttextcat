@@ -25,7 +25,8 @@ EXTRA_DIST = libtextcat.map \
 	makefile.mk \
 	test-primary.sh.in \
 	test-secondary.sh.in \
-	exttextcat-version.h
+	exttextcat-version.h  \
+	exttextcat-version.h.in
 
 check:
 	@echo primary languages

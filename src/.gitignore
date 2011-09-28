@@ -1,7 +1,8 @@
 Makefile
 config.h
-createfp
+createfp*
+exttextcat-version.h
 stamp-h1
-testtextcat
+testtextcat*
 test-primary.sh
 test-secondary.sh
