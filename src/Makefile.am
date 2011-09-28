@@ -5,7 +5,8 @@ noinst_HEADERS = \
 
 libtextcat_includedir = $(includedir)/libtextcat
 libtextcat_include_HEADERS = \
-	common.h constants.h fingerprint.h textcat.h utf8misc.h
+	common.h constants.h fingerprint.h textcat.h utf8misc.h \
+        $(builddir)/exttextcat-version.h
 
 lib_LTLIBRARIES =	libtextcat.la
 libtextcat_la_SOURCES = \
@@ -20,7 +21,11 @@ check_PROGRAMS =	testtextcat
 testtextcat_SOURCES =	testtextcat.c
 testtextcat_LDADD =	libtextcat.la
 
-EXTRA_DIST = libtextcat.map makefile.mk test-primary.sh.in test-secondary.sh.in
+EXTRA_DIST = libtextcat.map \
+	makefile.mk \
+	test-primary.sh.in \
+	test-secondary.sh.in \
+	exttextcat-version.h
 
 check:
 	@echo primary languages

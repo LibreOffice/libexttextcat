@@ -36,7 +36,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#include <stdio.h>
+#include "exttextcat-version.h"
 
 #define _TEXTCAT_RESULT_UNKOWN        "UNKNOWN"
 #define _TEXTCAT_RESULT_SHORT         "SHORT"
@@ -92,7 +92,7 @@ extern "C"
 /**
  * textcat_Version() - Returns a string describing the version of this classifier.
  */
-    extern char *textcat_Version(void);
+    extern const char *textcat_Version(void);
 
 #ifdef __cplusplus
 }

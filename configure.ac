@@ -1,7 +1,11 @@
-dnl Process this file with autoconf to produce a configure script.
+m4_define([exttextcat_version_major],[3])
+m4_define([exttextcat_version_minor],[1])
+m4_define([exttextcat_version_micro],[0])
+m4_define([exttextcat_version],[exttextcat_version_major.exttextcat_version_minor.exttextcat_version_micro])
+
 AC_PREREQ([2.65])
 
-AC_INIT([libexttextcat], [3.0.1])
+AC_INIT([libexttextcat], [exttextcat_version])
 AC_CONFIG_MACRO_DIR([m4])
 AC_LANG([C])
 
@@ -49,6 +53,11 @@ AS_IF([test x"$GCC" = xyes], [
 	CXXFLAGS="$CXXFLAGS -Wall -pedantic"
 ])
 
+AC_SUBST([EXTTEXTCAT_MAJOR_VERSION],[exttextcat_version_major])
+AC_SUBST([EXTTEXTCAT_MINOR_VERSION],[exttextcat_version_minor])
+AC_SUBST([EXTTEXTCAT_MICRO_VERSION],[exttextcat_version_micro])
+AC_SUBST([EXTTEXTCAT_VERSION],[exttextcat_version])
+
 dnl Checks for libraries
 AC_CONFIG_FILES([
 libexttextcat.pc
@@ -57,6 +66,7 @@ langclass/Makefile
 langclass/LM/Makefile
 langclass/ShortTexts/Makefile
 src/Makefile
+src/exttextcat-version.h
 src/test-primary.sh
 src/test-secondary.sh
 ])
