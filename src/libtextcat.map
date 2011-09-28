@@ -2,7 +2,6 @@
 	global: 
 		charcopy
 		issame
-		nextcharstart
 		utfstrlen
 		wgmempool_Done
 		wgmempool_Init
