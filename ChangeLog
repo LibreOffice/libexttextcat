@@ -1,3 +1,6 @@
+Tue Sep 30 2011 Rene Engelhard <rene@debian.org>
+	* rename library to libexttextcat
+
 Tue Sep 27 2011 Caolan McNamara (caolanm@redhat.com)
 	* fix utf8-ization of createfp
 	* regenerate various encoding mangled fingerprints

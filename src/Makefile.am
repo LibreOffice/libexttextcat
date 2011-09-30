@@ -3,25 +3,25 @@ AM_CFLAGS =	-D_THREAD_SAFE -D_GNU_SOURCE -DVERBOSE
 noinst_HEADERS = \
 	common_impl.h wg_mempool.h
 
-libtextcat_includedir = $(includedir)/libtextcat
-libtextcat_include_HEADERS = \
+libexttextcat_includedir = $(includedir)/libexttextcat
+libexttextcat_include_HEADERS = \
 	common.h constants.h fingerprint.h textcat.h utf8misc.h \
         $(builddir)/exttextcat-version.h
 
-lib_LTLIBRARIES =	libtextcat.la
-libtextcat_la_SOURCES = \
+lib_LTLIBRARIES =	libexttextcat.la
+libexttextcat_la_SOURCES = \
 	common.c fingerprint.c textcat.c wg_mempool.c utf8misc.c
-libtextcat_la_LDFLAGS = -no-undefined
+libexttextcat_la_LDFLAGS = -no-undefined
 
 bin_PROGRAMS =		createfp
 createfp_SOURCES =	createfp.c
-createfp_LDADD =	libtextcat.la
+createfp_LDADD =	libexttextcat.la
 
 check_PROGRAMS =	testtextcat
 testtextcat_SOURCES =	testtextcat.c
-testtextcat_LDADD =	libtextcat.la
+testtextcat_LDADD =	libexttextcat.la
 
-EXTRA_DIST = libtextcat.map \
+EXTRA_DIST = libexttextcat.map \
 	makefile.mk \
 	test-primary.sh.in \
 	test-secondary.sh.in \
