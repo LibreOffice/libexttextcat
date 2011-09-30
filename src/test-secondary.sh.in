@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 testtextcat="@top_builddir@/libtool --mode=execute -dlopen @top_builddir@/src/.libs/libexttextcat*.la"
 if [ "$VALGRIND" != "" ]; then
     testtextcat="$testtextcat valgrind --tool=$VALGRIND --leak-check=yes --show-reachable=yes --quiet --error-exitcode=101"

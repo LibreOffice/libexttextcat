@@ -37,7 +37,7 @@ check:
 		nl nn pl pt qxa rm ro ru sa sk sl sq sr \
 		sr-Latn sv sw ta th tl tr uk vi yi zh-Hans \
 		zh-Hant zu; do \
-		sh ./test-primary.sh $$primarylanguage; \
+		bash ./test-primary.sh $$primarylanguage; \
 		if test x$$? != x0; then \
 			echo FAIL: $$primarylanguage && exit 1; \
 		else \
@@ -46,7 +46,7 @@ check:
 	done
 	@echo secondary languages
 	@for secondarylanguage in sco; do \
-		sh ./test-secondary.sh $$secondarylanguage; \
+		bash ./test-secondary.sh $$secondarylanguage; \
 		if test x$$? != x0; then \
 			echo FAIL: $$secondarylanguage && exit 1; \
 		else \
