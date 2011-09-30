@@ -1,6 +1,6 @@
 m4_define([exttextcat_version_major],[3])
 m4_define([exttextcat_version_minor],[1])
-m4_define([exttextcat_version_micro],[0])
+m4_define([exttextcat_version_micro],[1])
 m4_define([exttextcat_version],[exttextcat_version_major.exttextcat_version_minor.exttextcat_version_micro])
 
 AC_PREREQ([2.65])
