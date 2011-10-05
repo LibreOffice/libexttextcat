@@ -65,7 +65,7 @@ SHL1DEF=        $(MISC)$/$(SHL1TARGET).def
 DEF1NAME=       $(SHL1TARGET)
 DEF1DEPN=$(MISC)$/$(SHL1TARGET).flt
 
-SHL1VERSIONMAP= libtextcat.map
+SHL1VERSIONMAP= libexttextcat.map
 
 # --- Targets ------------------------------------------------------
 
