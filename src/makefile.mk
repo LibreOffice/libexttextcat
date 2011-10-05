@@ -27,8 +27,8 @@
 
 PRJ = ..$/..$/..$/..$/..
 
-PRJNAME = libtextcat
-TARGET  = libtextcat
+PRJNAME = libexttextcat
+TARGET  = libexttextcat
 CFLAGSCALL=gsd
 
 USE_DEFFILE=TRUE
