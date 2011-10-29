@@ -33,8 +33,8 @@ check:
 	@for primarylanguage in \
 		af am ar be bg bn br bs ca cs cy da de en eo \
 		es et eu fa fi fr fy ga gd gu gv el he hi hr \
-		hu hy id is it ja ka km ko la lb lt lv mn mr \
-		ms my nb ne nl nn pl pt qxa rm ro ru sa sk \
+		hu hy id is it ja ka km ko la lb lo lt lv mn \
+		mr ms my nb ne nl nn pl pt qxa rm ro ru sa sk \
 		sl sq sr sr-Latn sv sw ta th tl tr uk vi yi \
 		zh-Hans zh-Hant zu; do \
 		bash ./test-primary.sh $$primarylanguage; \
