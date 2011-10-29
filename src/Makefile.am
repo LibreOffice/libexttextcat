@@ -36,8 +36,8 @@ check:
 		hr hu hy id is it ja ka km ko la lb lo lt lv \
 		mai ml mn mr ms my nb ne nl nn pa pl pt qxa \
 		rm ro ru sa sk sl sq sr sr-Latn sv sw ta th \
-		tk tl tn tpi tr ts ug uk uz ve vi wa xh yi \
-		yo zh-Hans zh-Hant zu; do \
+		ti tk tl tn tpi tr ts ug uk uz ve vi wa xh \
+		yi yo zh-Hans zh-Hant zu; do \
 		bash ./test-primary.sh $$primarylanguage; \
 		if test x$$? != x0; then \
 			echo FAIL: $$primarylanguage && exit 1; \
