@@ -34,7 +34,7 @@ check:
 		af am ar be bg bn bo br bs ca cs cy da de en \
 		eo es et eu fa fi fr fy ga gd gu gv el he hi \
 		hr hsb hu hy id is it ja ka km ko la lb lo lt \
-		lv mai ml mn mr ms my nb ne nl nn pa pl pt \
+		lv mai ml mn mr ms my nb ne nl nn om pa pl pt \
 		qxa rm ro ru sa sc sg sk sl so sq sr sr-Latn \
 		ss st sv sw ta tet th tg ti tk tl tn tpi tr \
 		ts tt ty ug uk uz ve vi wa xh yi yo zh-Hans \
