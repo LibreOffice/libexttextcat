@@ -155,7 +155,8 @@ static int increasefreq(table_t * t, char *p, int len)
 
     /*** Not found, so create ***/
     entry = (entry_t *) (wgmempool_alloc(t->pool, sizeof(entry_t)));
-    strcpy(entry->str, p);
+    strncpy(entry->str, p, MAXNGRAMSIZE);
+    entry->str[MAXNGRAMSIZE] = 0;
     entry->cnt = 1;
 
     entry->next = t->table[hash];
