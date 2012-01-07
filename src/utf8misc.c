@@ -84,7 +84,7 @@ const char* utf8_next_char(const char *str)
     return str;
 }
 
-int charcopy(const char *str, char *dest)
+int utf8_charcopy(const char *str, char *dest)
 {
 
     int pointer = 0;
@@ -119,7 +119,7 @@ int charcopy(const char *str, char *dest)
 }
 
 
-int issame(char *lex, char *key, int len)
+int utf8_issame(char *lex, char *key, int len)
 {
     /* printf("[%s] prefix of [%s] with length %i", lex, key, len); */
     int char_counter = 0;
@@ -166,7 +166,7 @@ int issame(char *lex, char *key, int len)
     return 1;
 }
 
-extern int utfstrlen(const char *str)
+extern int utf8_strlen(const char *str)
 {
     int char_counter = 0;
     while (*str)

@@ -1,8 +1,8 @@
 {
 	global: 
-		charcopy
-		issame
-		utfstrlen
+		utf8_charcopy
+		utf8_issame
+		utf8_strlen
 		wgmempool_Done
 		wgmempool_Init
 		wgmempool_Reset

@@ -53,22 +53,21 @@ const char* utf8_next_char(const char *str);
    utf8 and the symbol is encoded with more than 1 char return the number of
    char jumped This function have been added by Jocelyn Merand to use
    libtextcat in OOo */
-int charcopy(const char *str, char *dest);
+int utf8_charcopy(const char *str, char *dest);
 
 
 /* checks if n-gram lex is a prefix of key and of length len
  * len is the number of unicode code points
  * strlen("€") == 3 but len == 1
  */
-int issame(char *lex, char *key, int len);
+int utf8_issame(char *lex, char *key, int len);
 
 
 /*
  * len is the number of unicode code points
  * strlen("€") == 3 but len == 1
  */
-extern int utfstrlen(const char *str);
-
+extern int utf8_strlen(const char *str);
 #ifdef __cplusplus
 }
 #endif

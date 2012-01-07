@@ -143,7 +143,7 @@ static int increasefreq(table_t * t, char *p, int len)
 
     while (entry)
     {
-        if (issame(entry->str, p, len))
+        if (utf8_issame(entry->str, p, len))
         {
             /*** Found it! ***/
             entry->cnt++;
@@ -438,7 +438,7 @@ static void createngramtable(table_t * t, const char *buf)
         char *m = n;
 
         /*** First char may be an underscore ***/
-        decay = charcopy(q, m); /* [modified] previously *q++ = *m++ */
+        decay = utf8_charcopy(q, m); /* [modified] previously *q++ = *m++ */
 
         q += decay;  /* [modified] */
         m += decay; /* [modified] */
@@ -452,7 +452,7 @@ static void createngramtable(table_t * t, const char *buf)
         /*** Let the compiler unroll this ***/
         for (i = 2; i <= MAXNGRAMSYMBOL; i++)
         {
-            decay = charcopy(q, m); /* [modified] like above */
+            decay = utf8_charcopy(q, m); /* [modified] like above */
             m += decay;
             *m = '\0';
 
