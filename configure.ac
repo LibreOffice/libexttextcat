@@ -59,7 +59,6 @@ AC_SUBST([EXTTEXTCAT_MINOR_VERSION],[exttextcat_version_minor])
 AC_SUBST([EXTTEXTCAT_MICRO_VERSION],[exttextcat_version_micro])
 AC_SUBST([EXTTEXTCAT_VERSION],[exttextcat_version])
 
-dnl Checks for libraries
 AC_CONFIG_FILES([
 libexttextcat.pc
 Makefile
