@@ -38,7 +38,6 @@
  */
 
 #include <stdio.h>
-#include <time.h>
 #include <stdlib.h>
 
 #ifdef __cplusplus

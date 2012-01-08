@@ -25,7 +25,6 @@
 		fp_Name
 		fp_Print
 		fp_Read
-		heapextract
 		wg_getline
 		wg_split
 		wg_strgmov

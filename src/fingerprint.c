@@ -242,7 +242,7 @@ static int heapinsert(table_t * t, entry_t * item)
     return 0;
 }
 
-extern int heapextract(table_t * t, entry_t * item)
+static int heapextract(table_t * t, entry_t * item)
 {
     entry_t *p;
 

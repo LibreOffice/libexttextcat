@@ -23,7 +23,7 @@ AC_PROG_LIBTOOL
 
 dnl Checks for headers
 AC_HEADER_STDC
-AC_CHECK_HEADERS([inttypes.h, stdint.h])
+AC_CHECK_HEADERS([inttypes.h stdint.h string.h])
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
