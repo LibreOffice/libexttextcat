@@ -3,7 +3,7 @@ m4_define([exttextcat_version_minor],[2])
 m4_define([exttextcat_version_micro],[0])
 m4_define([exttextcat_version],[exttextcat_version_major.exttextcat_version_minor.exttextcat_version_micro])
 
-AC_PREREQ([2.65])
+AC_PREREQ([2.68])
 
 AC_INIT([libexttextcat],[exttextcat_version])
 AC_CONFIG_MACRO_DIR([m4])
@@ -11,7 +11,7 @@ AC_LANG([C])
 
 AM_INIT_AUTOMAKE([1.11 foreign dist-xz dist-bzip2])
 AM_MAINTAINER_MODE
-AM_CONFIG_HEADER([src/config.h])
+AC_CONFIG_HEADERS([src/config.h])
 AM_SILENT_RULES([yes])
 
 dnl Checks for programs.
@@ -34,7 +34,7 @@ AC_STRUCT_TM
 
 dnl Checks for functions
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([gettimeofday strdup strpbrk])
+AC_CHECK_FUNCS([strdup strpbrk])
 
 # ================
 # Check for cflags
