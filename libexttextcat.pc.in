@@ -11,5 +11,5 @@ Description: Library implementing N-gram-based text categorization
 Version: @VERSION@
 Requires:
 Libs: -L${libdir} -lexttextcat
-Cflags: -I${includedir}/libextextcat/
+Cflags: -I${includedir}/libexttextcat/
 
