@@ -5,7 +5,7 @@ m4_define([exttextcat_version],[exttextcat_version_major.exttextcat_version_mino
 
 AC_PREREQ([2.65])
 
-AC_INIT([libexttextcat], [exttextcat_version])
+AC_INIT([libexttextcat],[exttextcat_version])
 AC_CONFIG_MACRO_DIR([m4])
 AC_LANG([C])
 

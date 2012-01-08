@@ -60,7 +60,7 @@
 
 /* Maximum size of the string representing an n-gram (must be greater than
    number of symbol) */
-#define MAXNGRAMSIZE 20
+#define MAXNGRAMSIZE (MAXNGRAMSYMBOL*4)
 
 /* Which characters are not acceptable in n-grams? */
 #define INVALID(c) (isspace((unsigned char)c) || isdigit((unsigned char)c))
