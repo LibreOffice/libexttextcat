@@ -42,34 +42,6 @@
 #include <ctype.h>
 #include "common_impl.h"
 
-extern void wgmem_error(const char *fmt, ...)
-{
-    va_list ap;
-
-    fprintf(stderr, "MEMERROR : ");
-    va_start(ap, fmt);
-    vfprintf(stderr, fmt, ap);
-    va_end(ap);
-}
-
-extern void *wg_zalloc(size_t size)
-{
-    void *result;
-
-    if (!size)
-    {
-        wgmem_error("Error zallocing 0 bytes.\n");
-    }
-
-    result = calloc(1, size);
-    if (!result)
-    {
-        wgmem_error("Error while zallocing %u bytes.\n", size);
-    }
-
-    return result;
-}
-
 extern char *wg_getline(char *line, int size, FILE * fp)
 {
     char *p;

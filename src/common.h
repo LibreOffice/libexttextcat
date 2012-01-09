@@ -69,7 +69,6 @@ extern "C"
 
     typedef int8_t boole;
 
-    extern void *wg_zalloc(size_t size);
 
     extern char *wg_getline(char *line, int size, FILE * fp);
 

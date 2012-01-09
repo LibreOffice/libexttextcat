@@ -56,7 +56,9 @@
 #endif
 
 #include <stdlib.h>
+#ifdef HAVE_STRING_H
 #include <string.h>
+#endif
 
 #include "common_impl.h"
 #include "fingerprint.h"
@@ -283,7 +285,7 @@ extern int textcat_ClassifyFull( void *handle, const char *buffer, size_t size, 
 	void *unknown;
 
 	unknown = fp_Init(NULL);
-    if (fp_Create(unknown, buffer, size, MAXNGRAMS) == 0)
+    if (fp_Create(unknown, buffer, size, MAXNGRAMS, MINDOCSIZE) == 0)
     {
 		/*** Too little information ***/
 		fp_Done(unknown);

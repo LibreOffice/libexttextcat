@@ -35,8 +35,23 @@
  ***************************************************************************/
 
 #include "utf8misc.h"
-#include <stdlib.h>
-#include <stdio.h>
+/* #include <stdio.h> */
+
+/**
+ * These variables are used in character processing functions
+ * These have been added to manage utf-8 symbols, particularly escape chars
+ */
+#ifndef _UTF8_
+#define _UTF8_
+#endif
+
+#ifdef _UTF8_
+#define ESCAPE_MASK 0x80
+#define WEIGHT_MASK 0xF0
+#else
+#define ESCAPE_MASK 0xFF
+#define WEIGHT_MASK 0x00
+#endif
 
 const char* utf8_next_char(const char *str)
 {

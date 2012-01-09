@@ -38,6 +38,8 @@
 #endif
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include "constants.h"
 
 #include "fingerprint.h"
 #include "common_impl.h"
@@ -71,7 +73,7 @@ char *myread(FILE * fp)
 }
 
 
-int main()
+int main(int argc, char **args)
 {
     void *h;
     char *buf;
@@ -79,7 +81,7 @@ int main()
     buf = myread(stdin);
 
     h = fp_Init(NULL);
-    if (fp_Create(h, buf, strlen(buf), 400) == 0)
+    if (fp_Create(h, buf, strlen(buf), 400, MINDOCSIZE) == 0)
     {
         fprintf(stderr, "There was an error creating the fingerprint\n");
         exit(-1);

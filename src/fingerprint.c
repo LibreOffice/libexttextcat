@@ -69,7 +69,9 @@
 #endif
 #include <stdio.h>
 #include <stdlib.h>
+#ifdef HAVE_STRING_H
 #include <string.h>
+#endif
 #include <ctype.h>
 
 #include "common_impl.h"
@@ -279,8 +281,8 @@ static int table2heap(table_t * t)
 
 static table_t *inittable(uint4 maxngrams)
 {
-    table_t *result = (table_t *) wg_zalloc(sizeof(table_t));
-    result->table = (entry_t **) wg_zalloc(sizeof(entry_t *) * TABLESIZE);
+    table_t *result = (table_t *) calloc(1, sizeof(table_t));
+    result->table = (entry_t **) calloc(1, sizeof(entry_t *) * TABLESIZE);
     result->pool = wgmempool_Init(10000, 10);
 
     result->heap = (entry_t *) malloc(sizeof(entry_t) * maxngrams);
@@ -303,7 +305,7 @@ static void tabledone(table_t * t)
 
 extern void *fp_Init(const char *name)
 {
-    fp_t *h = (fp_t *) wg_zalloc(sizeof(fp_t));
+    fp_t *h = (fp_t *) calloc(1, sizeof(fp_t));
 
     if (name)
         h->name = strdup(name);
@@ -340,7 +342,7 @@ extern const char *fp_Name(void *handle)
  *
  * Function is implemented as a finite state machine.
  */
-static char *prepbuffer(const char *src, size_t bufsize)
+static char *prepbuffer(const char *src, size_t bufsize, uint4 mindocsize)
 {
     const char *p = src;
     char *dest = (char *)malloc(bufsize + 3);
@@ -409,7 +411,7 @@ static char *prepbuffer(const char *src, size_t bufsize)
     *w++ = '\0';
 
     /*** Docs that are too small for a fingerprint, are refused ***/
-    if (w - dest < MINDOCSIZE)
+    if (w - dest < mindocsize)
     {
         free(dest);
         return NULL;
@@ -465,6 +467,7 @@ static void createngramtable(table_t * t, const char *buf)
 
         p = utf8_next_char(p); /* [modified] */
     }
+	return;
 }
 
 static int mystrcmp(const char *a, const char *b)
@@ -501,18 +504,18 @@ static int ngramcmp_rank(const void *a, const void *b)
  * - sort them alphabetically, recording their relative rank
  */
 extern int fp_Create(void *handle, const char *buffer, uint4 bufsize,
-                     uint4 maxngrams)
+                     uint4 maxngrams, uint4 mindocsize)
 {
     sint4 i = 0;
     fp_t *h = NULL;
     table_t *t = NULL;
     char *tmp = NULL;
 
-    if (bufsize < MINDOCSIZE)
+    if (bufsize < mindocsize)
         return 0;
 
     /*** Throw out all invalid chars ***/
-    tmp = prepbuffer(buffer, bufsize);
+    tmp = prepbuffer(buffer, bufsize, mindocsize);
     /* printf("Cleaned buffer : %s\n",tmp); */
     if (tmp == NULL)
         return 0;

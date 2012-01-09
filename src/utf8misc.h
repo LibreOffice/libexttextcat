@@ -37,13 +37,6 @@
 #ifndef _UTF8_MISC_H_
 #define _UTF8_MISC_H_
 
-/**
- * These variables are used in character processing functions
- * These have been added to manage utf-8 symbols, particularly escape chars
- */
-#define ESCAPE_MASK 0x80
-#define WEIGHT_MASK 0xF0
-
 #ifdef __cplusplus
 extern "C"
 {

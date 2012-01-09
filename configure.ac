@@ -10,6 +10,7 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_LANG([C])
 
 AM_INIT_AUTOMAKE([1.11 foreign dist-xz dist-bzip2])
+AM_MAINTAINER_MODE
 AM_CONFIG_HEADER([src/config.h])
 AM_SILENT_RULES([yes])
 
@@ -33,7 +34,7 @@ AC_STRUCT_TM
 
 dnl Checks for functions
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([gettimeofday strchr strpbrk])
+AC_CHECK_FUNCS([gettimeofday strdup strpbrk])
 
 # ================
 # Check for cflags

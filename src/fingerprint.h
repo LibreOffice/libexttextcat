@@ -44,7 +44,7 @@ extern "C"
     extern void *fp_Init(const char *name);
     extern void fp_Done(void *handle);
     extern int fp_Create(void *handle, const char *buffer, uint4 bufsize,
-                         uint4 maxngrams);
+                         uint4 maxngrams, uint4 mindocsize);
     extern int fp_Read(void *handle, const char *fname, int maxngrams);
     extern sint4 fp_Compare(void *cat, void *unknown, int cutoff);
     extern void fp_Show(void *handle);

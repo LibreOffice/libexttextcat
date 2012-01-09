@@ -30,8 +30,6 @@
 		wg_split
 		wg_strgmov
 		wg_trim
-		wg_zalloc
-		wgmem_error
 		
 	local:
 		*;
