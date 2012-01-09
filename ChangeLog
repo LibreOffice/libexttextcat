@@ -1,4 +1,8 @@
-Sun Nov 14 2011 Caolan McNamara (caolanm@redhat.com)
+Mon Jan 09 2012 Caolán McNamara (caolanm@redhat.com)
+	* merge in changes from Giulio Paci <giuliopaci@gmail.com>
+	* bump soname for abi changes
+
+Sun Nov 14 2011 Caolán McNamara (caolanm@redhat.com)
 	* Release a libexttextcat 3.2:
 	  + add a large amount of new language signatures.  Basically the
 	    subset of languages supported by LibreOffice which have a UDHR
@@ -9,14 +13,14 @@ Fri Sep 30 2011 Rene Engelhard <rene@debian.org>
 	* rename library to libexttextcat
 	* make the tests use bash explicitely
 
-Tue Sep 27 2011 Caolan McNamara (caolanm@redhat.com)
+Tue Sep 27 2011 Caolán McNamara (caolanm@redhat.com)
 	* fix utf8-ization of createfp
 	* regenerate various encoding mangled fingerprints
 	* add a make check
 	* use UDHR as sample utf-8 text where possible
 		+ manx unavailable
 
-Mon Sep 19 2011 Caolan McNamara (caolanm@redhat.com)
+Mon Sep 19 2011 Caolán McNamara (caolanm@redhat.com)
 	* Release a libexttextcat 3.0 to bundle together:
 	  + the various OpenOffice.org, Linux distributions and LibreOffice
 	    modifications to libtextcat
