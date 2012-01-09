@@ -31,16 +31,16 @@ EXTRA_DIST = libexttextcat.map \
 check:
 	@echo primary languages
 	@for primarylanguage in \
-		ab ace af am ar ast be bg bn bo br bs ca cs \
-		cy da de ee en eo es et eu fa fi fj fo fr fur \
-		fy ga gd gl gn gu gv el ha-NG haw he hi hil \
-		hr hsb ht hu hy ia id is it ja ka kk kl km ko \
-		ky ktu la lb lg ln lo lt lv mai mi mg mk ml mn \
-		mr ms mt my nb ne nl nn nso ny om pa pl pt qxa \
-		rm ro ru rw sa sc se sg sk sl so sq sr sr-Latn \
-		ss st sv sw ta tet th tg ti tk tl tn tpi tr ts \
-		tt ty ug uk uz ve vi wa xh yi yo zh-Hans \
-		zh-Hant zu; do \
+		ab ace ada af am ar ast be bg bn bo br bs ca \
+		cs cy da de ee en eo es et eu fa fi fj fo fr \
+		fur fy ga gd gl gn gu gv el ha-NG haw he hi \
+		hil hr hsb ht hu hy ia id is it ja ka kk kl \
+		km ko ky ktu la lb lg ln lo lt lv mai mi mg \
+		mk ml mn mr ms mt my nb ne nl nn nso ny om \
+		pa pl pt qxa rm ro ru rw sa sc se sg sk sl \
+		so sq sr sr-Latn ss st sv sw ta tet th tg ti \
+		tk tl tn tpi tr ts tt ty ug uk uz ve vi wa \
+		xh yi yo zh-Hans zh-Hant zu; do \
 		bash ./test-primary.sh $$primarylanguage; \
 		if test x$$? != x0; then \
 			echo FAIL: $$primarylanguage && exit 1; \
