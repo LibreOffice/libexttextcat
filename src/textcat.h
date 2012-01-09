@@ -63,7 +63,8 @@ extern "C"
     extern void *textcat_Init(const char *conffile);
 
 /**
- * Originaly this function had only one parameter (conffile) it has been modified since OOo must be able to load alternativ DB
+ * Originally this function had only one parameter (conffile) it has been
+ * modified since OOo must be able to load alternative DB
  * Basicaly prefix is the directory path where fingerprints are stored
  */
     extern void *special_textcat_Init(const char *conffile,
