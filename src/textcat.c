@@ -117,6 +117,9 @@ extern void *textcat_Init(const char *conffile)
 extern void *special_textcat_Init(const char *conffile, const char *prefix)
 {
     textcat_t *h;
+	char *finger_print_file_name;
+	size_t finger_print_file_name_size;
+	size_t prefix_size;
     char line[1024];
     FILE *fp;
 
@@ -136,11 +139,17 @@ extern void *special_textcat_Init(const char *conffile, const char *prefix)
     h->fprint_disable = (unsigned char *)malloc(sizeof(unsigned char) * h->maxsize);
     /* added to store the state of languages */
 	h->tmp_candidates = NULL;
+
+	prefix_size = strlen(prefix);
+	finger_print_file_name_size = prefix_size + 1;
+	finger_print_file_name = (char*)malloc( sizeof(char) * ( finger_print_file_name_size +1024 ) );
+	finger_print_file_name[0] = '\0';
+	strcat(finger_print_file_name, prefix);
+
     while (wg_getline(line, 1024, fp))
     {
         char *p;
         char *segment[4];
-        char finger_print_file_name[512 + 1];
         int res;
 
         /*** Skip comments ***/
@@ -171,17 +180,29 @@ extern void *special_textcat_Init(const char *conffile, const char *prefix)
             goto BAILOUT;
         }
 
-        /*** Check filename overflow ***/
-        finger_print_file_name[0] = finger_print_file_name[512] = '\0';
-        strncat(finger_print_file_name, prefix, 512);
-        strncat(finger_print_file_name, segment[0], 512);
-        if (finger_print_file_name[512] != '\0')
-        {
-            goto BAILOUT;
-        }
+		while( prefix_size + strlen(segment[0]) > finger_print_file_name_size )
+		{
+			char *tmp;
+			size_t tmp_size = finger_print_file_name_size * 2;
+			tmp = (char *)realloc(finger_print_file_name, sizeof(char)*(tmp_size+1) );
+			if( tmp == NULL )
+			{
+				free( finger_print_file_name );
+				finger_print_file_name_size = 0;
+				goto BAILOUT;
+			}
+			else
+			{
+				finger_print_file_name = tmp;
+				finger_print_file_name_size = tmp_size;
+			}
+		}
+        finger_print_file_name[prefix_size] = '\0';
+        strcat(finger_print_file_name, segment[0]);
 
         if (fp_Read(h->fprint[h->size], finger_print_file_name, 400) == 0)
         {
+			textcat_Done(h);
             goto BAILOUT;
         }
         h->fprint_disable[h->size] = 0xF0;  /* 0xF0 is the code for enabled
@@ -189,11 +210,12 @@ extern void *special_textcat_Init(const char *conffile, const char *prefix)
         h->size++;
     }
 
+	free( finger_print_file_name );
+
     fclose(fp);
     return h;
 
   BAILOUT:
-    textcat_Done(h);            /* don't leak h */
     fclose(fp);
     return NULL;
 

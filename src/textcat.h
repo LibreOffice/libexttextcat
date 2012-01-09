@@ -71,9 +71,16 @@ typedef struct {
     extern void *textcat_Init(const char *conffile);
 
 /**
- * Originally this function had only one parameter (conffile) it has been
- * modified since OOo must be able to load alternative DB
- * Basicaly prefix is the directory path where fingerprints are stored
+ * special_textcat_Init() - Initialize the text classifier. This function
+ * prepare the classifier as needed by OpenOffice.org. The textfile
+ * conffile should contain a list of utf8 fingerprint filenames and
+ * identification strings for the categories.prefix will be
+ * prepended to the filenames to locate the files. The identification
+ * strings will be used in the classification output.
+ * 
+ * Returns: handle on success, NULL on error. (At the moment, the
+ * only way errors can occur, is when the library cannot read the
+ * conffile, or one of the fingerprint files listed in it.)
  */
     extern void *special_textcat_Init(const char *conffile,
                                       const char *prefix);
