@@ -53,22 +53,25 @@
 #define WEIGHT_MASK 0x00
 #endif
 
-const char* utf8_next_char(const char *str)
+const char *utf8_next_char(const char *str)
 {
     if (*str & ESCAPE_MASK)
     {
-        /* if the first bit of the current char is 1
-         * then *str is an escape character
+        /* 
+         * if the first bit of the current char is 1 then *str is an escape
+         * character
          */
         char escape_char = ((*str & WEIGHT_MASK) << 1);
 
-        /* and we use it to count (by bit translation) following characters
+        /* 
+         * and we use it to count (by bit translation) following characters
          * (only the weightest part)
          */
         while (escape_char & ESCAPE_MASK && *str)
         {
-            /* every step, we move the byte of 1 bit left, 
-             * when first bit is 0, it's finished
+            /* 
+             * every step, we move the byte of 1 bit left, when first bit is 0,
+             * it's finished
              */
             escape_char = escape_char << 1;
             ++str;
@@ -76,8 +79,9 @@ const char* utf8_next_char(const char *str)
     }
     if (*str)
     {
-        /* finaly, if we are not on the \0 character,
-         * we jump to the next character
+        /* 
+         * finally, if we are not on the \0 character, we jump to the next
+         * character
          */
         ++str;
     }
@@ -88,22 +92,21 @@ int utf8_charcopy(const char *str, char *dest)
 {
 
     int pointer = 0;
+    /* if the first bit of the current char is 1 */
     if (str[pointer] & ESCAPE_MASK)
-    {                           /* if the first bit of the current char is 1 */
+    {
+        /* 
+         * then str[pointer] is an escape character and we use it to count
+         * following characters (only the weightest part)
+         */
+        char escape_char = ((str[pointer] & WEIGHT_MASK) << 1);
 
-        /* then str[pointer] is an escape character */
-
-        char escape_char = ((str[pointer] & WEIGHT_MASK) << 1); /* and we use
-                                                                   it to count 
-                                                                   following
-                                                                   characters
-                                                                   (only the
-                                                                   weightest
-                                                                   part) */
-
+        /* 
+         * every step, we move the byte of 1 bit left, when first bit is 0,
+         * it's finished
+         */
         while (escape_char & ESCAPE_MASK && str[pointer])
-        {                       /* every step, we move the byte of 1 bit left, 
-                                   when first bit is 0, it's finished */
+        {
             dest[pointer] = str[pointer];
             escape_char = escape_char << 1;
             ++pointer;
@@ -127,19 +130,15 @@ int utf8_issame(char *lex, char *key, int len)
     while (char_counter < len)
     {
 
+        /* if the first bit of the current char is 1 */
         if (key[pointer] & ESCAPE_MASK)
-        {                       /* if the first bit of the current char is 1 */
+        {
+            /* 
+             * then key[pointer] is an escape character and we use it to count
+             * (only the weightest part)
+             */
 
-            /* then key[pointer] is an escap character */
-
-            char escape_char = ((key[pointer] & WEIGHT_MASK) << 1); /* and we
-                                                                       use it
-                                                                       to
-                                                                       count
-                                                                       (only
-                                                                       the
-                                                                       weightest 
-                                                                       part) */
+            char escape_char = ((key[pointer] & WEIGHT_MASK) << 1);
 
             while (escape_char & ESCAPE_MASK && key[pointer] == lex[pointer])
             {

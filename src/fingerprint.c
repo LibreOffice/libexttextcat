@@ -438,10 +438,10 @@ static void createngramtable(table_t * t, const char *buf)
         char *m = n;
 
         /*** First char may be an underscore ***/
-        decay = utf8_charcopy(q, m); /* [modified] previously *q++ = *m++ */
+        decay = utf8_charcopy(q, m);    /* [modified] previously *q++ = *m++ */
 
-        q += decay;  /* [modified] */
-        m += decay; /* [modified] */
+        q += decay;             /* [modified] */
+        m += decay;             /* [modified] */
         *m = '\0';
 
         increasefreq(t, n, 1);
@@ -452,7 +452,7 @@ static void createngramtable(table_t * t, const char *buf)
         /*** Let the compiler unroll this ***/
         for (i = 2; i <= MAXNGRAMSYMBOL; i++)
         {
-            decay = utf8_charcopy(q, m); /* [modified] like above */
+            decay = utf8_charcopy(q, m);    /* [modified] like above */
             m += decay;
             *m = '\0';
 
@@ -465,9 +465,9 @@ static void createngramtable(table_t * t, const char *buf)
                 return;
         }
 
-        p = utf8_next_char(p); /* [modified] */
+        p = utf8_next_char(p);  /* [modified] */
     }
-	return;
+    return;
 }
 
 static int mystrcmp(const char *a, const char *b)

@@ -48,90 +48,94 @@ extern "C"
 {
 #endif
 
-typedef struct {
-	int score;
-	const char *name;
-} candidate_t;
+    typedef struct
+    {
+        int score;
+        const char *name;
+    } candidate_t;
 
-
-/**
- * textcat_Init() - Initialize the text classifier. The textfile
- * conffile should contain a list of fingerprint filenames and
- * identification strings for the categories.  The filenames should be
- * reachable from the current working directory. The identification
- * strings will are used in the classification output.
- * 
- * Returns: handle on success, NULL on error. (At the moment, the
- * only way errors can occur, is when the library cannot read the
- * conffile, or one of the fingerprint files listed in it.)
- *
- * Replace older function (and has exacly the same behaviour)
- * see below
- */
+    /**
+     * textcat_Init() - Initialize the text classifier. The textfile
+     * conffile should contain a list of fingerprint filenames and
+     * identification strings for the categories.  The filenames should be
+     * reachable from the current working directory. The identification
+     * strings will are used in the classification output.
+     * 
+     * Returns: handle on success, NULL on error. (At the moment, the
+     * only way errors can occur, is when the library cannot read the
+     * conffile, or one of the fingerprint files listed in it.)
+     *
+     * Replace older function (and has exacly the same behaviour)
+     * see below
+     */
     extern void *textcat_Init(const char *conffile);
 
-/**
- * special_textcat_Init() - Initialize the text classifier. This function
- * prepare the classifier as needed by OpenOffice.org. The textfile
- * conffile should contain a list of utf8 fingerprint filenames and
- * identification strings for the categories.prefix will be
- * prepended to the filenames to locate the files. The identification
- * strings will be used in the classification output.
- * 
- * Returns: handle on success, NULL on error. (At the moment, the
- * only way errors can occur, is when the library cannot read the
- * conffile, or one of the fingerprint files listed in it.)
- */
+    /**
+     * special_textcat_Init() - Initialize the text classifier. This function
+     * prepare the classifier as needed by OpenOffice.org. The textfile
+     * conffile should contain a list of utf8 fingerprint filenames and
+     * identification strings for the categories.prefix will be
+     * prepended to the filenames to locate the files. The identification
+     * strings will be used in the classification output.
+     * 
+     * Returns: handle on success, NULL on error. (At the moment, the
+     * only way errors can occur, is when the library cannot read the
+     * conffile, or one of the fingerprint files listed in it.)
+     */
     extern void *special_textcat_Init(const char *conffile,
                                       const char *prefix);
 
-/**
- * textcat_Done() - Free up resources for handle
- */
+    /**
+     * textcat_Done() - Free up resources for handle
+     */
     extern void textcat_Done(void *handle);
 
-/**
- * textcat_Classify() - Give the most likely categories for buffer
- * with length size.
- *
- * Returns: string containing a list of category id's, each one
- * between square brackets, "UNKNOWN" when not recognized, "SHORT" if the
- * document was too short to make a reliable assessment.
- *
- * Performace note: longer buffers take longer to process. However,
- * for many uses it is not necessary to categorize the whole buffer.
- * For language classification, a few hundred bytes will suffice.  
- */
+    /**
+     * textcat_Classify() - Give the most likely categories for buffer
+     * with length size.
+     *
+     * Returns: string containing a list of category id's, each one
+     * between square brackets, "UNKNOWN" when not recognized, "SHORT" if the
+     * document was too short to make a reliable assessment.
+     *
+     * Performace note: longer buffers take longer to process. However,
+     * for many uses it is not necessary to categorize the whole buffer.
+     * For language classification, a few hundred bytes will suffice.  
+     */
     extern char *textcat_Classify(void *handle, const char *buffer,
                                   size_t size);
 
 
-/**
- * textcat_GetClassifyFullOutput() - Create a classifier output handler
- */
-extern candidate_t *textcat_GetClassifyFullOutput( void *handle );
+    /**
+     * textcat_GetClassifyFullOutput() - Create a classifier output handler
+     */
+    extern candidate_t *textcat_GetClassifyFullOutput(void *handle);
 
-/**
- * textcat_ReleaseClassifyFullOutput() - Free up resources for the classifier output handler
- */
-extern void textcat_ReleaseClassifyFullOutput( void *handle, candidate_t *candidates );
+    /**
+     * textcat_ReleaseClassifyFullOutput() - Free up resources for the
+     * classifier output handler
+     */
+    extern void textcat_ReleaseClassifyFullOutput(void *handle,
+                                                  candidate_t * candidates);
 
-/**
- * textcat_ClassifyFull() - Give the most likely categories for buffer
- * with length size.
- *
- * Returns: the numbers of results.
- *
- * Performace note: longer buffers take longer to process. However,
- * for many uses it is not necessary to categorize the whole buffer.
- * For language classification, a few hundred bytes will suffice.
- */
-extern int textcat_ClassifyFull( void *handle, const char *buffer, size_t size, candidate_t *candidates );
+    /**
+     * textcat_ClassifyFull() - Give the most likely categories for buffer
+     * with length size.
+     *
+     * Returns: the numbers of results.
+     *
+     * Performace note: longer buffers take longer to process. However,
+     * for many uses it is not necessary to categorize the whole buffer.
+     * For language classification, a few hundred bytes will suffice.
+     */
+    extern int textcat_ClassifyFull(void *handle, const char *buffer,
+                                    size_t size, candidate_t * candidates);
 
 
-/**
- * textcat_Version() - Returns a string describing the version of this classifier.
- */
+    /**
+     * textcat_Version() - Returns a string describing the version of this
+     * classifier.
+     */
     extern const char *textcat_Version(void);
 
 #ifdef __cplusplus

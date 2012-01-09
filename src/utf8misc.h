@@ -42,32 +42,34 @@ extern "C"
 {
 #endif
 
-/* 
- * Is used to jump to the next start of char
- * of course it's only usefull when encoding is utf-8
- * This function have been added by Jocelyn Merand to use libtextcat in OOo
- */
-const char* utf8_next_char(const char *str);
+    /* 
+     * Is used to jump to the next start of char
+     * of course it's only usefull when encoding is utf-8
+     * This function have been added by Jocelyn Merand to use libtextcat in OOo
+     */
+    const char *utf8_next_char(const char *str);
 
-/* Copy the char in str to dest of course it's only usefull when encoding is
-   utf8 and the symbol is encoded with more than 1 char return the number of
-   char jumped This function have been added by Jocelyn Merand to use
-   libtextcat in OOo */
-int utf8_charcopy(const char *str, char *dest);
-
-
-/* checks if n-gram lex is a prefix of key and of length len
- * len is the number of unicode code points
- * strlen("€") == 3 but len == 1
- */
-int utf8_issame(char *lex, char *key, int len);
+    /* 
+     * Copy the char in str to dest of course it's only usefull when encoding
+     * is utf8 and the symbol is encoded with more than 1 char return the
+     * number of char jumped This function have been added by Jocelyn Merand to
+     * use libtextcat in OOo
+     */
+    int utf8_charcopy(const char *str, char *dest);
 
 
-/*
- * len is the number of unicode code points
- * strlen("€") == 3 but len == 1
- */
-extern int utf8_strlen(const char *str);
+    /* 
+     * checks if n-gram lex is a prefix of key and of length len len is the
+     * number of unicode code points strlen("€") == 3 but len == 1
+     */
+    int utf8_issame(char *lex, char *key, int len);
+
+
+    /* 
+     * len is the number of unicode code points
+     * strlen("€") == 3 but len == 1
+     */
+    extern int utf8_strlen(const char *str);
 #ifdef __cplusplus
 }
 #endif
