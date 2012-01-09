@@ -40,11 +40,19 @@
 
 #define _TEXTCAT_RESULT_UNKOWN        "UNKNOWN"
 #define _TEXTCAT_RESULT_SHORT         "SHORT"
+#define TEXTCAT_RESULT_UNKOWN        0
+#define TEXTCAT_RESULT_SHORT         -2
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
+
+typedef struct {
+	int score;
+	const char *name;
+} candidate_t;
+
 
 /**
  * textcat_Init() - Initialize the text classifier. The textfile
@@ -89,6 +97,30 @@ extern "C"
  */
     extern char *textcat_Classify(void *handle, const char *buffer,
                                   size_t size);
+
+
+/**
+ * textcat_GetClassifyFullOutput() - Create a classifier output handler
+ */
+extern candidate_t *textcat_GetClassifyFullOutput( void *handle );
+
+/**
+ * textcat_ReleaseClassifyFullOutput() - Free up resources for the classifier output handler
+ */
+extern void textcat_ReleaseClassifyFullOutput( void *handle, candidate_t *candidates );
+
+/**
+ * textcat_ClassifyFull() - Give the most likely categories for buffer
+ * with length size.
+ *
+ * Returns: the numbers of results.
+ *
+ * Performace note: longer buffers take longer to process. However,
+ * for many uses it is not necessary to categorize the whole buffer.
+ * For language classification, a few hundred bytes will suffice.
+ */
+extern int textcat_ClassifyFull( void *handle, const char *buffer, size_t size, candidate_t *candidates );
+
 
 /**
  * textcat_Version() - Returns a string describing the version of this classifier.

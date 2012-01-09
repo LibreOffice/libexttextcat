@@ -11,6 +11,9 @@
 		wgmempool_strdup
 		special_textcat_Init
 		textcat_Classify
+		textcat_ClassifyFull
+		textcat_ReleaseClassifyFullOutput
+		textcat_GetClassifyFullOutput
 		textcat_Done
 		textcat_Init
 		textcat_Version
