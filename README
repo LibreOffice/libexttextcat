@@ -58,7 +58,7 @@ plain text[5], so...
 % tail -n+7 udhr_abk.txt > ab.txt #skip english header, name is using BCP-47
 % cd ../LM
 % ../../src/createfp < ../ShortTexts/ab.txt > ab.lm
-% echo "ab.lm                                ab--utf8" >> ../fpdb.conf
+% echo "ab.lm       ab--utf8" >> ../fpdb.conf
 
 Eventually we'll drop fpdb.conf and assume the name of the fingerprint .lm file
 is the correct BCP-47 tag for the language it detects.
