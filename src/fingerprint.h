@@ -48,14 +48,7 @@ extern "C"
     extern int fp_Read(void *handle, const char *fname, int maxngrams);
     extern sint4 fp_Compare(void *cat, void *unknown, int cutoff);
     extern void fp_Show(void *handle);
-#ifdef __cplusplus
-    extern "C"
-    {
-#endif
-        extern const char *fp_Name(void *handle);
-#ifdef __cplusplus
-    }
-#endif
+    extern const char *fp_Name(void *handle);
     extern void fp_Print(void *handle, FILE * fp);
 
 #ifdef __cplusplus
