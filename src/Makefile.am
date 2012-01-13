@@ -5,7 +5,7 @@ noinst_HEADERS = \
 
 libexttextcat_1_0_includedir = $(includedir)/libexttextcat
 libexttextcat_1_0_include_HEADERS = \
-	common.h constants.h fingerprint.h textcat.h utf8misc.h \
+	common.h constants.h fingerprint.h textcat.h utf8misc.h textcat_properties.h \
         $(builddir)/exttextcat-version.h
 
 lib_LTLIBRARIES =	libexttextcat-1.0.la

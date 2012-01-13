@@ -69,9 +69,7 @@
 #endif
 #include <stdio.h>
 #include <stdlib.h>
-#ifdef HAVE_STRING_H
 #include <string.h>
-#endif
 #include <ctype.h>
 
 #include "common_impl.h"
@@ -79,6 +77,7 @@
 #include "constants.h"
 
 #include "utf8misc.h"
+#include "fingerprint.h"
 
 #define TABLESIZE  (1<<TABLEPOW)
 #define TABLEMASK  ((TABLESIZE)-1)
@@ -97,6 +96,8 @@ typedef struct fp_s
     const char *name;
     ngram_t *fprint;
     uint4 size;
+    uint4 mindocsize;
+    boole utfaware;
 
 } fp_t;
 
@@ -136,14 +137,15 @@ static uint4 simplehash(const char *p, int len)
 }
 
 /* increases frequency of ngram(p,len) */
-static int increasefreq(table_t * t, char *p, int len)
+static int increasefreq(table_t * t, char *p, int len,
+                        int issameimpl(char *, char *, int))
 {
     uint4 hash = simplehash(p, len) & TABLEMASK;
     entry_t *entry = t->table[hash];
 
     while (entry)
     {
-        if (utf8_issame(entry->str, p, len))
+        if (issameimpl(entry->str, p, len))
         {
             /*** Found it! ***/
             entry->cnt++;
@@ -307,6 +309,9 @@ extern void *fp_Init(const char *name)
 {
     fp_t *h = (fp_t *) calloc(1, sizeof(fp_t));
 
+    h->utfaware = TC_TRUE;
+    h->mindocsize = MINDOCSIZE;
+
     if (name)
         h->name = strdup(name);
 
@@ -424,7 +429,7 @@ static char *prepbuffer(const char *src, size_t bufsize, uint4 mindocsize)
 * this function extract all n-gram from past buffer and put them into the table "t"
 * [modified] by Jocelyn Merand to accept utf-8 multi-character symbols to be used in OpenOffice
 */
-static void createngramtable(table_t * t, const char *buf)
+static void utfcreatengramtable(table_t * t, const char *buf)
 {
     char n[MAXNGRAMSIZE + 1];
     const char *p = buf;
@@ -444,7 +449,8 @@ static void createngramtable(table_t * t, const char *buf)
         m += decay;             /* [modified] */
         *m = '\0';
 
-        increasefreq(t, n, 1);
+        increasefreq(t, n, 1, utf8_issame);
+
 
         if (*q == '\0')
             return;
@@ -456,7 +462,7 @@ static void createngramtable(table_t * t, const char *buf)
             m += decay;
             *m = '\0';
 
-            increasefreq(t, n, i);
+            increasefreq(t, n, i, utf8_issame);
 
             if (*q == '_')
                 break;
@@ -469,6 +475,70 @@ static void createngramtable(table_t * t, const char *buf)
     }
     return;
 }
+
+/* checks if n-gram lex is a prefix of key and of length len */
+static int issame(char *lex, char *key, int len)
+{
+    int i;
+    for (i = 0; i < len; i++)
+    {
+        if (key[i] != lex[i])
+        {
+            return 0;
+        }
+    }
+    if (lex[i] != 0)
+    {
+        return 0;
+    }
+    return 1;
+}
+
+static void createngramtable(table_t * t, const char *buf)
+{
+    char n[MAXNGRAMSIZE + 1];
+    const char *p = buf;
+    int i;
+
+    /*** Get all n-grams where 1<=n<=MAXNGRAMSIZE. Allow underscores only at borders. ***/
+    for (;; p++)
+    {
+
+        const char *q = p;
+        char *m = n;
+
+        /*** First char may be an underscore ***/
+        *m++ = *q++;
+        *m = '\0';
+
+        increasefreq(t, n, 1, issame);
+
+        if (*q == '\0')
+        {
+            return;
+        }
+
+        /*** Let the compiler unroll this ***/
+        for (i = 2; i <= MAXNGRAMSIZE; i++)
+        {
+
+            *m++ = *q;
+            *m = '\0';
+
+            increasefreq(t, n, i, issame);
+
+            if (*q == '_')
+                break;
+            q++;
+            if (*q == '\0')
+            {
+                return;
+            }
+        }
+    }
+    return;
+}
+
 
 static int mystrcmp(const char *a, const char *b)
 {
@@ -497,6 +567,29 @@ static int ngramcmp_rank(const void *a, const void *b)
     return x->rank - y->rank;
 }
 
+extern int fp_SetProperty(void *handle, textcat_Property property, sint4 value)
+{
+    fp_t *h = (fp_t *) handle;
+    switch (property)
+    {
+    case TCPROP_UTF8AWARE:
+        if ((value == TC_TRUE) || (value == TC_FALSE))
+        {
+            h->utfaware = value;
+            return 0;
+        }
+        return -2;
+        break;
+    case TCPROP_MINIMUM_DOCUMENT_SIZE:
+        h->mindocsize = (uint4) value;
+        return 0;
+        break;
+    default:
+        break;
+    }
+    return -1;
+}
+
 /**
  * Create a fingerprint:
  * - record the frequency of each unique n-gram in a hash table
@@ -504,27 +597,35 @@ static int ngramcmp_rank(const void *a, const void *b)
  * - sort them alphabetically, recording their relative rank
  */
 extern int fp_Create(void *handle, const char *buffer, uint4 bufsize,
-                     uint4 maxngrams, uint4 mindocsize)
+                     uint4 maxngrams)
 {
     sint4 i = 0;
     fp_t *h = NULL;
     table_t *t = NULL;
     char *tmp = NULL;
 
-    if (bufsize < mindocsize)
+    h = (fp_t *) handle;
+
+    if (bufsize < h->mindocsize)
         return 0;
 
     /*** Throw out all invalid chars ***/
-    tmp = prepbuffer(buffer, bufsize, mindocsize);
+    tmp = prepbuffer(buffer, bufsize, h->mindocsize);
     /* printf("Cleaned buffer : %s\n",tmp); */
     if (tmp == NULL)
         return 0;
-    h = (fp_t *) handle;
     t = inittable(maxngrams);
     /* printf("Table initialized\n"); */
 
     /*** Create a hash table containing n-gram counts ***/
-    createngramtable(t, tmp);
+    if (h->utfaware)
+    {
+        utfcreatengramtable(t, tmp);
+    }
+    else
+    {
+        createngramtable(t, tmp);
+    }
     /* printf("Table created\n"); */
     /*** Take the top N n-grams and add them to the profile ***/
     table2heap(t);

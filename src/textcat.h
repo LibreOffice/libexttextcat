@@ -37,6 +37,8 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #include "exttextcat-version.h"
+#include "common.h"
+#include "textcat_properties.h"
 
 #define _TEXTCAT_RESULT_UNKOWN        "UNKNOWN"
 #define _TEXTCAT_RESULT_SHORT         "SHORT"
@@ -84,6 +86,9 @@ extern "C"
      */
     extern void *special_textcat_Init(const char *conffile,
                                       const char *prefix);
+
+    extern int textcat_SetProperty(void *handle, textcat_Property property,
+                                   sint4 value);
 
     /**
      * textcat_Done() - Free up resources for handle

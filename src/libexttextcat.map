@@ -16,6 +16,7 @@
 		textcat_GetClassifyFullOutput
 		textcat_Done
 		textcat_Init
+		textcat_SetProperty
 		textcat_Version
 		fp_Compare
 		fp_Create
@@ -25,6 +26,7 @@
 		fp_Name
 		fp_Print
 		fp_Read
+		fp_SetProperty
 		wg_getline
 		wg_split
 		wg_strgmov

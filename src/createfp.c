@@ -77,11 +77,26 @@ int main(int argc, char **args)
 {
     void *h;
     char *buf;
+    int utfaware = 1;
+
+    if ((argc > 1) && (!strcmp(args[1], "--no-utf8")))
+    {
+        utfaware = 0;
+    }
 
     buf = myread(stdin);
 
     h = fp_Init(NULL);
-    if (fp_Create(h, buf, strlen(buf), 400, MINDOCSIZE) == 0)
+    if (utfaware)
+    {
+        fp_SetProperty(h, TCPROP_UTF8AWARE, TC_TRUE);
+    }
+    else
+    {
+        fp_SetProperty(h, TCPROP_UTF8AWARE, TC_FALSE);
+    }
+    fp_SetProperty(h, TCPROP_MINIMUM_DOCUMENT_SIZE, MINDOCSIZE);
+    if (fp_Create(h, buf, strlen(buf), 400) == 0)
     {
         fprintf(stderr, "There was an error creating the fingerprint\n");
         exit(-1);

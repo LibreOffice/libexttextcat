@@ -40,9 +40,7 @@
 #include "config.h"
 #endif
 #include <stdlib.h>
-#ifdef HAVE_STRING_H
 #include <string.h>
-#endif
 
 #include "textcat.h"
 #include "common_impl.h"
@@ -82,6 +80,13 @@ int main(int argc, char **argv)
     char *result;
     char *buf;
     const char *conf;
+    int utfaware = 1;
+
+    if ((argc > 3) && (!strcmp(argv[3], "--no-utf8")))
+    {
+        utfaware = 0;
+    }
+
 
     conf = argc > 1 ? argv[1] : "fpdb.conf";
     if (argc > 2)
@@ -92,6 +97,14 @@ int main(int argc, char **argv)
     {
         fprintf(stderr, "Unable to init using '%s', Aborting.\n", conf);
         exit(-1);
+    }
+    if (utfaware)
+    {
+        textcat_SetProperty(h, TCPROP_UTF8AWARE, TC_TRUE);
+    }
+    else
+    {
+        textcat_SetProperty(h, TCPROP_UTF8AWARE, TC_TRUE);
     }
 
     buf = myread(stdin);

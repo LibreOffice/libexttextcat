@@ -56,9 +56,7 @@
 #endif
 
 #include <stdlib.h>
-#ifdef HAVE_STRING_H
 #include <string.h>
-#endif
 
 #include "common_impl.h"
 #include "fingerprint.h"
@@ -76,7 +74,7 @@ typedef struct
 
     char output[MAXOUTPUTSIZE];
     candidate_t *tmp_candidates;
-
+    boole utfaware;
 } textcat_t;
 
 
@@ -105,6 +103,26 @@ extern void textcat_Done(void *handle)
     free(h->fprint_disable);
     free(h);
 
+}
+
+extern int textcat_SetProperty(void *handle, textcat_Property property,
+                               sint4 value)
+{
+    textcat_t *h = (textcat_t *) handle;
+    switch (property)
+    {
+    case TCPROP_UTF8AWARE:
+        if ((value == TC_TRUE) || (value == TC_FALSE))
+        {
+            h->utfaware = value;
+            return 0;
+        }
+        return -2;
+        break;
+    default:
+        break;
+    }
+    return -1;
 }
 
 /** Replaces older function */
@@ -143,6 +161,7 @@ extern void *special_textcat_Init(const char *conffile, const char *prefix)
         (unsigned char *)malloc(sizeof(unsigned char) * h->maxsize);
     /* added to store the state of languages */
     h->tmp_candidates = NULL;
+    h->utfaware = TC_TRUE;
 
     prefix_size = strlen(prefix);
     finger_print_file_name_size = prefix_size + 1;
@@ -294,7 +313,9 @@ extern int textcat_ClassifyFull(void *handle, const char *buffer, size_t size,
     void *unknown;
 
     unknown = fp_Init(NULL);
-    if (fp_Create(unknown, buffer, size, MAXNGRAMS, MINDOCSIZE) == 0)
+    fp_SetProperty(unknown, TCPROP_UTF8AWARE, h->utfaware);
+    fp_SetProperty(unknown, TCPROP_MINIMUM_DOCUMENT_SIZE, MINDOCSIZE);
+    if (fp_Create(unknown, buffer, size, MAXNGRAMS) == 0)
     {
         /*** Too little information ***/
         fp_Done(unknown);
