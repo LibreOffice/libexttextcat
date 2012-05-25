@@ -31,7 +31,7 @@ EXTRA_DIST = libexttextcat.map \
 check:
 	@echo primary languages
 	@for primarylanguage in \
-		ab ace ada af alt am ar arn ast ay az-Cyrl ban be bem \
+		ab ace ada af alt am ar arn ast ay az az-Cyrl ban be bem \
 		bho bi bik bg bm bn bo br bs ca cs cy da de dv ee \
 		en eo es et eu fa fi fj fo fr fur fy ga gd \
 		gl gu gug gv el ha-NG haw he hi hil hr \
