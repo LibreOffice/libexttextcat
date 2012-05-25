@@ -37,7 +37,7 @@ check:
 		gl gu gug gv el ha-NG haw he hi hil hr \
 		hsb ht hu hy ia id is it ja ka kk kl kn km \
 		ko ky ktu la lb lg ln lo lt lv mai mi \
-		mg mk ml mn mr ms mt my nb ne nl nn nr nso \
+		mg mk ml mn mos mr ms mt my nb ne nl nn nr nso \
 		ny om pa pl pt qxa rm ro ru rw sa sc se \
 		sg sk sl so sq sr sr-Latn ss st sv sw \
 		ta tet th tg ti tk tl tn tpi tr ts tt \
