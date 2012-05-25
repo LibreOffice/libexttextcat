@@ -34,7 +34,7 @@ check:
 		ab ace ada af alt am ar arn ast ay ban be bem \
 		bho bi bik bg bm bn bo br bs ca cs cy da de dv ee \
 		en eo es et eu fa fi fj fo fr fur fy ga gd \
-		gl gn gu gv el ha-NG haw he hi hil hr \
+		gl gu gug gv el ha-NG haw he hi hil hr \
 		hsb ht hu hy ia id is it ja ka kk kl km \
 		ko ky ktu la lb lg ln lo lt lv mai mi \
 		mg mk ml mn mr ms mt my nb ne nl nn nr nso \
