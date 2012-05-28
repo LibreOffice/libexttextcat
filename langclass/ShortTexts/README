@@ -1,3 +1,5 @@
+grc: Used the first part of the Iliad given that I doubt anyone's translating the UDHR
+     into ancient Greek anytime soon
 nr:  In order to try and distinguish xh, zu and nr from eachother, temporarily set
      MAXNGRAMS  2000
      MAXNGRAMSYMBOL 4
