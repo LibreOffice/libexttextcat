@@ -4,6 +4,9 @@ nr:  In order to try and distinguish xh, zu and nr from eachother, temporarily s
      MAXNGRAMS  2000
      MAXNGRAMSYMBOL 4
      while generating those three fingerprints as a bit of a bodge
+rue: NO UDHR translations available. Visited rue.wikipedia.org/wiki/Special:LongPages to get
+     a list of Rusyn pages on wikipedia and picked the longest page which didn't seem
+     too contaminated with mathematical or characters from different languages and scripts
 shs: No UDHR translation available. Nor any lengthy cohesive text. So sample
      text is cut and pasted phrases from http://www.firstvoices.ca/en/Secwepemc/phrase-book
 
