@@ -39,7 +39,7 @@ check:
 		ko ky ktu la lb lg ln lo lt lv mai mi \
 		mk ml mn mos mr ms mt my nb ne nl nn nr nso \
 		ny om pa pl plt pt qxa rm ro ru rw sa sc se \
-		sg sk sl so sq sr-Cyrl sr-Latn ss st sv sw \
+		sg shs sk sl so sq sr-Cyrl sr-Latn ss st sv sw \
 		ta tet th tg ti tk tl tn tpi tr ts tt \
 		ty ug uk uz ve vi wa xh yi yo zh-Hans \
 		zh-Hant zu; do \
