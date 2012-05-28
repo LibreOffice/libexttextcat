@@ -1,0 +1,32 @@
+nr:  In order to try and distinguish xh, zu and nr from eachother, temporarily set
+     MAXNGRAMS  2000
+     MAXNGRAMSYMBOL 4
+     while generating those three fingerprints as a bit of a bodge
+shs: No UDHR translation available. Nor any lengthy cohesive text. So sample
+     text is cut and pasted phrases from http://www.firstvoices.ca/en/Secwepemc/phrase-book
+
+remaining languages with LibreOffice support missing fingerprints:
+
+sd-IN: The UDHR for Sindhi is basically a picture of the text, so can't extract it.
+
+these are just a little confusing with similar languages, just needs to be unpicked
+sdc-IT
+sdn-IT
+src-IT
+sro-IT
+
+ku-IQ
+ku-IR
+ku-SY
+ku-TR
+
+these are trickier
+sat-IN
+sma-SE
+smj-NO
+smj-SE
+smn-FI
+sms-FI
+sjd-RU
+rue-SK
+rue-UA
