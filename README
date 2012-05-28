@@ -19,9 +19,10 @@ e.g.
 Quickstart: language guesser
   
  Assuming that you have successfully compiled the library, you need some
-language models to start guessing languages. A collection of over 70 language
-models mostly derived from Gertjan van Noord's "TextCat" package is bundled,
-with a matching configuration file, in the langclass directory:
+language models to start guessing languages. A collection of over 150 language
+models, mostly derived from using the included "createfp" utility on UDHR
+translations, is bundled, with a matching configuration file, in the langclass
+directory:
 
   * cd langclass/LM
   * ../../src/testtextcat ../fpdb.conf
@@ -50,8 +51,8 @@ Put the names of your fingerprints in a configuration file, add some id's and
 you're ready to classify.
 
 Here's a worked example. The UN Declaration of Human Rights is available in a
-massive pile of translations[4], and and unicode.org makes a lot available as
-plain text[5], so...
+massive pile of translations[4], and and unicode.org makes much of these
+available as plain text[5], so...
 
 % cd langclass/ShortTexts/
 % wget http://unicode.org/udhr/d/udhr_abk.txt
@@ -90,9 +91,9 @@ every language ever invented?
 
 Acknowledgements
 
-UTF-8 conversion and adaption for OpenOffice.org, Jocelyn Merand
-Original libTextCat, Frank Scheelen & Rob de Wit at wise-guys.nl
-Language models, copyright Gertjan van Noord
+UTF-8 conversion and adaption for OpenOffice.org, Jocelyn Merand.
+Original libTextCat, Frank Scheelen & Rob de Wit at wise-guys.nl.
+Original language models, copyright Gertjan van Noord.
 
 References:
 
