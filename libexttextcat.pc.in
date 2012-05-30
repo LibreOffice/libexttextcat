@@ -10,6 +10,6 @@ Name: libexttextcat
 Description: Library implementing N-gram-based text categorization
 Version: @VERSION@
 Requires:
-Libs: -L${libdir} -lexttextcat
+Libs: -L${libdir} -lexttextcat-1.0
 Cflags: -I${includedir}/libexttextcat/
 
