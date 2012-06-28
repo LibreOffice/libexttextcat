@@ -48,7 +48,7 @@
 
 char *myread(FILE * fp)
 {
-    char *buf;
+    char *buf, *newbuf;
     size_t size = 0;
     size_t maxsize = BLOCKSIZE * 2;
 
@@ -60,18 +60,26 @@ char *myread(FILE * fp)
         if (size + BLOCKSIZE > maxsize)
         {
             maxsize *= 2;
-            buf = (char *)realloc(buf, maxsize);
+            newbuf = (char *)realloc(buf, maxsize);
+            if (!newbuf)
+                free(buf);
+            buf = newbuf;
         }
 
     }
-    while (!feof(stdin));
+    while (!feof(stdin) && buf);
 
-    buf[size] = '\0';
-    buf = (char *)realloc(buf, size + 1);
+    if (buf)
+    {
+        buf[size] = '\0';
+        newbuf = (char *)realloc(buf, size + 1);
+        if (!newbuf)
+            free(buf);
+        buf = newbuf;
+    }
 
     return buf;
 }
-
 
 int main(int argc, char **args)
 {
