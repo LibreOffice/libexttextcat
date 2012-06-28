@@ -654,19 +654,6 @@ extern int fp_Create(void *handle, const char *buffer, uint4 bufsize,
     return 1;
 }
 
-extern void fp_Debug(void *handle)
-{
-    fp_t *h = (fp_t *) handle;
-    uint4 i;
-    printf("------ %s --------\n", h->name);
-    for (i = 0; i < h->size; i++)
-    {
-        printf("%3u: '%s' [%u]\n", i, h->fprint[i].str, h->fprint[i].rank);
-    }
-
-
-}
-
 extern int fp_Read(void *handle, const char *fname, int maxngrams)
 {
     fp_t *h = (fp_t *) handle;

@@ -3,23 +3,23 @@ AM_CFLAGS =	-D_THREAD_SAFE -D_GNU_SOURCE -DVERBOSE
 noinst_HEADERS = \
 	common_impl.h wg_mempool.h
 
-libexttextcat_1_0_includedir = $(includedir)/libexttextcat
-libexttextcat_1_0_include_HEADERS = \
+libexttextcat_2_0_includedir = $(includedir)/libexttextcat
+libexttextcat_2_0_include_HEADERS = \
 	common.h constants.h fingerprint.h textcat.h utf8misc.h textcat_properties.h \
         $(builddir)/exttextcat-version.h
 
-lib_LTLIBRARIES =	libexttextcat-1.0.la
-libexttextcat_1_0_la_SOURCES = \
+lib_LTLIBRARIES =	libexttextcat-2.0.la
+libexttextcat_2_0_la_SOURCES = \
 	common.c fingerprint.c textcat.c wg_mempool.c utf8misc.c
-libexttextcat_1_0_la_LDFLAGS = -no-undefined
+libexttextcat_2_0_la_LDFLAGS = -no-undefined
 
 bin_PROGRAMS =		createfp
 createfp_SOURCES =	createfp.c
-createfp_LDADD =	libexttextcat-1.0.la
+createfp_LDADD =	libexttextcat-2.0.la
 
 check_PROGRAMS =	testtextcat
 testtextcat_SOURCES =	testtextcat.c
-testtextcat_LDADD =	libexttextcat-1.0.la
+testtextcat_LDADD =	libexttextcat-2.0.la
 
 EXTRA_DIST = libexttextcat.map \
 	makefile.mk \

@@ -210,42 +210,4 @@ extern char *wgmempool_strdup(void *handle, const char *str)
     return result;
 }
 
-
-extern char *wgmempool_getline(void *handle, size_t size, FILE * fp)
-{
-    char *result, *p;
-    mempool_t *h = (mempool_t *) handle;
-    memblock_t *block = h->first;
-
-    /*** Enough space? ***/
-    if (block->p + size > block->pend + h->maxallocsize)
-    {
-        addblock(h);
-        block = h->first;
-    }
-
-    result = (char *)block->p;
-    if (fgets(result, size, fp) == NULL)
-    {
-        return NULL;
-    }
-
-        /** end of stream? **/
-    if (feof(fp))
-    {
-        return NULL;
-    }
-
-        /** find end of line **/
-    p = result;
-    while (*p && *p != '\n' && *p != '\r')
-    {
-        p++;
-    }
-    *p++ = '\0';
-
-    block->p = p;
-    return result;
-}
-
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

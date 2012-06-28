@@ -7,7 +7,6 @@
 		wgmempool_Init
 		wgmempool_Reset
 		wgmempool_alloc
-		wgmempool_getline
 		wgmempool_strdup
 		special_textcat_Init
 		textcat_Classify
@@ -20,7 +19,6 @@
 		textcat_Version
 		fp_Compare
 		fp_Create
-		fp_Debug
 		fp_Done
 		fp_Init
 		fp_Name
