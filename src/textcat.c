@@ -174,14 +174,14 @@ extern void *special_textcat_Init(const char *conffile, const char *prefix)
     {
         char *p;
         char *segment[4];
-        int res;
 
         /*** Skip comments ***/
         if ((p = strchr(line, '#')))
         {
             *p = '\0';
         }
-        if ((res = wg_split(segment, line, line, 4)) < 2)
+
+        if (wg_split(segment, line, line, 4) < 2)
         {
             continue;
         }
