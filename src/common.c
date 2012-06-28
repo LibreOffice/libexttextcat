@@ -128,15 +128,15 @@ unsigned int wg_split(char **result, char *dest, char *src, int maxsegments)
             {
                 p++;
             }
-            state = 1;
 
-        case 1:
             /*** Start segment ***/
             result[cnt] = w;
             cnt++;
-            state = 2;
+            state = 1;
 
-        case 2:
+            /*** fall through **/
+
+        case 1:
             /*** Unquoted segment ***/
             while (*p)
             {
@@ -151,7 +151,7 @@ unsigned int wg_split(char **result, char *dest, char *src, int maxsegments)
                 {
                     /*** Start quotation ***/
                     p++;
-                    state = 3;
+                    state = 2;
                     break;
                 }
                 else if (*p == '\\' && p[1])
@@ -167,7 +167,7 @@ unsigned int wg_split(char **result, char *dest, char *src, int maxsegments)
             }
             break;
 
-        case 3:
+        case 2:
             /*** Inside quotes ***/
             while (*p)
             {
@@ -187,7 +187,7 @@ unsigned int wg_split(char **result, char *dest, char *src, int maxsegments)
                     *w++ = *p++;
                 }
             }
-            state = 2;
+            state = 1;
             break;
 
         }
