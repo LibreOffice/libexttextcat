@@ -212,8 +212,6 @@ extern void *special_textcat_Init(const char *conffile, const char *prefix)
                                 sizeof(char) * (tmp_size + 1));
             if (tmp == NULL)
             {
-                free(finger_print_file_name);
-                finger_print_file_name_size = 0;
                 goto BAILOUT;
             }
             else
@@ -239,6 +237,7 @@ extern void *special_textcat_Init(const char *conffile, const char *prefix)
     return h;
 
   BAILOUT:
+    free(finger_print_file_name);
     fclose(fp);
     textcat_Done(h);
     return NULL;
