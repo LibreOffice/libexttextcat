@@ -600,11 +600,10 @@ extern int fp_Create(void *handle, const char *buffer, uint4 bufsize,
                      uint4 maxngrams)
 {
     sint4 i = 0;
-    fp_t *h = NULL;
     table_t *t = NULL;
     char *tmp = NULL;
 
-    h = (fp_t *) handle;
+    fp_t *h = (fp_t *) handle;
 
     if (bufsize < h->mindocsize)
         return 0;
