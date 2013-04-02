@@ -40,8 +40,8 @@
 #include "common.h"
 #include "textcat_properties.h"
 
-#define _TEXTCAT_RESULT_UNKOWN        "UNKNOWN"
-#define _TEXTCAT_RESULT_SHORT         "SHORT"
+#define TEXTCAT_RESULT_UNKNOWN_STR   "UNKNOWN"
+#define TEXTCAT_RESULT_SHORT_STR     "SHORT"
 #define TEXTCAT_RESULT_UNKOWN        0
 #define TEXTCAT_RESULT_SHORT         -2
 

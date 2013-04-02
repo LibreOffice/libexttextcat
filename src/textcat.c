@@ -274,10 +274,10 @@ extern char *textcat_Classify(void *handle, const char *buffer, size_t size)
     switch (cnt)
     {
     case TEXTCAT_RESULT_UNKOWN:
-        result = _TEXTCAT_RESULT_UNKOWN;
+        result = TEXTCAT_RESULT_UNKNOWN_STR;
         break;
     case TEXTCAT_RESULT_SHORT:
-        result = _TEXTCAT_RESULT_SHORT;
+        result = TEXTCAT_RESULT_SHORT_STR;
         break;
     default:
         {
