@@ -273,7 +273,7 @@ extern char *textcat_Classify(void *handle, const char *buffer, size_t size)
 
     switch (cnt)
     {
-    case TEXTCAT_RESULT_UNKOWN:
+    case TEXTCAT_RESULT_UNKNOWN:
         result = TEXTCAT_RESULT_UNKNOWN_STR;
         break;
     case TEXTCAT_RESULT_SHORT:
@@ -359,7 +359,7 @@ extern int textcat_ClassifyFull(void *handle, const char *buffer, size_t size,
     /*** The verdict ***/
     if (cnt == MAXCANDIDATES + 1)
     {
-        return TEXTCAT_RESULT_UNKOWN;
+        return TEXTCAT_RESULT_UNKNOWN;
     }
     else
     {

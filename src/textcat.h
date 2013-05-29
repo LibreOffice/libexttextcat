@@ -42,7 +42,7 @@
 
 #define TEXTCAT_RESULT_UNKNOWN_STR   "UNKNOWN"
 #define TEXTCAT_RESULT_SHORT_STR     "SHORT"
-#define TEXTCAT_RESULT_UNKOWN        0
+#define TEXTCAT_RESULT_UNKNOWN        0
 #define TEXTCAT_RESULT_SHORT         -2
 
 #ifdef __cplusplus
