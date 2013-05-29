@@ -63,7 +63,7 @@
 #define PACKAGE_TARNAME "libexttextcat"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "3.0"
+#define PACKAGE_VERSION "3.4"
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
@@ -72,6 +72,6 @@
 #define TIME_WITH_SYS_TIME 1
 
 /* Version number of package */
-#define VERSION "3.0.1"
+#define VERSION "3.4.1"
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

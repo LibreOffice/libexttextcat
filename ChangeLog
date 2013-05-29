@@ -1,5 +1,11 @@
+Wed May 29 2013 Caolán McNamara (caolanm@redhat.com)
+	* merge in Giulio's work and bump release
+	  + Updated libexttextcat.vapi.
+	  + Enable changing mindocsize at runtime.
+	  + Fixed spelling of TEXTCAT_RESULT_UNKOWN.
+
 Mon Nov 05 2012 Caolán McNamara (caolanm@redhat.com)
-       * fix up the Polish LM
+	* fix up the Polish LM
 
 Wed May 30 2012 Caolán McNamara (caolanm@redhat.com)
 	* add a pile of new fingerprints
