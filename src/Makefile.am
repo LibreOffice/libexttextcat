@@ -22,7 +22,6 @@ testtextcat_SOURCES =	testtextcat.c
 testtextcat_LDADD =	libexttextcat-2.0.la
 
 EXTRA_DIST = libexttextcat.map \
-	makefile.mk \
 	test-primary.sh.in \
 	test-secondary.sh.in \
 	exttextcat-version.h  \

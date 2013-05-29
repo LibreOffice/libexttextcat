@@ -1,3 +1,6 @@
+Mon Nov 05 2012 Caolán McNamara (caolanm@redhat.com)
+       * fix up the Polish LM
+
 Wed May 30 2012 Caolán McNamara (caolanm@redhat.com)
 	* add a pile of new fingerprints
 	* bump the .pc file
