@@ -71,6 +71,7 @@ typedef struct
     unsigned char *fprint_disable;
     uint4 size;
     uint4 maxsize;
+    uint4 mindocsize;
 
     char output[MAXOUTPUTSIZE];
     candidate_t *tmp_candidates;
@@ -119,6 +120,14 @@ extern int textcat_SetProperty(void *handle, textcat_Property property,
         }
         return -2;
         break;
+    case TCPROP_MINIMUM_DOCUMENT_SIZE:
+        if (value > 0)
+        {
+            h->mindocsize = value;
+            return 0;
+        }
+        return -2;
+        break;
     default:
         break;
     }
@@ -156,6 +165,7 @@ extern void *special_textcat_Init(const char *conffile, const char *prefix)
     h = (textcat_t *) malloc(sizeof(textcat_t));
     h->size = 0;
     h->maxsize = 16;
+    h->mindocsize = MINDOCSIZE;
     h->fprint = (void **)malloc(sizeof(void *) * h->maxsize);
     h->fprint_disable =
         (unsigned char *)malloc(sizeof(unsigned char) * h->maxsize);
@@ -310,7 +320,7 @@ extern int textcat_ClassifyFull(void *handle, const char *buffer, size_t size,
 
     unknown = fp_Init(NULL);
     fp_SetProperty(unknown, TCPROP_UTF8AWARE, h->utfaware);
-    fp_SetProperty(unknown, TCPROP_MINIMUM_DOCUMENT_SIZE, MINDOCSIZE);
+    fp_SetProperty(unknown, TCPROP_MINIMUM_DOCUMENT_SIZE, h->mindocsize);
     if (fp_Create(unknown, buffer, size, MAXNGRAMS) == 0)
     {
         /*** Too little information ***/
