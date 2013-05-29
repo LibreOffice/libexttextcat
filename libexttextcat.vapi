@@ -17,20 +17,23 @@ namespace TextCat {
 		public unowned candidate* get_classify_full_output ();
 		[CCode (cname = "textcat_ReleaseClassifyFullOutput", cheader_filename = "textcat.h")]
 		public void release_classify_full_output (candidate* candidates);
-		[CCode (cname = "textcat_Init", cheader_filename = "textcat.h")]
-		public Classifier (string conffile);
+		[CCode (cname = "special_textcat_Init", cheader_filename = "textcat.h")]
+		public Classifier (string conffile, string prefix = TEXTCAT_DEFAULT_FINGERPRINTS_PATH);
 		[CCode (cname = "textcat_SetProperty", cheader_filename = "textcat.h")]
-		public int set_property (Property property, int4 value);
+		public int set_property (Property property, int32 value);
 		
 	}
 	[CCode (cname="textcat_Property",cheader_filename = "textcat.h",cprefix = "TCPROP_")]
 	public enum Property {
-		UTF8AWARE;
+		UTF8AWARE,
+		MINIMUM_DOCUMENT_SIZE;
 	}
+        [CCode (cheader_filename = "constants.h", cname = "DEFAULT_FINGERPRINTS_PATH")]
+        public const string TEXTCAT_DEFAULT_FINGERPRINTS_PATH;
 	[CCode (cheader_filename = "textcat.h")]
 	public const int TEXTCAT_RESULT_SHORT;
 	[CCode (cheader_filename = "textcat.h")]
-	public const int TEXTCAT_RESULT_UNKOWN;
+	public const int TEXTCAT_RESULT_UNKNOWN;
 	[CCode (cname = "textcat_Version", cheader_filename = "textcat.h")]
 	public static unowned string version ();
 }
