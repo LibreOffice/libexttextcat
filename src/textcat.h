@@ -45,6 +45,11 @@
 #define TEXTCAT_RESULT_UNKNOWN        0
 #define TEXTCAT_RESULT_SHORT         -2
 
+/* Old deprecated bad spelling. */
+#define _TEXTCAT_RESULT_UNKOWN       TEXTCAT_RESULT_UNKNOWN_STR
+#define _TEXTCAT_RESULT_SHORT        TEXTCAT_RESULT_SHORT_STR
+#define TEXTCAT_RESULT_UNKOWN        TEXTCAT_RESULT_UNKNOWN
+
 #ifdef __cplusplus
 extern "C"
 {
