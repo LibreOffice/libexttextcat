@@ -254,7 +254,8 @@ static int heapextract(table_t * t, entry_t * item)
     p = &(t->heap[0]);
 
     memcpy(item, p, sizeof(entry_t));
-    memcpy(&(t->heap[0]), &(t->heap[t->size - 1]), sizeof(entry_t));
+    if (t->size > 1)
+        memcpy(&(t->heap[0]), &(t->heap[t->size - 1]), sizeof(entry_t));
 
     siftdown(t, t->size, 0);
     t->size--;
