@@ -40,8 +40,8 @@ check:
 		ny oc om pa pl plt pt quz qxa rm ro ru rue rw sa \
 		sc sd se sg shs si sk sl so sq sr-Cyrl sr-Latn \
 		ss st sv sw ta tet th tg ti tk tl tn tpi tr ts \
-		tt ty tzm-Latn ug uk uz ve vi wa xh yi yo zh-Hans \
-		zh-Hant zu; do \
+		tt ty tzm-Latn ug uk uz uz-Cyrl ve vi wa xh \
+		yi yo zh-Hans zh-Hant zu; do \
 		bash ./test-primary.sh $$primarylanguage; \
 		if test x$$? != x0; then \
 			echo FAIL: $$primarylanguage && exit 1; \
