@@ -32,7 +32,7 @@ check:
 	@for primarylanguage in \
 		ab ace ada af ak alt am ar arn ast ay az az-Cyrl ban be \
 		bem bho bi bik bg bm bn bo br bs ca ckb cs cy da de dv \
-		ee en eo es et eu fa fi fj fo fr fur fy ga gd \
+		ee emk-Latn en eo es et eu fa fi fj fo fr fur fy ga gd \
 		gl grc gu gug gv el ha-NG haw he hi hil hr \
 		hsb ht hu hy ia id is it ja ka kk kl kn km \
 		ko ky ktu la lb lg ln lo lt lv mai mi \
