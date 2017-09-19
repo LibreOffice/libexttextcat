@@ -128,12 +128,12 @@ typedef struct table_s
  */
 static uint4 simplehash(const char *p, int len)
 {
-    sint4 h = len * 13;
+    uint4 h = len * 13;
     while (*p)
     {
         h = (h << 5) - h + *p++;
     }
-    return (uint4) h;
+    return h;
 }
 
 /* increases frequency of ngram(p,len) */
