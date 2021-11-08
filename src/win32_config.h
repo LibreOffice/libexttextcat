@@ -57,7 +57,7 @@
 #define PACKAGE_NAME "libexttextcat"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "libexttextcat 3.4.5"
+#define PACKAGE_STRING "libexttextcat 3.4.6"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "libexttextcat"
@@ -72,6 +72,6 @@
 #define TIME_WITH_SYS_TIME 1
 
 /* Version number of package */
-#define VERSION "3.4.5"
+#define VERSION "3.4.6"
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
