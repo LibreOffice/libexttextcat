@@ -36,7 +36,7 @@ check:
 		fon fr fur fy ga gd gl grc gu gug gv ha-NG haw he hi \
 		hil hr hsb ht hu hy ia id is it ja ka kbd kk kl km kn \
 		kng km ko koi ktu ky la lb lg lij lld ln lo lt lv mai \
-		mi mk ml mn mos mr ms mt my nb nds ne nl nn nr nso \
+		mi min mk ml mn mos mr ms mt my nb nds ne nl nn nr nso \
 		ny oc om pa pl plt pt quz qxa rm ro ru rue rw sa \
 		sc sd se sg shs si sk sl so sq sr-Cyrl sr-Latn \
 		ss st sv sw ta tet th tg ti tk tl tn tpi tr ts \
