@@ -40,7 +40,7 @@ check:
 		nso ny oc om pa pap pl plt pt quh quz rm ro ru rue \
 		rw sa sc sd se sg shs si sk sl so sq sr-Cyrl sr-Latn \
 		ss st sun sv sw swb ta tet th tg ti tk tl tn tpi tr ts \
-		tt ty tzm-Latn ug uk uz uz-Cyrl ve vep vi wa xh \
+		tt ty tzm-Latn ug uk uz uz-Cyrl ve vec vep vi wa xh \
 		yi yo zh-Hans zh-Hant zu; do \
 		bash ./test-primary.sh $$primarylanguage; \
 		if test x$$? != x0; then \
