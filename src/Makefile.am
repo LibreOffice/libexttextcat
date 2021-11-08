@@ -34,8 +34,8 @@ check:
 		bem bho bi bik bg bm bn bo br bs buc ca ckb cs cv cy da \
 		de dv dz ee el emk-Latn en eo es et eu fa fi fj fkv fo \
 		fon fr fur fy ga gd gl grc gu gug gv ha-NG haw he hi \
-		hil hr hsb ht hu hy ia id is it ja ka kk kl kn kng km \
-		ko ky ktu la lb lg ln lo lt lv mai mi \
+		hil hr hsb ht hu hy ia id is it ja ka kbd kk kl kn kng \
+		km ko ky ktu la lb lg ln lo lt lv mai mi \
 		mk ml mn mos mr ms mt my nb nds ne nl nn nr nso \
 		ny oc om pa pl plt pt quz qxa rm ro ru rue rw sa \
 		sc sd se sg shs si sk sl so sq sr-Cyrl sr-Latn \
