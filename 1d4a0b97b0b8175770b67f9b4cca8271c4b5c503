@@ -16,6 +16,46 @@
       "message": "I\u0027d like to tag a release of libexttextcat.\nI see a UI at https://gerrit.libreoffice.org/admin/repos/libexttextcat,tags\nbut trying with...\n\nTag name: v3.4.6\nInitial Revision: cf73ba2ed9ab4d49800fe9bb4fa41a16687d6e39\nAnnotation: 3.4.6\n\nI get: Error 403 (Forbidden): Cannot create annotated tag \"refs/tags/v3.4.6\"\nso I wonder do I need permissions like these to be allowed tag, or maybe I\u0027m going about this the wrong way?\n",
       "revId": "1d4a0b97b0b8175770b67f9b4cca8271c4b5c503",
       "serverId": "6622c302-437a-49ad-a91d-55ba7dcf1615"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b56ef865_9903a953",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001432
+      },
+      "writtenOn": "2022-04-26T15:55:35Z",
+      "side": 1,
+      "message": "Since the ACL is inherited from the Dev template where a `Taggers` group is defined, I propose to just add you there and abandon this changeset.",
+      "revId": "1d4a0b97b0b8175770b67f9b4cca8271c4b5c503",
+      "serverId": "6622c302-437a-49ad-a91d-55ba7dcf1615"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4864b0ae_1d005a6e",
+        "filename": "project.config",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001432
+      },
+      "writtenOn": "2022-04-26T15:55:35Z",
+      "side": 1,
+      "message": "IIRC that\u0027s only for annotated tags, there is also `createSignedTag` for signed tags and just `create` for annotated, unsigned tags.",
+      "range": {
+        "startLine": 14,
+        "startChar": 1,
+        "endLine": 14,
+        "endChar": 10
+      },
+      "revId": "1d4a0b97b0b8175770b67f9b4cca8271c4b5c503",
+      "serverId": "6622c302-437a-49ad-a91d-55ba7dcf1615"
     }
   ]
 }
