@@ -38,7 +38,7 @@ check:
 		kng km ko koi ktu ky la lb lg lij lld ln lo lt lv mai \
 		mi min mk ml mn mos mr ms mt my nb nds ne nio nl nn nr \
 		nso ny oc om pa pap pl plt pt quh quz rm ro ru rue \
-		rw sa sc sd se sg shs si sk sl so sq sr-Cyrl sr-Latn \
+		rw sa sc sd se sg shs si sk skr sl so sq sr-Cyrl sr-Latn \
 		ss st sun sv sw swb ta tet th tg ti tk tl tn tpi tr ts \
 		tt ty tzm-Latn ug uk uz uz-Cyrl ve vec vep vi wa xh \
 		yi yo zh-Hans zh-Hant zu; do \
