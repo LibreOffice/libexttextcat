@@ -51,11 +51,12 @@ Put the names of your fingerprints in a configuration file, add some id's and
 you're ready to classify.
 
 Here's a worked example. The UN Declaration of Human Rights is available in a
-massive pile of translations[4], and and unicode.org makes much of these
-available as plain text[5], so...
+massive pile of translations[4], and efele.net hosts the former "UDHR in
+Unicode" plain-text mirror[5] (the original unicode.org/udhr project was
+retired in January 2024), so...
 
 % cd langclass/ShortTexts/
-% wget http://unicode.org/udhr/d/udhr_abk.txt
+% wget http://efele.net/udhr/d/udhr_abk.txt
 % tail -n+7 udhr_abk.txt > ab.txt #skip english header, name is using BCP-47
 % cd ../LM
 % ../../src/createfp < ../ShortTexts/ab.txt > ab.lm
@@ -111,9 +112,9 @@ http://odur.let.rug.nl/~vannoord/TextCat/
 
 http://software.wise-guys.nl/libtextcat/
 
-[4] http://www.ohchr.org/EN/UDHR/Pages/SearchByLang.aspx
+[4] https://www.ohchr.org/en/human-rights/universal-declaration/universal-declaration-human-rights/about-universal-declaration-human-rights-translation-project
 
-[5] https://unicode.org/udhr/translations.html
+[5] http://efele.net/udhr/translations.html
 
 Contact:
 
