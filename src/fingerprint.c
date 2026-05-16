@@ -351,17 +351,18 @@ extern const char *fp_Name(void *handle)
 static char *prepbuffer(const char *src, size_t bufsize, uint4 mindocsize)
 {
     const char *p = src;
+    const char *plimit = src + bufsize;
     char *dest = (char *)malloc(bufsize + 3);
     char *w = dest;
     char *wlimit = dest + bufsize + 1;
 
-    if (INVALID(*p))
-    {
-        goto SPACE;
-    }
-    else if (*p == '\0')
+    if (p == plimit || *p == '\0')
     {
         goto END;
+    }
+    else if (INVALID(*p))
+    {
+        goto SPACE;
     }
 
     *w++ = '_';
@@ -376,13 +377,13 @@ static char *prepbuffer(const char *src, size_t bufsize, uint4 mindocsize)
   SPACE:
     /*** Inside string of invalid characters ***/
     p++;
-    if (INVALID(*p))
-    {
-        goto SPACE;
-    }
-    else if (*p == '\0')
+    if (p == plimit || *p == '\0')
     {
         goto END;
+    }
+    else if (INVALID(*p))
+    {
+        goto SPACE;
     }
 
     *w++ = '_';
@@ -400,13 +401,13 @@ static char *prepbuffer(const char *src, size_t bufsize, uint4 mindocsize)
     {
         goto END;
     }
+    else if (p == plimit || *p == '\0')
+    {
+        goto STOP;
+    }
     else if (INVALID(*p))
     {
         goto SPACE;
-    }
-    else if (*p == '\0')
-    {
-        goto STOP;
     }
     goto WORD;
 
