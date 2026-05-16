@@ -34,14 +34,14 @@ check:
 		bem bho bi bik bg bm bn bo br bs buc ca ckb cs cv cy da \
 		de dv dz ee el emk-Latn en eo es et eu fa fi fj fkv fo \
 		fon fr fur fy ga gd gl grc gu gug gv ha-NG haw he hi \
-		hil hr hsb ht hu hy ia id ilo is it ja ka kbd kk kl km kn \
-		kng km ko koi ktu ky la lb lg lij lld ln lo lt lv mai \
+		hil hr hsb ht hu hy ia id ilo is it ja ka kaa kab kbd kk kl km kn \
+		kng km ko koi ktu ky la lb lg lij lld ln lo lt lv mai mfe \
 		mi min mk ml mn mos mr ms mt my nb nds ne nio nl nn nr \
 		nso ny oc om pa pap pl plt pt quh quz rm ro ru rue \
 		rw sa sc sd se sg shs si sk skr sl so sq sr-Cyrl sr-Latn \
 		ss st sun sv sw swb ta te tet th tg ti tk tl tn tpi tr ts \
 		tt ty tzm-Latn ug uk uz uz-Cyrl ve vec vep vi wa xh \
-		yi yo zh-Hans zh-Hant zu; do \
+		yi yo yrk zh-Hans zh-Hant zu; do \
 		bash ./test-primary.sh $$primarylanguage; \
 		if test x$$? != x0; then \
 			echo FAIL: $$primarylanguage && exit 1; \
