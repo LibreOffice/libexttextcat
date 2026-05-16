@@ -1,3 +1,47 @@
+Sat May 16 2026 Caolán McNamara (caolan.mcnamara@collabora.com)
+	* bump release to 3.4.8
+	  + respect bufsize in prepbuffer
+	  + widen fp_Create bufsize from uint4 to size_t (ABI break;
+	    SONAME bumped libexttextcat-2.0.so.0 -> libexttextcat-2.0.so.1
+	    via -version-info 1:0:0)
+	  + fix leak in textcat_Init bailout path
+	  + avoid forming &dest[-1] in wg_trim (undefined behavior)
+	  + update README for current UDHR source location (efele.net,
+	    after unicode.org/udhr retired in January 2024)
+	  + add Telugu, Kabyle, Nenets, Karakalpak, Morisyen, Arpitan,
+	    Sidamo, Quechua (North Bolivian), Inari Saami and Skolt Saami
+	  + rename ha-NG to ha-Latn-NG to match BCP-47/LibreOffice
+
+Mon Jan 01 2024 Caolán McNamara (caolan.mcnamara@collabora.com)
+	* bump release to 3.4.7
+	  + add Saraiki and Ilocano
+
+Mon Nov 08 2021 Caolán McNamara (caolanm@redhat.com)
+	* bump release to 3.4.6
+	  + add Bushi, Chuvash, Comorian Maore, Dzongkha, Finnish (Kven),
+	    Fon, Kabardian, Komi-Permyak, Ladin, Ligurian, Minangkabau,
+	    Nganasan, Papiamentu, Quechua (South Bolivian, renamed from
+	    qxa), Sundanese and Venetian
+	  + sort the language list
+	  + fix a broken link
+
+Wed Sep 20 2017 Caolán McNamara (caolanm@redhat.com)
+	* bump release number
+	  + regenerate broken uk.lm
+	  + silence various -fsanitize=shift-base warnings
+
+Fri Jun 27 2014 Caolán McNamara (caolanm@redhat.com)
+	* bump release number
+	  + replace Hungarian UDHR with utf-8 version
+	  + MSVC 2010 has finally grown a <stdint.h>
+	  + add Akan, Kurdish (Central), Maninkakan (Eastern, Latn),
+	    Koongo, Saxon (Low), Quechua (Cusco), Tamazight (Latn),
+	    Uzbek (Cyrillic) and Veps
+
+Fri Jul 05 2013 Caolán McNamara (caolanm@redhat.com)
+	* re-tag release
+	  + retag only, no source changes
+
 Fri Jul 05 2013 Caolán McNamara (caolanm@redhat.com)
 	* bump release
 	  + overlapping memcpy
