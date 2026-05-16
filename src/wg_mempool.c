@@ -83,7 +83,7 @@ static void addblock(mempool_t * h)
 }
 
 
-extern void *wgmempool_Init(size_t blocksize, size_t maxstrsize)
+extern void *wgmempool_Init(uint4 blocksize, size_t maxstrsize)
 {
     mempool_t *result = (mempool_t *) malloc(sizeof(mempool_t));
 
