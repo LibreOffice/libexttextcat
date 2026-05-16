@@ -37,7 +37,7 @@ check:
 		hil hr hsb ht hu hy ia id ilo is it ja ka kaa kab kbd kk kl km kn \
 		kng km ko koi ktu ky la lb lg lij lld ln lo lt lv mai mfe \
 		mi min mk ml mn mos mr ms mt my nb nds ne nio nl nn nr \
-		nso ny oc om pa pap pl plt pt quh quz rm ro ru rue \
+		nso ny oc om pa pap pl plt pt quh qul quz rm ro ru rue \
 		rw sa sc sd se sg shs si sid sk skr sl so sq sr-Cyrl sr-Latn \
 		ss st sun sv sw swb ta te tet th tg ti tk tl tn tpi tr ts \
 		tt ty tzm-Latn ug uk uz uz-Cyrl ve vec vep vi wa xh \
