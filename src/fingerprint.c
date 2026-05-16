@@ -598,7 +598,7 @@ extern int fp_SetProperty(void *handle, textcat_Property property, sint4 value)
  * - take the most frequent n-grams
  * - sort them alphabetically, recording their relative rank
  */
-extern int fp_Create(void *handle, const char *buffer, uint4 bufsize,
+extern int fp_Create(void *handle, const char *buffer, size_t bufsize,
                      uint4 maxngrams)
 {
     sint4 i = 0;
