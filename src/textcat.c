@@ -222,6 +222,7 @@ extern void *special_textcat_Init(const char *conffile, const char *prefix)
                                 sizeof(char) * (tmp_size + 1));
             if (tmp == NULL)
             {
+                fp_Done(h->fprint[h->size]);
                 goto BAILOUT;
             }
             else
@@ -234,7 +235,10 @@ extern void *special_textcat_Init(const char *conffile, const char *prefix)
         strcat(finger_print_file_name, segment[0]);
 
         if (fp_Read(h->fprint[h->size], finger_print_file_name, 400) == 0)
+        {
+            fp_Done(h->fprint[h->size]);
             goto BAILOUT;
+        }
         h->fprint_disable[h->size] = 0xF0;  /* 0xF0 is the code for enabled
                                                languages, 0x0F is for disabled 
                                              */
