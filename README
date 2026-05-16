@@ -57,7 +57,7 @@ retired in January 2024), so...
 
 % cd langclass/ShortTexts/
 % wget http://efele.net/udhr/d/udhr_abk.txt
-% tail -n+7 udhr_abk.txt > ab.txt #skip english header, name is using BCP-47
+% tail -n+8 udhr_abk.txt > ab.txt #skip english header, name is using BCP-47
 % cd ../LM
 % ../../src/createfp < ../ShortTexts/ab.txt > ab.lm
 % echo "ab.lm       ab--utf8" >> ../fpdb.conf
