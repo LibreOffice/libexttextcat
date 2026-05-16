@@ -33,7 +33,7 @@ check:
 		ab ace ada af ak alt am ar arn ast ay az az-Cyrl ban be \
 		bem bho bi bik bg bm bn bo br bs buc ca ckb cs cv cy da \
 		de dv dz ee el emk-Latn en eo es et eu fa fi fj fkv fo \
-		fon fr frp fur fy ga gd gl grc gu gug gv ha-NG haw he hi \
+		fon fr frp fur fy ga gd gl grc gu gug gv ha-Latn-NG haw he hi \
 		hil hr hsb ht hu hy ia id ilo is it ja ka kaa kab kbd kk kl km kn \
 		kng km ko koi ktu ky la lb lg lij lld ln lo lt lv mai mfe \
 		mi min mk ml mn mos mr ms mt my nb nds ne nio nl nn nr \
