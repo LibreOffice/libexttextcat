@@ -264,7 +264,7 @@ char *wg_strgmov(char *dest, const char *src, const char *destlimit)
  */
 char *wg_trim(char *dest, const char *src)
 {
-    char *lastnonspace = &dest[-1];
+    char *lastnonspace = NULL;
     const char *p = src;
     char *w = dest;
 
@@ -280,7 +280,10 @@ char *wg_trim(char *dest, const char *src)
         }
         *w++ = *p++;
     }
-    lastnonspace[1] = '\0';
+    if (lastnonspace)
+        lastnonspace[1] = '\0';
+    else
+        *dest = '\0';
 
     return dest;
 }
