@@ -93,8 +93,18 @@ int main(int argc, char **args)
     }
 
     buf = myread(stdin);
+    if (!buf)
+    {
+        fprintf(stderr, "Unable to read input\n");
+        exit(-1);
+    }
 
     h = fp_Init(NULL);
+    if (!h)
+    {
+        fprintf(stderr, "There was an error creating the fingerprint\n");
+        exit(-1);
+    }
     if (utfaware)
     {
         fp_SetProperty(h, TCPROP_UTF8AWARE, TC_TRUE);

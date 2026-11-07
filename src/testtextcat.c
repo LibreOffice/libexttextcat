@@ -109,9 +109,17 @@ int main(int argc, char **argv)
     textcat_SetProperty(h, TCPROP_UTF8AWARE, utfaware ? TC_TRUE : TC_FALSE);
 
     buf = myread(stdin);
+    if (!buf)
+    {
+        fprintf(stderr, "Unable to read input, Aborting.\n");
+        exit(-1);
+    }
 
     /*** We only need a little text to determine the language ***/
-    buf[1024] = '\0';
+    if (strlen(buf) > 1024)
+    {
+        buf[1024] = '\0';
+    }
     result = textcat_Classify(h, buf, strlen(buf) + 1);
     printf("%s\n", result);
 
