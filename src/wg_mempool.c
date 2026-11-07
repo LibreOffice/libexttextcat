@@ -58,7 +58,7 @@ typedef struct mempool_s
     size_t blocksize;
 } mempool_t;
 
-static void addblock(mempool_t * h)
+static int addblock(mempool_t * h)
 {
     memblock_t *block;
 
@@ -73,13 +73,23 @@ static void addblock(mempool_t * h)
     {
         /*** Make a new block ***/
         block = (memblock_t *) malloc(sizeof(memblock_t));
+        if (!block)
+        {
+            return 0;
+        }
         block->pool = (char *)malloc(h->blocksize);
+        if (!block->pool)
+        {
+            free(block);
+            return 0;
+        }
     }
 
     block->p = block->pool;
     block->pend = block->pool + h->blocksize - h->maxallocsize;
     block->next = h->first;
     h->first = block;
+    return 1;
 }
 
 
@@ -87,11 +97,19 @@ extern void *wgmempool_Init(size_t blocksize, size_t maxstrsize)
 {
     mempool_t *result = (mempool_t *) malloc(sizeof(mempool_t));
 
+    if (!result)
+    {
+        return NULL;
+    }
     result->first = NULL;
     result->spare = NULL;
     result->blocksize = blocksize;
     result->maxallocsize = maxstrsize ? (maxstrsize + 1) : 0;
-    addblock(result);
+    if (!addblock(result))
+    {
+        free(result);
+        return NULL;
+    }
 
     return (void *)result;
 }
@@ -166,9 +184,12 @@ extern void *wgmempool_alloc(void *handle, size_t size)
     memblock_t *block = h->first;
 
     /*** Too little space left in block? ***/
-    if (block->p + size > block->pend + h->maxallocsize)
+    if (!block || block->p + size > block->pend + h->maxallocsize)
     {
-        addblock(h);
+        if (!addblock(h))
+        {
+            return NULL;
+        }
         block = h->first;
     }
     result = (void *)block->p;
@@ -185,17 +206,25 @@ extern char *wgmempool_strdup(void *handle, const char *str)
     memblock_t *block = h->first;
 
     /*** Create extra room? ***/
-    if (h->maxallocsize)
+    int needblock;
+    if (!block)
     {
-        if (block->p >= block->pend)
-        {
-            addblock(h);
-            block = h->first;
-        }
+        needblock = 1;
     }
-    else if (block->p + strlen(str) + 1 >= block->pend)
+    else if (h->maxallocsize)
     {
-        addblock(h);
+        needblock = block->p >= block->pend;
+    }
+    else
+    {
+        needblock = block->p + strlen(str) + 1 >= block->pend;
+    }
+    if (needblock)
+    {
+        if (!addblock(h))
+        {
+            return NULL;
+        }
         block = h->first;
     }
 

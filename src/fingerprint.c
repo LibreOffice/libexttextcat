@@ -159,6 +159,10 @@ static int increasefreq(table_t * t, char *p, int len,
 
     /*** Not found, so create ***/
     entry = (entry_t *) (wgmempool_alloc(t->pool, sizeof(entry_t)));
+    if (!entry)
+    {
+        return 0;
+    }
     strncpy(entry->str, p, MAXNGRAMSIZE);
     entry->str[MAXNGRAMSIZE] = 0;
     entry->cnt = 1;
@@ -282,39 +286,58 @@ static int table2heap(table_t * t)
     return 1;
 }
 
+static void tabledone(table_t * t)
+{
+    if (!t)
+        return;
+
+    if (t->pool)
+        wgmempool_Done(t->pool);
+    free(t->table);
+    free(t->heap);
+    free(t);
+}
+
 static table_t *inittable(uint4 maxngrams)
 {
     table_t *result = (table_t *) calloc(1, sizeof(table_t));
+    if (!result)
+    {
+        return NULL;
+    }
     result->table = (entry_t **) calloc(1, sizeof(entry_t *) * TABLESIZE);
     result->pool = wgmempool_Init(10000, 10);
-
     result->heap = (entry_t *) malloc(sizeof(entry_t) * maxngrams);
+    if (!result->table || !result->pool || !result->heap)
+    {
+        tabledone(result);
+        return NULL;
+    }
     result->heapsize = maxngrams;
     result->size = 0;
 
     return result;
 }
 
-static void tabledone(table_t * t)
-{
-    if (!t)
-        return;
-
-    wgmempool_Done(t->pool);
-    free(t->table);
-    free(t->heap);
-    free(t);
-}
 
 extern void *fp_Init(const char *name)
 {
     fp_t *h = (fp_t *) calloc(1, sizeof(fp_t));
 
+    if (!h)
+        return NULL;
     h->utfaware = TC_TRUE;
     h->mindocsize = MINDOCSIZE;
 
     if (name)
+    {
         h->name = strdup(name);
+        if (!h->name)
+        {
+            free(h);
+            return NULL;
+        }
+    }
 
     return (void *)h;
 }
@@ -355,6 +378,11 @@ static char *prepbuffer(const char *src, size_t bufsize, uint4 mindocsize)
     char *dest = (char *)malloc(bufsize + 3);
     char *w = dest;
     char *wlimit = dest + bufsize + 1;
+
+    if (!dest)
+    {
+        return NULL;
+    }
 
     if (p == plimit || *p == '\0')
     {
@@ -431,7 +459,7 @@ static char *prepbuffer(const char *src, size_t bufsize, uint4 mindocsize)
 * this function extract all n-gram from past buffer and put them into the table "t"
 * [modified] by Jocelyn Merand to accept utf-8 multi-character symbols to be used in OpenOffice
 */
-static void utfcreatengramtable(table_t * t, const char *buf)
+static int utfcreatengramtable(table_t * t, const char *buf)
 {
     char n[MAXNGRAMSIZE + 1];
     const char *p = buf;
@@ -451,11 +479,12 @@ static void utfcreatengramtable(table_t * t, const char *buf)
         m += decay;             /* [modified] */
         *m = '\0';
 
-        increasefreq(t, n, 1, utf8_issame);
+        if (!increasefreq(t, n, 1, utf8_issame))
+            return 0;
 
 
         if (*q == '\0')
-            return;
+            return 1;
 
         /*** Let the compiler unroll this ***/
         for (i = 2; i <= MAXNGRAMSYMBOL; i++)
@@ -464,18 +493,19 @@ static void utfcreatengramtable(table_t * t, const char *buf)
             m += decay;
             *m = '\0';
 
-            increasefreq(t, n, i, utf8_issame);
+            if (!increasefreq(t, n, i, utf8_issame))
+                return 0;
 
             if (*q == '_')
                 break;
             q += decay;
             if (*q == '\0')
-                return;
+                return 1;
         }
 
         p = utf8_next_char(p);  /* [modified] */
     }
-    return;
+    return 1;
 }
 
 /* checks if n-gram lex is a prefix of key and of length len */
@@ -496,7 +526,7 @@ static int issame(char *lex, char *key, int len)
     return 1;
 }
 
-static void createngramtable(table_t * t, const char *buf)
+static int createngramtable(table_t * t, const char *buf)
 {
     char n[MAXNGRAMSIZE + 1];
     const char *p = buf;
@@ -513,11 +543,12 @@ static void createngramtable(table_t * t, const char *buf)
         *m++ = *q++;
         *m = '\0';
 
-        increasefreq(t, n, 1, issame);
+        if (!increasefreq(t, n, 1, issame))
+            return 0;
 
         if (*q == '\0')
         {
-            return;
+            return 1;
         }
 
         /*** Let the compiler unroll this ***/
@@ -527,18 +558,19 @@ static void createngramtable(table_t * t, const char *buf)
             *m++ = *q;
             *m = '\0';
 
-            increasefreq(t, n, i, issame);
+            if (!increasefreq(t, n, i, issame))
+                return 0;
 
             if (*q == '_')
                 break;
             q++;
             if (*q == '\0')
             {
-                return;
+                return 1;
             }
         }
     }
-    return;
+    return 1;
 }
 
 
@@ -604,6 +636,7 @@ extern int fp_Create(void *handle, const char *buffer, size_t bufsize,
     sint4 i = 0;
     table_t *t = NULL;
     char *tmp = NULL;
+    int created;
 
     fp_t *h = (fp_t *) handle;
 
@@ -616,16 +649,27 @@ extern int fp_Create(void *handle, const char *buffer, size_t bufsize,
     if (tmp == NULL)
         return 0;
     t = inittable(maxngrams);
+    if (t == NULL)
+    {
+        free(tmp);
+        return 0;
+    }
     /* printf("Table initialized\n"); */
 
     /*** Create a hash table containing n-gram counts ***/
     if (h->utfaware)
     {
-        utfcreatengramtable(t, tmp);
+        created = utfcreatengramtable(t, tmp);
     }
     else
     {
-        createngramtable(t, tmp);
+        created = createngramtable(t, tmp);
+    }
+    if (!created)
+    {
+        tabledone(t);
+        free(tmp);
+        return 0;
     }
     /* printf("Table created\n"); */
     /*** Take the top N n-grams and add them to the profile ***/
@@ -633,6 +677,12 @@ extern int fp_Create(void *handle, const char *buffer, size_t bufsize,
     maxngrams = WGMIN(maxngrams, t->size);
 
     h->fprint = (ngram_t *) malloc(sizeof(ngram_t) * maxngrams);
+    if (h->fprint == NULL)
+    {
+        tabledone(t);
+        free(tmp);
+        return 0;
+    }
     h->size = maxngrams;
 
     /*** Pull n-grams out of heap (backwards) ***/
@@ -672,6 +722,11 @@ extern int fp_Read(void *handle, const char *fname, int maxngrams)
     }
 
     h->fprint = (ngram_t *) malloc(maxngrams * sizeof(ngram_t));
+    if (!h->fprint)
+    {
+        fclose(fp);
+        return 0;
+    }
 
     while (cnt < maxngrams && wg_getline(line, 1024, fp))
     {
@@ -712,6 +767,11 @@ extern void fp_Print(void *handle, FILE * fp)
     uint4 i;
     fp_t *h = (fp_t *) handle;
     ngram_t *tmp = (ngram_t *) malloc(sizeof(ngram_t) * h->size);
+
+    if (!tmp)
+    {
+        return;
+    }
 
     /*** Make a temporary and sort it on rank ***/
     memcpy(tmp, h->fprint, h->size * sizeof(ngram_t));
