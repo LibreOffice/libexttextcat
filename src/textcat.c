@@ -163,6 +163,11 @@ extern void *special_textcat_Init(const char *conffile, const char *prefix)
     }
 
     h = (textcat_t *) malloc(sizeof(textcat_t));
+    if (!h)
+    {
+        fclose(fp);
+        return NULL;
+    }
     h->size = 0;
     h->maxsize = 16;
     h->mindocsize = MINDOCSIZE;
@@ -177,6 +182,10 @@ extern void *special_textcat_Init(const char *conffile, const char *prefix)
     finger_print_file_name_size = prefix_size + 1;
     finger_print_file_name =
         (char *)malloc(sizeof(char) * (finger_print_file_name_size + 1024));
+    if (!h->fprint || !h->fprint_disable || !finger_print_file_name)
+    {
+        goto BAILOUT;
+    }
     finger_print_file_name[0] = '\0';
     strcat(finger_print_file_name, prefix);
 
@@ -200,12 +209,25 @@ extern void *special_textcat_Init(const char *conffile, const char *prefix)
         /*** Ensure enough space ***/
         if (h->size == h->maxsize)
         {
-            h->maxsize *= 2;
-            h->fprint =
-                (void **)realloc(h->fprint, sizeof(void *) * h->maxsize);
-            h->fprint_disable =
+            void **newfprint;
+            unsigned char *newfprint_disable;
+
+            newfprint =
+                (void **)realloc(h->fprint, sizeof(void *) * h->maxsize * 2);
+            if (!newfprint)
+            {
+                goto BAILOUT;
+            }
+            h->fprint = newfprint;
+            newfprint_disable =
                 (unsigned char *)realloc(h->fprint_disable,
-                                         sizeof(unsigned char) * h->maxsize);
+                                         sizeof(unsigned char) * h->maxsize * 2);
+            if (!newfprint_disable)
+            {
+                goto BAILOUT;
+            }
+            h->fprint_disable = newfprint_disable;
+            h->maxsize *= 2;
         }
 
         /*** Load data ***/
@@ -281,6 +303,10 @@ extern char *textcat_Classify(void *handle, const char *buffer, size_t size)
     if (h->tmp_candidates == NULL)
     {
         h->tmp_candidates = textcat_GetClassifyFullOutput(h);
+        if (h->tmp_candidates == NULL)
+        {
+            return TEXTCAT_RESULT_UNKNOWN_STR;
+        }
     }
 
     cnt = textcat_ClassifyFull(h, buffer, size, h->tmp_candidates);
@@ -323,6 +349,10 @@ extern int textcat_ClassifyFull(void *handle, const char *buffer, size_t size,
     void *unknown;
 
     unknown = fp_Init(NULL);
+    if (unknown == NULL)
+    {
+        return TEXTCAT_RESULT_UNKNOWN;
+    }
     fp_SetProperty(unknown, TCPROP_UTF8AWARE, h->utfaware);
     fp_SetProperty(unknown, TCPROP_MINIMUM_DOCUMENT_SIZE, h->mindocsize);
     if (fp_Create(unknown, buffer, size, MAXNGRAMS) == 0)
