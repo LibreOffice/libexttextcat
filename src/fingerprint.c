@@ -376,13 +376,15 @@ static char *prepbuffer(const char *src, size_t bufsize, uint4 mindocsize)
     const char *p = src;
     const char *plimit = src + bufsize;
     char *dest = (char *)malloc(bufsize + 3);
-    char *w = dest;
-    char *wlimit = dest + bufsize + 1;
+    char *w;
+    char *wlimit;
 
     if (!dest)
     {
         return NULL;
     }
+    w = dest;
+    wlimit = dest + bufsize + 1;
 
     if (p == plimit || *p == '\0')
     {
