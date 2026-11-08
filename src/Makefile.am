@@ -16,7 +16,7 @@ libexttextcat_2_0_la_SOURCES = \
 #  - public API added:                       c += 1; r = 0; a += 1
 #  - public API removed or signature change: c += 1; r = 0; a = 0
 # Linux SONAME suffix is (current - age).
-libexttextcat_2_0_la_LDFLAGS = -version-info 1:0:0 -no-undefined
+libexttextcat_2_0_la_LDFLAGS = -version-info 2:0:1 -no-undefined
 
 bin_PROGRAMS =		createfp
 createfp_SOURCES =	createfp.c
