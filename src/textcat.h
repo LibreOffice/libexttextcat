@@ -143,6 +143,35 @@ extern "C"
 
 
     /**
+     * textcat_GetLanguageCount() - Returns the number of languages in the
+     * fingerprint database of handle. Languages are numbered from 0.
+     */
+    extern uint4 textcat_GetLanguageCount(void *handle);
+
+    /**
+     * textcat_GetLanguageName() - Returns the name of language index, or
+     * NULL if index is out of range.
+     */
+    extern const char *textcat_GetLanguageName(void *handle, uint4 index);
+
+    /**
+     * textcat_IsLanguageEnabled() - Returns TC_TRUE if language index takes
+     * part in classification, and TC_FALSE if it is disabled or index is
+     * out of range.
+     */
+    extern int textcat_IsLanguageEnabled(void *handle, uint4 index);
+
+    /**
+     * textcat_SetLanguageEnabled() - Enable (TC_TRUE) or disable (TC_FALSE)
+     * language index for classification.
+     *
+     * Returns: 0 on success, -1 if index is out of range, -2 if enabled is
+     * not TC_TRUE or TC_FALSE.
+     */
+    extern int textcat_SetLanguageEnabled(void *handle, uint4 index,
+                                          int enabled);
+
+    /**
      * textcat_Version() - Returns a string describing the version of this
      * classifier.
      */

@@ -16,6 +16,10 @@
 		textcat_Done
 		textcat_Init
 		textcat_SetProperty
+		textcat_GetLanguageCount
+		textcat_GetLanguageName
+		textcat_IsLanguageEnabled
+		textcat_SetLanguageEnabled
 		textcat_Version
 		fp_Compare
 		fp_Create

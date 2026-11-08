@@ -134,6 +134,48 @@ extern int textcat_SetProperty(void *handle, textcat_Property property,
     return -1;
 }
 
+extern uint4 textcat_GetLanguageCount(void *handle)
+{
+    textcat_t *h = (textcat_t *) handle;
+    return h->size;
+}
+
+extern const char *textcat_GetLanguageName(void *handle, uint4 index)
+{
+    textcat_t *h = (textcat_t *) handle;
+    if (index >= h->size)
+    {
+        return NULL;
+    }
+    return fp_Name(h->fprint[index]);
+}
+
+extern int textcat_IsLanguageEnabled(void *handle, uint4 index)
+{
+    textcat_t *h = (textcat_t *) handle;
+    if (index >= h->size)
+    {
+        return TC_FALSE;
+    }
+    return (h->fprint_disable[index] & 0x0F) ? TC_FALSE : TC_TRUE;
+}
+
+extern int textcat_SetLanguageEnabled(void *handle, uint4 index,
+                                      int enabled)
+{
+    textcat_t *h = (textcat_t *) handle;
+    if (index >= h->size)
+    {
+        return -1;
+    }
+    if ((enabled != TC_TRUE) && (enabled != TC_FALSE))
+    {
+        return -2;
+    }
+    h->fprint_disable[index] = enabled == TC_TRUE ? 0xF0 : 0x0F;
+    return 0;
+}
+
 /** Replaces older function */
 extern void *textcat_Init(const char *conffile)
 {

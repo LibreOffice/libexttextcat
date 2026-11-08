@@ -22,9 +22,11 @@ bin_PROGRAMS =		createfp
 createfp_SOURCES =	createfp.c
 createfp_LDADD =	libexttextcat-2.0.la
 
-check_PROGRAMS =	testtextcat
+check_PROGRAMS =	testtextcat testlanguages
 testtextcat_SOURCES =	testtextcat.c
 testtextcat_LDADD =	libexttextcat-2.0.la
+testlanguages_SOURCES =	testlanguages.c
+testlanguages_LDADD =	libexttextcat-2.0.la
 
 EXTRA_DIST = libexttextcat.map \
 	test-primary.sh.in \
@@ -63,3 +65,8 @@ check:
 			echo PASS: $$secondarylanguage; \
 		fi; \
 	done
+	@echo language list
+	@./testlanguages $(top_srcdir)/langclass/fpdb.conf \
+		$(top_srcdir)/langclass/LM/ \
+		$(top_srcdir)/langclass/ShortTexts/en.txt \
+		&& echo PASS: language list

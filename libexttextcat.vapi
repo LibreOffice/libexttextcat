@@ -21,6 +21,14 @@ namespace TextCat {
 		public Classifier (string conffile, string prefix = TEXTCAT_DEFAULT_FINGERPRINTS_PATH);
 		[CCode (cname = "textcat_SetProperty", cheader_filename = "textcat.h")]
 		public int set_property (Property property, int32 value);
+		[CCode (cname = "textcat_GetLanguageCount", cheader_filename = "textcat.h")]
+		public uint32 get_language_count ();
+		[CCode (cname = "textcat_GetLanguageName", cheader_filename = "textcat.h")]
+		public unowned string? get_language_name (uint32 index);
+		[CCode (cname = "textcat_IsLanguageEnabled", cheader_filename = "textcat.h")]
+		public bool is_language_enabled (uint32 index);
+		[CCode (cname = "textcat_SetLanguageEnabled", cheader_filename = "textcat.h")]
+		public int set_language_enabled (uint32 index, bool enabled);
 		
 	}
 	[CCode (cname="textcat_Property",cheader_filename = "textcat.h",cprefix = "TCPROP_")]
