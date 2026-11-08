@@ -40,6 +40,7 @@
 #endif
 #include <string.h>
 #include "common_impl.h"
+#include "wg_mempool.h"
 
 typedef struct memblock_s
 {

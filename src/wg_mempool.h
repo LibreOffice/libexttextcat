@@ -88,7 +88,7 @@ extern "C"
      * mempool handler on success, NULL on error.
      * 
      */
-    extern void *wgmempool_Init(uint4 blocksize, size_t maxstrsize);
+    extern void *wgmempool_Init(size_t blocksize, size_t maxstrsize);
 
 
     /* 
