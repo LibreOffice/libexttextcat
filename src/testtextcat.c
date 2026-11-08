@@ -54,10 +54,9 @@ char *myread(FILE * fp)
     size_t maxsize = BLOCKSIZE * 2;
 
     buf = (char *)malloc(maxsize);
-    do
+    while (buf && !feof(fp) && !ferror(fp))
     {
-        size_t hasread = fread(buf + size, 1, BLOCKSIZE, fp);
-        size += hasread;
+        size += fread(buf + size, 1, BLOCKSIZE, fp);
         if (size + BLOCKSIZE > maxsize)
         {
             maxsize *= 2;
@@ -66,9 +65,13 @@ char *myread(FILE * fp)
                 free(buf);
             buf = newbuf;
         }
-
     }
-    while (!feof(stdin) && buf);
+
+    if (buf && ferror(fp))
+    {
+        free(buf);
+        buf = NULL;
+    }
 
     if (buf)
     {
