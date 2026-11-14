@@ -77,6 +77,36 @@ extern "C"
                             const char *destlimit);
     extern char *wg_trim(char *dest, const char *src);
 
+    void outofmem(void);
+
+    static inline void *xmalloc(size_t size)
+    {
+        void *ret = malloc(size);
+        if (ret == NULL)
+            outofmem();
+        return ret;
+    }
+
+    static inline void *xcalloc(size_t nmemb, size_t size)
+    {
+        void *ret = calloc(nmemb, size);
+        if (ret == NULL)
+            outofmem();
+        return ret;
+    }
+
+    static inline void *xrealloc(void *ptr, size_t size)
+    {
+        void *ret = realloc(ptr, size);
+        if (ret == NULL)
+            outofmem();
+        return ret;
+    }
+
+#define malloc(size) xmalloc(size)
+#define calloc(nmemb, size) xcalloc(nmemb, size)
+#define realloc(ptr, size) xrealloc(ptr, size)
+
 #ifdef __cplusplus
 }
 #endif

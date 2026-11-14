@@ -42,6 +42,12 @@
 #include <ctype.h>
 #include "common_impl.h"
 
+void outofmem(void)
+{
+    fprintf(stderr, "libexttextcat: Out of memory\n");
+    exit(1);
+}
+
 extern char *wg_getline(char *line, int size, FILE * fp)
 {
     char *p;
