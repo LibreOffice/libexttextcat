@@ -87,9 +87,8 @@ static int cmpcandidates(const void *a, const void *b)
 }
 
 
-extern void textcat_Done(void *handle)
+static void freehandle(textcat_t *h)
 {
-    textcat_t *h = (textcat_t *) handle;
     uint4 i;
 
     for (i = 0; i < h->size; i++)
@@ -103,7 +102,11 @@ extern void textcat_Done(void *handle)
     free(h->fprint);
     free(h->fprint_disable);
     free(h);
+}
 
+extern void textcat_Done(void *handle)
+{
+    freehandle((textcat_t *) handle);
 }
 
 extern int textcat_SetProperty(void *handle, textcat_Property property,
@@ -317,7 +320,7 @@ extern void *special_textcat_Init(const char *conffile, const char *prefix)
   BAILOUT:
     free(finger_print_file_name);
     fclose(fp);
-    textcat_Done(h);
+    freehandle(h);
     return NULL;
 }
 
